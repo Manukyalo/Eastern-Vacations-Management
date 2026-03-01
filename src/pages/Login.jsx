@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Compass, Shield, Users, Eye, EyeOff, Loader2 } from 'lucide-react';
-import Spline from '@splinetool/react-spline';
 
 const Login = ({ onLogin }) => {
     const [activeTab, setActiveTab] = useState('admin');
@@ -31,18 +30,6 @@ const Login = ({ onLogin }) => {
 
     return (
         <div className="min-h-screen relative flex items-center justify-center font-mono overflow-hidden bg-dark-900 selection:bg-primary-500/30">
-            {/* 3D Spline Background Canvas */}
-            <div className="absolute inset-0 z-0">
-                {/* 
-                  * TODO: User will provide the Spline URL to drop in here.
-                  * For example: <Spline scene="https://draft.spline.design/your-scene/scene.splinecode" />
-                  */}
-                <div className="absolute w-full h-full flex flex-col items-center justify-center bg-dark-900/80 backdrop-blur-sm z-10 opacity-0 pointer-events-none transition-opacity duration-1000">
-                    <Loader2 className="w-8 h-8 text-primary-500 animate-spin mb-4" />
-                    <p className="text-dark-300 font-medium">Loading 3D Environment...</p>
-                </div>
-            </div>
-
             {/* Fallback Dynamic Gradient (Will sit behind or be removed when Spline is active) */}
             <div className="absolute inset-0 z-0 flex items-center justify-center opacity-30">
                 <div className="absolute w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] bg-primary-600/20 rounded-full blur-[100px] animate-pulse-slow"></div>
