@@ -129,7 +129,7 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
             {/* Data Grid */}
             <div className="glass-card !p-0 overflow-hidden border-white/10">
                 <div className="overflow-x-auto min-h-[50vh]">
-                    <div className="min-w-max">
+                    <div className="w-full">
                         <table className="w-full text-left border-collapse">
                             <thead>
                                 <tr className="bg-white/5 border-b border-white/10 text-dark-300 text-xs uppercase tracking-wider">

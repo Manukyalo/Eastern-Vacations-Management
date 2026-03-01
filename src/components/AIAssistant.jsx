@@ -74,7 +74,7 @@ const AIAssistant = ({ user }) => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setIsOpen(true)}
-                className={`fixed bottom-6 right-6 w-14 h-14 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-2xl flex items-center justify-center border-2 border-white/20 transition-all z-40 ${isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+                className={`fixed bottom-6 right-6 w-14 h-14 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-2xl flex items-center justify-center border-2 border-white/20 transition-all z-[9999] ${isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
             >
                 <Bot size={28} />
                 <span className="absolute top-0 right-0 w-3.5 h-3.5 bg-emerald-500 border-2 border-dark-900 rounded-full animate-pulse"></span>
@@ -88,7 +88,7 @@ const AIAssistant = ({ user }) => {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 20, scale: 0.95 }}
                         transition={{ duration: 0.2 }}
-                        className="fixed bottom-6 right-6 w-[400px] h-[600px] max-h-[80vh] flex flex-col glass-card border-white/20 shadow-2xl z-50 overflow-hidden"
+                        className="fixed bottom-6 right-6 w-[400px] h-[600px] max-h-[80vh] flex flex-col glass-card border-white/20 shadow-2xl z-[9999] overflow-hidden"
                     >
                         {/* Header */}
                         <div className="bg-gradient-to-r from-blue-900/60 to-indigo-900/60 border-b border-white/10 p-4 flex justify-between items-center shrink-0">
@@ -125,12 +125,12 @@ const AIAssistant = ({ user }) => {
                                     )}
 
                                     <div className={`max-w-[85%] rounded-2xl px-4 py-3 ${msg.sender === 'user'
-                                            ? 'bg-primary-600/20 border border-primary-500/30 text-white rounded-br-none'
-                                            : msg.isSystemLog
-                                                ? 'bg-dark-800 border border-emerald-500/30 text-emerald-400 font-bold w-full text-center flex items-center justify-center gap-2'
-                                                : msg.isError
-                                                    ? 'bg-red-500/10 border border-red-500/30 text-red-200 rounded-bl-none'
-                                                    : 'bg-dark-800/80 border border-white/10 text-dark-100 rounded-bl-none'
+                                        ? 'bg-primary-600/20 border border-primary-500/30 text-white rounded-br-none'
+                                        : msg.isSystemLog
+                                            ? 'bg-dark-800 border border-emerald-500/30 text-emerald-400 font-bold w-full text-center flex items-center justify-center gap-2'
+                                            : msg.isError
+                                                ? 'bg-red-500/10 border border-red-500/30 text-red-200 rounded-bl-none'
+                                                : 'bg-dark-800/80 border border-white/10 text-dark-100 rounded-bl-none'
                                         }`}>
                                         {msg.isSystemLog && <CheckCircle size={16} />}
                                         <p className="leading-relaxed">{msg.text}</p>

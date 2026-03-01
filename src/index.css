@@ -1,16 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-    --color-primary-50: #fffbeb;
-    --color-primary-100: #fef3c7;
-    --color-primary-200: #fde68a;
-    --color-primary-300: #fcd34d;
-    --color-primary-400: #fbbf24;
-    --color-primary-500: #f59e0b;
-    --color-primary-600: #d97706;
-    --color-primary-700: #b45309;
-    --color-primary-800: #92400e;
-    --color-primary-900: #78350f;
+    --color-primary-50: #fcf5f1;
+    --color-primary-100: #f8ebe3;
+    --color-primary-200: #f1d7c7;
+    --color-primary-300: #eac3ab;
+    --color-primary-400: #E3976A; /* Di Serria - Official Brand Color */
+    --color-primary-500: #d68352;
+    --color-primary-600: #cc875f;
+    --color-primary-800: #A9B8C3; /* Cadet Blue - Official Brand Accents */
+    --color-primary-900: #04194E; /* Gulf Blue - Official Brand Deep Contrast */
 
     --color-dark-50: #f8fafc;
     --color-dark-100: #f1f5f9;
