@@ -44,32 +44,34 @@ const Drivers = ({ user, drivers, setDrivers }) => {
     };
 
     return (
-        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <div>
-                    <h2 className="text-2xl font-bold text-white">Driver Fleet</h2>
-                    <p className="text-dark-400 text-sm">Manage your certified tour operators and dispatch statuses.</p>
+        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
+                <div className="space-y-1.5">
+                    <h2 className="text-3xl font-black text-white tracking-tight">Driver Fleet</h2>
+                    <p className="text-dark-400 text-sm font-medium">Manage your certified tour operators and dispatch statuses.</p>
                 </div>
                 <button
                     onClick={() => canAddDriver ? setIsAddModalOpen(true) : alert(`Plan limit reached (${maxDrivers} maximum). Please upgrade your tier.`)}
-                    className={`flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold shadow-lg transition-all w-full sm:w-auto ${canAddDriver ? 'bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white shadow-emerald-500/20 hover:-translate-y-0.5' : 'bg-dark-700 text-dark-400 cursor-not-allowed border border-white/5'}`}
+                    className={`flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold shadow-lg transition-all w-full sm:w-auto ${canAddDriver ? 'bg-gradient-to-r from-primary-500 to-orange-500 hover:from-primary-400 hover:to-orange-400 text-white shadow-primary-500/20 hover:-translate-y-0.5' : 'bg-dark-700 text-dark-400 cursor-not-allowed border border-white/5'}`}
                 >
                     <Plus size={20} />
                     {canAddDriver ? 'Add Driver' : 'Upgrade to Add'}
                 </button>
             </div>
 
-            <div className="glass-card p-3 sm:p-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+            <div className="glass-card p-5 sm:p-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-5 shadow-2xl">
                 <div className="relative w-full sm:flex-1 sm:max-w-md shrink-0">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <Search size={18} className="text-dark-400" />
+                    </div>
                     <input
                         type="text"
                         placeholder="Search by driver name..."
-                        className="w-full bg-dark-900/50 border border-white/10 rounded-xl py-3 px-4 text-white placeholder-dark-400 focus:outline-none focus:border-emerald-500 transition-colors"
+                        className="w-full bg-dark-900/80 border border-white/10 rounded-xl py-3.5 pl-11 pr-4 text-white placeholder-dark-400 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500/50 transition-all font-medium shadow-inner"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </div>
-                <div className="hidden sm:block flex-1"></div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
