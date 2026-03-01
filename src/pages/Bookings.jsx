@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Plus, Search, Filter, MoreVertical, Calendar, Save, Car, MapPin, Navigation, FileText, ChevronDown, MessageSquare, Mail, CheckCircle } from 'lucide-react';
+import { Plus, Search, Filter, MoreVertical, Calendar, Save, Car, MapPin, Navigation, FileText, ChevronDown, MessageSquare, Mail, CheckCircle, Trash } from 'lucide-react';
 import Modal from '../components/Modal';
 import { bookingAPI } from '../services/api';
 import { generateInvoice } from '../utils/generateInvoice';
@@ -192,6 +192,11 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
                                                 {booking.status === 'pending' && (
                                                     <button onClick={() => handleUpdateBookingStatus(booking._id, 'confirmed')} className="p-2 sm:p-2.5 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 rounded-lg transition-colors border border-emerald-500/20 w-full sm:w-auto flex justify-center" title="Confirm Safari">
                                                         <Calendar size={18} />
+                                                    </button>
+                                                )}
+                                                {booking.status === 'completed' && (
+                                                    <button onClick={() => handleDeleteBooking(booking._id)} className="p-2 sm:p-2.5 bg-red-500/10 text-red-500 hover:bg-red-500/20 rounded-lg transition-colors border border-red-500/20 w-full sm:w-auto flex justify-center" title="Delete Booking">
+                                                        <Trash size={18} />
                                                     </button>
                                                 )}
                                                 <button onClick={() => handleEmailShare(booking)} className="p-2 sm:p-2.5 bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20 rounded-lg transition-colors border border-indigo-500/20 w-full sm:w-auto flex justify-center" title="Email Client">
