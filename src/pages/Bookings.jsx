@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Plus, Search, Filter, MoreVertical, Calendar, Save, Car, MapPin, Navigation } from 'lucide-react';
+import { Plus, Search, Filter, MoreVertical, Calendar, Save, Car, MapPin, Navigation, FileText, ChevronDown } from 'lucide-react';
 import Modal from '../components/Modal';
 import { bookingAPI } from '../services/api';
 import { generateInvoice } from '../utils/generateInvoice';
@@ -162,20 +162,30 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
                                             </div>
                                         </td>
                                         <td className="p-4 text-right relative whitespace-nowrap">
-                                            <button
-                                                onClick={() => setOpenDropdown(openDropdown === booking._id ? null : booking._id)}
-                                                className="p-2 text-dark-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                                            >
-                                                <MoreVertical size={18} />
-                                            </button>
+                                            <div className="flex items-center justify-end gap-2">
+                                                <button
+                                                    onClick={() => generateInvoice(booking)}
+                                                    className="flex items-center gap-2 px-3 py-1.5 bg-primary-500/20 text-primary-400 hover:bg-primary-500/30 rounded-lg font-bold transition-all"
+                                                >
+                                                    <FileText size={16} />
+                                                    <span className="hidden sm:block">Invoice</span>
+                                                </button>
+
+                                                <button
+                                                    onClick={() => setOpenDropdown(openDropdown === booking._id ? null : booking._id)}
+                                                    className="flex items-center gap-2 px-3 py-1.5 bg-dark-700 hover:bg-dark-600 text-white border border-white/10 rounded-lg font-bold transition-all"
+                                                >
+                                                    <span className="hidden sm:block">Manage</span>
+                                                    <ChevronDown size={16} />
+                                                </button>
+                                            </div>
 
                                             {openDropdown === booking._id && (
-                                                <div className="absolute right-8 top-10 w-36 bg-dark-800 border border-white/10 shadow-2xl rounded-xl z-20 overflow-hidden animate-in fade-in zoom-in-95">
-                                                    {booking.status === 'pending' && <button onClick={() => handleUpdateBookingStatus(booking._id, 'confirmed')} className="w-full text-left px-4 py-2 text-sm text-emerald-400 hover:bg-emerald-400/10 transition-colors">Confirm</button>}
-                                                    {booking.paymentStatus === 'pending' && <button onClick={() => handleConfirmPayment(booking._id)} className="w-full text-left px-4 py-2 text-sm text-blue-400 hover:bg-blue-400/10 transition-colors">Confirm Payment</button>}
-                                                    {booking.status !== 'cancelled' && <button onClick={() => handleUpdateBookingStatus(booking._id, 'cancelled')} className="w-full text-left px-4 py-2 text-sm text-orange-400 hover:bg-orange-400/10 transition-colors">Cancel</button>}
-                                                    <button onClick={() => generateInvoice(booking)} className="w-full text-left px-4 py-2 text-sm text-white hover:bg-white/10 transition-colors">Download Invoice (PDF)</button>
-                                                    <button onClick={() => handleDeleteBooking(booking._id)} className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-red-400/10 transition-colors">Delete</button>
+                                                <div className="absolute right-4 top-14 w-40 bg-dark-800 border border-white/10 shadow-2xl rounded-xl z-20 overflow-hidden animate-in fade-in zoom-in-95">
+                                                    {booking.status === 'pending' && <button onClick={() => handleUpdateBookingStatus(booking._id, 'confirmed')} className="w-full text-left px-4 py-3 text-sm font-semibold text-emerald-400 hover:bg-emerald-400/10 transition-colors">Confirm Safari</button>}
+                                                    {booking.paymentStatus === 'pending' && <button onClick={() => handleConfirmPayment(booking._id)} className="w-full text-left px-4 py-3 text-sm font-semibold text-blue-400 hover:bg-blue-400/10 transition-colors">Confirm Payment</button>}
+                                                    {booking.status !== 'cancelled' && <button onClick={() => handleUpdateBookingStatus(booking._id, 'cancelled')} className="w-full text-left px-4 py-3 text-sm font-semibold text-orange-400 hover:bg-orange-400/10 transition-colors">Cancel Booking</button>}
+                                                    <button onClick={() => handleDeleteBooking(booking._id)} className="w-full text-left px-4 py-3 text-sm font-semibold text-red-400 hover:bg-red-400/10 transition-colors">Delete Record</button>
                                                 </div>
                                             )}
                                         </td>
