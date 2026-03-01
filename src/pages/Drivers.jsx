@@ -17,6 +17,7 @@ const Drivers = ({ user, drivers, setDrivers }) => {
             const res = await driverAPI.create({
                 name: formData.get('name'),
                 phone: formData.get('phone'),
+                task: formData.get('task'),
                 status: 'available'
             });
             setDrivers(prev => [...prev, res.data]);
@@ -131,6 +132,10 @@ const Drivers = ({ user, drivers, setDrivers }) => {
                     <div>
                         <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">Phone Number</label>
                         <input name="phone" required type="text" placeholder="e.g. +254 712 345 678" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-colors" />
+                    </div>
+                    <div>
+                        <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">Assign Task</label>
+                        <input name="task" type="text" placeholder="e.g. Airport Transfer" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-colors" />
                     </div>
                     <div className="pt-4 flex justify-end gap-3">
                         <button type="button" onClick={() => setIsAddModalOpen(false)} className="px-5 py-2.5 rounded-xl font-bold text-dark-300 hover:text-white transition-colors">Cancel</button>
