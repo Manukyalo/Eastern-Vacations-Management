@@ -104,12 +104,12 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
                 <div className="space-y-1.5">
-                    <h2 className="text-3xl font-black text-white tracking-tight">Manage Reservations</h2>
-                    <p className="text-dark-400 text-sm font-medium">Organize safaris, transfers, and city tours.</p>
+                    <h2 className="text-3xl font-black text-slate-900 tracking-tight">Manage Reservations</h2>
+                    <p className="text-slate-500 text-sm font-medium">Organize safaris, transfers, and city tours.</p>
                 </div>
                 <button
                     onClick={() => canAddBooking ? setIsAddModalOpen(true) : alert("Basic Plan limit reached (50 maximum). Upgrade to Pro or Enterprise for unlimited safaris!")}
-                    className={`flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold shadow-lg transition-all whitespace-nowrap w-full sm:w-auto ${canAddBooking ? 'bg-gradient-to-r from-primary-500 to-orange-500 hover:from-primary-400 hover:to-orange-400 text-white shadow-primary-500/20 hover:-translate-y-0.5' : 'bg-dark-700 text-dark-400 cursor-not-allowed border border-white/5'}`}
+                    className={`flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold shadow-lg transition-all whitespace-nowrap w-full sm:w-auto ${canAddBooking ? 'bg-gradient-to-r from-primary-500 to-orange-500 hover:from-primary-400 hover:to-orange-400 text-white shadow-primary-500/20 hover:-translate-y-0.5' : 'bg-slate-100 text-slate-500 cursor-not-allowed border border-slate-200'}`}
                 >
                     <Plus size={20} />
                     {canAddBooking ? currentTab.actionText : 'Upgrade to Add'}
@@ -117,14 +117,14 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
             </div>
 
             {/* Navigation Tabs */}
-            <div className="flex overflow-x-auto hide-scrollbar gap-2 border-b border-white/10 pb-2">
+            <div className="flex overflow-x-auto hide-scrollbar gap-2 border-b border-slate-300 pb-2">
                 {tabs.map(tab => (
                     <button
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id)}
                         className={`flex items-center gap-2 px-5 py-3 rounded-t-xl font-bold transition-all whitespace-nowrap ${activeTab === tab.id
-                            ? 'bg-white/10 text-white border-b-2 border-primary-500'
-                            : 'text-dark-400 hover:text-white hover:bg-white/5'
+                            ? 'bg-slate-200 text-slate-900 border-b-2 border-primary-500'
+                            : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100'
                             }`}
                     >
                         {tab.icon}
@@ -138,14 +138,14 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
                     <input
                         type="text"
                         placeholder={`Search ${currentTab.label.toLowerCase()}...`}
-                        className="w-full bg-dark-900/80 border border-white/10 rounded-xl py-3.5 px-4 text-white placeholder-dark-400 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500/50 transition-all font-medium shadow-inner"
+                        className="w-full bg-white/80 border border-slate-300 rounded-xl py-3.5 px-4 text-slate-900 placeholder-dark-400 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500/50 transition-all font-medium shadow-inner"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </div>
                 <button
                     onClick={() => setIsFilterActive(!isFilterActive)}
-                    className={`flex items-center gap-2 border px-5 py-3 rounded-xl transition-colors w-full sm:w-auto shrink-0 justify-center h-full ${isFilterActive ? 'bg-primary-500/20 border-primary-500/50 text-primary-400' : 'bg-dark-900/50 border-white/10 text-dark-200 hover:bg-white/5'
+                    className={`flex items-center gap-2 border px-5 py-3 rounded-xl transition-colors w-full sm:w-auto shrink-0 justify-center h-full ${isFilterActive ? 'bg-primary-500/20 border-primary-500/50 text-primary-400' : 'bg-white/50 border-slate-300 text-slate-700 hover:bg-slate-100'
                         }`}
                 >
                     <Filter size={20} />
@@ -155,12 +155,12 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
             </div>
 
             {/* Data Grid */}
-            <div className="glass-card !p-0 overflow-hidden border-white/10">
+            <div className="glass-card !p-0 overflow-hidden border-slate-300">
                 <div className="overflow-x-auto min-h-[50vh]">
                     <div className="w-full">
                         <table className="w-full text-left border-collapse">
                             <thead>
-                                <tr className="bg-white/5 border-b border-white/10 text-dark-300 text-xs uppercase tracking-wider">
+                                <tr className="bg-slate-100 border-b border-slate-300 text-slate-600 text-xs uppercase tracking-wider">
                                     <th className="p-4 font-semibold whitespace-nowrap">Client Name</th>
                                     <th className="p-4 font-semibold whitespace-nowrap">Destination / Route</th>
                                     <th className="p-4 font-semibold whitespace-nowrap">Date</th>
@@ -171,10 +171,10 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
                             </thead>
                             <tbody className="divide-y divide-white/5">
                                 {filteredBookings.map((booking) => (
-                                    <tr key={booking._id} className="hover:bg-white/5 transition-colors group">
-                                        <td className="p-4 font-medium text-white whitespace-nowrap">{booking.clientName}</td>
-                                        <td className="p-4 text-dark-300 whitespace-nowrap">{booking.destination}</td>
-                                        <td className="p-4 text-dark-300 flex items-center gap-2 whitespace-nowrap mt-1">
+                                    <tr key={booking._id} className="hover:bg-slate-100 transition-colors group">
+                                        <td className="p-4 font-medium text-slate-900 whitespace-nowrap">{booking.clientName}</td>
+                                        <td className="p-4 text-slate-600 whitespace-nowrap">{booking.destination}</td>
+                                        <td className="p-4 text-slate-600 flex items-center gap-2 whitespace-nowrap mt-1">
                                             <Calendar size={16} className="text-primary-400" />
                                             {booking.startDate}
                                         </td>
@@ -184,42 +184,41 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
                                             </span>
                                         </td>
                                         <td className="p-4 whitespace-nowrap">
-                                            <div className="text-white font-medium">Ksh {booking.payment}</div>
+                                            <div className="text-slate-900 font-medium">Ksh {booking.payment}</div>
                                             <div className={`text-xs ${booking.paymentStatus === 'paid' ? 'text-emerald-400' : 'text-orange-400'}`}>
                                                 {booking.paymentStatus}
                                             </div>
                                         </td>
-                                        <td className="p-4 text-right whitespace-nowrap">
-                                            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-2 w-full">
+                                        <td className="p-4 text-right whitespace-nowrap min-w-[120px]">
+                                            <div className="flex flex-wrap items-center justify-end gap-2 w-full">
                                                 {booking.paymentStatus === 'pending' && (user?.role === 'reservation' || user?.role === 'admin') && (
-                                                    <button onClick={() => handleConfirmPayment(booking._id)} className="p-2 sm:p-2.5 bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 rounded-lg transition-colors border border-blue-500/20 w-full sm:w-auto flex justify-center" title="Confirm Payment">
+                                                    <button onClick={() => handleConfirmPayment(booking._id)} className="p-2 sm:p-2.5 bg-blue-50 text-blue-500 hover:bg-blue-100 rounded-lg transition-colors border border-blue-200 w-auto flex justify-center" title="Confirm Payment">
                                                         <CheckCircle size={18} />
                                                     </button>
                                                 )}
                                                 {booking.status === 'pending' && (
-                                                    <button onClick={() => handleUpdateBookingStatus(booking._id, 'confirmed')} className="p-2 sm:p-2.5 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 rounded-lg transition-colors border border-emerald-500/20 w-full sm:w-auto flex justify-center" title="Confirm Safari">
+                                                    <button onClick={() => handleUpdateBookingStatus(booking._id, 'confirmed')} className="p-2 sm:p-2.5 bg-emerald-50 text-emerald-500 hover:bg-emerald-100 rounded-lg transition-colors border border-emerald-200 w-auto flex justify-center" title="Confirm Safari">
                                                         <Calendar size={18} />
                                                     </button>
                                                 )}
                                                 {booking.status === 'confirmed' && (
-                                                    <button onClick={() => handleUpdateBookingStatus(booking._id, 'completed')} className="p-2 sm:p-2.5 bg-purple-500/10 text-purple-400 hover:bg-purple-500/20 rounded-lg transition-colors border border-purple-500/20 w-full sm:w-auto flex justify-center" title="Mark as Completed">
+                                                    <button onClick={() => handleUpdateBookingStatus(booking._id, 'completed')} className="p-2 sm:p-2.5 bg-purple-50 text-purple-500 hover:bg-purple-100 rounded-lg transition-colors border border-purple-200 w-auto flex justify-center" title="Mark as Completed">
                                                         <CheckCircle size={18} />
                                                     </button>
                                                 )}
                                                 {booking.status === 'completed' && (
-                                                    <button onClick={() => handleDeleteBooking(booking._id)} className="p-2 sm:p-2.5 bg-red-500/10 text-red-500 hover:bg-red-500/20 rounded-lg transition-colors border border-red-500/20 w-full sm:w-auto flex justify-center" title="Delete Booking">
+                                                    <button onClick={() => handleDeleteBooking(booking._id)} className="p-2 sm:p-2.5 bg-red-50 text-red-500 hover:bg-red-100 rounded-lg transition-colors border border-red-200 w-auto flex justify-center" title="Delete Booking">
                                                         <Trash size={18} />
                                                     </button>
                                                 )}
-                                                <button onClick={() => handleEmailShare(booking)} className="p-2 sm:p-2.5 bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20 rounded-lg transition-colors border border-indigo-500/20 w-full sm:w-auto flex justify-center" title="Email Client">
+                                                <button onClick={() => handleEmailShare(booking)} className="p-2 sm:p-2.5 bg-indigo-50 text-indigo-500 hover:bg-indigo-100 rounded-lg transition-colors border border-indigo-200 w-auto flex justify-center" title="Email Client">
                                                     <Mail size={18} />
                                                 </button>
-                                                <button onClick={() => handleWhatsAppShare(booking)} className="p-2 sm:p-2.5 bg-green-500/10 text-green-400 hover:bg-green-500/20 rounded-lg transition-colors border border-green-500/20 w-full sm:w-auto flex justify-center" title="WhatsApp Client">
+                                                <button onClick={() => handleWhatsAppShare(booking)} className="p-2 sm:p-2.5 bg-green-50 text-green-500 hover:bg-green-100 rounded-lg transition-colors border border-green-200 w-auto flex justify-center" title="WhatsApp Client">
                                                     <MessageSquare size={18} />
                                                 </button>
-                                                <button onClick={() => generateInvoice(booking)} className="inline-flex items-center justify-center gap-2 px-4 py-2 sm:py-2.5 bg-gradient-to-r from-primary-500 to-orange-500 text-white rounded-lg font-bold shadow-lg shadow-orange-500/20 hover:-translate-y-0.5 transition-all text-sm w-full sm:w-auto">
-                                                    <FileText size={16} />
-                                                    <span className="hidden xl:inline">PDF</span>
+                                                <button onClick={() => generateInvoice(booking)} className="p-2 sm:p-2.5 flex items-center justify-center gap-2 bg-gradient-to-r from-primary-400 to-orange-500 text-white rounded-lg font-bold shadow-sm shadow-orange-500/20 hover:-translate-y-0.5 transition-all text-sm w-auto">
+                                                    <FileText size={18} />
                                                 </button>
                                             </div>
                                         </td>
@@ -227,7 +226,7 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
                                 ))}
                                 {filteredBookings.length === 0 && (
                                     <tr>
-                                        <td colSpan="6" className="p-8 text-center text-dark-400">
+                                        <td colSpan="6" className="p-8 text-center text-slate-500">
                                             No {currentTab.label.toLowerCase()} found. Try adjusting your search.
                                         </td>
                                     </tr>
@@ -241,45 +240,45 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
             <Modal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} title={currentTab.actionText}>
                 <form className="space-y-4" onSubmit={handleSaveBooking}>
                     <div>
-                        <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">Client Name</label>
-                        <input name="clientName" required type="text" placeholder="e.g. Michael Scott" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-500 transition-colors" />
+                        <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Client Name</label>
+                        <input name="clientName" required type="text" placeholder="e.g. Michael Scott" className="w-full bg-white/50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-primary-500 transition-colors" />
                     </div>
                     <div>
-                        <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">Route / Destination</label>
-                        <input name="destination" required type="text" placeholder="e.g. Airport Transfer or Masai Mara" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-500 transition-colors" />
+                        <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Route / Destination</label>
+                        <input name="destination" required type="text" placeholder="e.g. Airport Transfer or Masai Mara" className="w-full bg-white/50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-primary-500 transition-colors" />
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">Assign Vehicle</label>
-                            <input name="vehicle" type="text" placeholder="e.g. Toyota Hiace KCD 123A" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-500 transition-colors" />
+                            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Assign Vehicle</label>
+                            <input name="vehicle" type="text" placeholder="e.g. Toyota Hiace KCD 123A" className="w-full bg-white/50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-primary-500 transition-colors" />
                         </div>
                         <div>
-                            <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">Assign Driver</label>
-                            <input name="driverId" type="text" placeholder="e.g. John Doe" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-500 transition-colors" />
-                        </div>
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">Start Date</label>
-                            <input name="startDate" required type="date" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-500 transition-colors/[color-scheme:dark]" />
-                        </div>
-                        <div>
-                            <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">End Date</label>
-                            <input name="endDate" required type="date" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-500 transition-colors/[color-scheme:dark]" />
+                            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Assign Driver</label>
+                            <input name="driverId" type="text" placeholder="e.g. John Doe" className="w-full bg-white/50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-primary-500 transition-colors" />
                         </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">Number of Guests</label>
-                            <input name="guests" required type="number" min="1" placeholder="2" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-500 transition-colors" />
+                            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Start Date</label>
+                            <input name="startDate" required type="date" className="w-full bg-white/50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-primary-500 transition-colors/[color-scheme:dark]" />
                         </div>
                         <div>
-                            <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">Payment Initial (Ksh)</label>
-                            <input name="payment" required type="number" placeholder="2500" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-500 transition-colors" />
+                            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">End Date</label>
+                            <input name="endDate" required type="date" className="w-full bg-white/50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-primary-500 transition-colors/[color-scheme:dark]" />
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Number of Guests</label>
+                            <input name="guests" required type="number" min="1" placeholder="2" className="w-full bg-white/50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-primary-500 transition-colors" />
+                        </div>
+                        <div>
+                            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Payment Initial (Ksh)</label>
+                            <input name="payment" required type="number" placeholder="2500" className="w-full bg-white/50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-primary-500 transition-colors" />
                         </div>
                     </div>
                     <div className="pt-4 flex flex-col sm:flex-row justify-end gap-3">
-                        <button type="button" onClick={() => setIsAddModalOpen(false)} className="w-full sm:w-auto flex justify-center px-5 py-3 rounded-xl font-bold text-dark-300 hover:text-white bg-dark-800 sm:bg-transparent border border-white/5 sm:border-transparent transition-colors">Cancel</button>
+                        <button type="button" onClick={() => setIsAddModalOpen(false)} className="w-full sm:w-auto flex justify-center px-5 py-3 rounded-xl font-bold text-slate-600 hover:text-slate-900 bg-slate-50 sm:bg-transparent border border-slate-200 sm:border-transparent transition-colors">Cancel</button>
                         <button type="submit" className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gradient-to-r from-primary-500 to-orange-500 text-white px-5 py-3 rounded-xl font-bold shadow-lg shadow-orange-500/20 hover:-translate-y-0.5 transition-all">
                             <Save size={18} />
                             Save

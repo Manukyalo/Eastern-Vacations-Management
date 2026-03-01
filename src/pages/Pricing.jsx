@@ -9,7 +9,7 @@ const PricingCard = ({ tier, isSelected, onSelect }) => {
     return (
         <motion.div
             whileHover={{ y: -10 }}
-            className={`relative rounded-3xl p-8 flex flex-col h-full bg-dark-800/80 backdrop-blur-xl border transition-all ${isSelected ? 'border-primary-500 shadow-2xl shadow-primary-500/20 scale-105 z-10' : 'border-white/10 opacity-70 hover:opacity-100 cursor-pointer'
+            className={`relative rounded-3xl p-8 flex flex-col h-full bg-slate-50/80 backdrop-blur-xl border transition-all ${isSelected ? 'border-primary-500 shadow-2xl shadow-primary-500/20 scale-105 z-10' : 'border-slate-300 opacity-70 hover:opacity-100 cursor-pointer'
                 }`}
             onClick={() => !isSelected && onSelect(tier)}
         >
@@ -33,14 +33,14 @@ const PricingCard = ({ tier, isSelected, onSelect }) => {
                             <Crown size={24} />}
                 </div>
 
-                <h3 className="text-2xl font-bold text-white mb-2">{tier.name}</h3>
-                <p className="text-dark-400 text-sm min-h-[40px]">{tier.description}</p>
+                <h3 className="text-2xl font-bold text-slate-900 mb-2">{tier.name}</h3>
+                <p className="text-slate-500 text-sm min-h-[40px]">{tier.description}</p>
             </div>
 
             <div className="mb-8 relative z-10">
                 <div className="flex items-baseline gap-2">
-                    <span className="text-5xl font-black text-white">${tier.price}</span>
-                    <span className="text-dark-400 font-medium">/month</span>
+                    <span className="text-5xl font-black text-slate-900">${tier.price}</span>
+                    <span className="text-slate-500 font-medium">/month</span>
                 </div>
                 <div className="mt-2 text-primary-400 text-sm font-semibold">
                     or Ksh {tier.kesPrice} /month
@@ -50,8 +50,8 @@ const PricingCard = ({ tier, isSelected, onSelect }) => {
             <ul className="space-y-4 mb-8 flex-1 relative z-10">
                 {tier.features.map((feature, idx) => (
                     <li key={idx} className="flex items-start gap-3">
-                        <Check size={20} className={isSelected ? 'text-primary-400 shrink-0' : 'text-dark-400 shrink-0'} />
-                        <span className={feature.highlight ? 'text-white font-medium' : 'text-dark-300'}>{feature.text}</span>
+                        <Check size={20} className={isSelected ? 'text-primary-400 shrink-0' : 'text-slate-500 shrink-0'} />
+                        <span className={feature.highlight ? 'text-slate-900 font-medium' : 'text-slate-600'}>{feature.text}</span>
                     </li>
                 ))}
             </ul>
@@ -62,7 +62,7 @@ const PricingCard = ({ tier, isSelected, onSelect }) => {
                     ? 'bg-gradient-to-r from-primary-500 to-orange-500 text-white shadow-lg shadow-orange-500/30'
                     : isEnterprise
                         ? 'bg-purple-600 hover:bg-purple-500 text-white hover:shadow-lg hover:shadow-purple-500/30 hover:-translate-y-1'
-                        : 'bg-white/5 border border-white/10 text-white hover:bg-white/10 hover:-translate-y-1'
+                        : 'bg-slate-100 border border-slate-300 text-slate-900 hover:bg-slate-200 hover:-translate-y-1'
                     }`}
             >
                 {isSelected ? 'Active Subscription' : tier.cta}
@@ -114,10 +114,10 @@ const Pricing = ({ user, setUser }) => {
         <div className="max-w-7xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-700">
             <div className="text-center max-w-3xl mx-auto mb-16">
                 <h2 className="text-primary-500 font-bold uppercase tracking-widest text-sm mb-4">Pricing Plans</h2>
-                <h1 className="text-5xl font-black text-white mb-6 tracking-tight">
+                <h1 className="text-5xl font-black text-slate-900 mb-6 tracking-tight">
                     Supercharge your tour operations
                 </h1>
-                <p className="text-xl text-dark-400">
+                <p className="text-xl text-slate-500">
                     Choose the perfect plan for your business size. Scale seamlessly as your safari bookings grow.
                 </p>
             </div>
@@ -140,17 +140,17 @@ const Pricing = ({ user, setUser }) => {
                     <motion.div
                         initial={{ scale: 0.9, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
-                        className="glass-card w-full max-w-lg relative z-10 border-white/20 p-8"
+                        className="glass-card w-full max-w-lg relative z-10 border-slate-300 p-8"
                     >
                         <button
                             onClick={() => setSelectedPlan(null)}
-                            className="absolute top-4 right-4 text-dark-400 hover:text-white"
+                            className="absolute top-4 right-4 text-slate-500 hover:text-slate-900"
                         >
                             ✕
                         </button>
-                        <h3 className="text-2xl font-bold text-white mb-2">Subscribe to {selectedPlan.name}</h3>
-                        <p className="text-dark-400 mb-8">
-                            Total due: <span className="text-white font-bold">${selectedPlan.price}</span> (Ksh {selectedPlan.kesPrice})
+                        <h3 className="text-2xl font-bold text-slate-900 mb-2">Subscribe to {selectedPlan.name}</h3>
+                        <p className="text-slate-500 mb-8">
+                            Total due: <span className="text-slate-900 font-bold">${selectedPlan.price}</span> (Ksh {selectedPlan.kesPrice})
                         </p>
 
                         <div className="space-y-4">
@@ -158,36 +158,36 @@ const Pricing = ({ user, setUser }) => {
                                 <>
                                     <button
                                         onClick={() => setPaymentMethod('mpesa')}
-                                        className="w-full flex items-center justify-between p-4 rounded-xl border border-white/10 hover:border-green-500 hover:bg-green-500/5 transition-all group gap-4 flex-col sm:flex-row sm:items-center items-start"
+                                        className="w-full flex items-center justify-between p-4 rounded-xl border border-slate-300 hover:border-green-500 hover:bg-green-500/5 transition-all group gap-4 flex-col sm:flex-row sm:items-center items-start"
                                     >
                                         <div className="flex items-center gap-4 w-full sm:w-auto">
                                             <div className="w-12 h-12 shrink-0 bg-green-500 rounded-lg flex items-center justify-center text-white font-black italic">
                                                 MP
                                             </div>
                                             <div className="text-left">
-                                                <p className="text-white font-bold group-hover:text-green-400">Pay with M-Pesa</p>
-                                                <p className="text-xs text-dark-400 mt-1 line-clamp-1">Instant STK Push prompt via Daraja API</p>
+                                                <p className="text-slate-900 font-bold group-hover:text-green-400">Pay with M-Pesa</p>
+                                                <p className="text-xs text-slate-500 mt-1 line-clamp-1">Instant STK Push prompt via Daraja API</p>
                                             </div>
                                         </div>
-                                        <div className="w-6 h-6 shrink-0 rounded-full border border-white/20 group-hover:border-green-500 flex items-center justify-center sm:self-center self-end mt-2 sm:mt-0">
+                                        <div className="w-6 h-6 shrink-0 rounded-full border border-slate-300 group-hover:border-green-500 flex items-center justify-center sm:self-center self-end mt-2 sm:mt-0">
                                             <div className="w-3 h-3 rounded-full bg-green-500 opacity-0 group-hover:opacity-100 transition-opacity" />
                                         </div>
                                     </button>
 
                                     <button
                                         onClick={() => setPaymentMethod('pesapal')}
-                                        className="w-full flex items-center justify-between p-4 rounded-xl border border-white/10 hover:border-blue-500 hover:bg-blue-500/5 transition-all group gap-4 flex-col sm:flex-row sm:items-center items-start"
+                                        className="w-full flex items-center justify-between p-4 rounded-xl border border-slate-300 hover:border-blue-500 hover:bg-blue-500/5 transition-all group gap-4 flex-col sm:flex-row sm:items-center items-start"
                                     >
                                         <div className="flex items-center gap-4 w-full sm:w-auto">
                                             <div className="w-12 h-12 shrink-0 bg-blue-600 rounded-lg flex items-center justify-center text-white font-black">
                                                 Card
                                             </div>
                                             <div className="text-left">
-                                                <p className="text-white font-bold group-hover:text-blue-400">Pay with Pesapal</p>
-                                                <p className="text-xs text-dark-400 mt-1 line-clamp-1">Visa, Mastercard, Airtel Money</p>
+                                                <p className="text-slate-900 font-bold group-hover:text-blue-400">Pay with Pesapal</p>
+                                                <p className="text-xs text-slate-500 mt-1 line-clamp-1">Visa, Mastercard, Airtel Money</p>
                                             </div>
                                         </div>
-                                        <div className="w-6 h-6 shrink-0 rounded-full border border-white/20 group-hover:border-blue-500 flex items-center justify-center sm:self-center self-end mt-2 sm:mt-0">
+                                        <div className="w-6 h-6 shrink-0 rounded-full border border-slate-300 group-hover:border-blue-500 flex items-center justify-center sm:self-center self-end mt-2 sm:mt-0">
                                             <div className="w-3 h-3 rounded-full bg-blue-500 opacity-0 group-hover:opacity-100 transition-opacity" />
                                         </div>
                                     </button>
@@ -208,16 +208,16 @@ const Pricing = ({ user, setUser }) => {
                                         setIsProcessing(false);
                                     }
                                 }}>
-                                    <h4 className="text-white font-bold mb-4 flex items-center gap-2">
+                                    <h4 className="text-slate-900 font-bold mb-4 flex items-center gap-2">
                                         <div className="w-8 h-8 shrink-0 bg-green-500 rounded flex items-center justify-center text-white font-black italic text-xs">MP</div>
                                         Pay with M-Pesa
                                     </h4>
                                     <div>
-                                        <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">M-Pesa Phone Number</label>
-                                        <input required disabled={isProcessing} type="tel" placeholder="e.g. 0712345678" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-green-500 transition-colors" />
+                                        <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">M-Pesa Phone Number</label>
+                                        <input required disabled={isProcessing} type="tel" placeholder="e.g. 0712345678" className="w-full bg-white/50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-green-500 transition-colors" />
                                     </div>
                                     <div className="flex gap-3 pt-2">
-                                        <button disabled={isProcessing} type="button" onClick={() => setPaymentMethod(null)} className="flex-1 py-3 rounded-xl font-bold text-dark-300 hover:text-white transition-colors bg-white/5 disabled:opacity-50">Back</button>
+                                        <button disabled={isProcessing} type="button" onClick={() => setPaymentMethod(null)} className="flex-1 py-3 rounded-xl font-bold text-slate-600 hover:text-slate-900 transition-colors bg-slate-100 disabled:opacity-50">Back</button>
                                         <button disabled={isProcessing} type="submit" className="flex-1 bg-green-500 hover:bg-green-400 text-white rounded-xl font-bold transition-colors disabled:opacity-50">
                                             {isProcessing ? 'Processing...' : 'Send STK Push'}
                                         </button>
@@ -239,26 +239,26 @@ const Pricing = ({ user, setUser }) => {
                                         setIsProcessing(false);
                                     }
                                 }}>
-                                    <h4 className="text-white font-bold mb-4 flex items-center gap-2">
+                                    <h4 className="text-slate-900 font-bold mb-4 flex items-center gap-2">
                                         <div className="w-8 h-8 shrink-0 bg-blue-600 rounded flex items-center justify-center text-white font-black text-xs">Card</div>
                                         Pay with Pesapal
                                     </h4>
                                     <div>
-                                        <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">Card Number</label>
-                                        <input required disabled={isProcessing} type="text" placeholder="XXXX XXXX XXXX XXXX" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
+                                        <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Card Number</label>
+                                        <input required disabled={isProcessing} type="text" placeholder="XXXX XXXX XXXX XXXX" className="w-full bg-white/50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-blue-500 transition-colors" />
                                     </div>
                                     <div className="grid grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">Expiry Date</label>
-                                            <input required disabled={isProcessing} type="text" placeholder="MM/YY" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
+                                            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Expiry Date</label>
+                                            <input required disabled={isProcessing} type="text" placeholder="MM/YY" className="w-full bg-white/50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-blue-500 transition-colors" />
                                         </div>
                                         <div>
-                                            <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">CVV</label>
-                                            <input required disabled={isProcessing} type="password" placeholder="123" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
+                                            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">CVV</label>
+                                            <input required disabled={isProcessing} type="password" placeholder="123" className="w-full bg-white/50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-blue-500 transition-colors" />
                                         </div>
                                     </div>
                                     <div className="flex gap-3 pt-2">
-                                        <button disabled={isProcessing} type="button" onClick={() => setPaymentMethod(null)} className="flex-1 py-3 rounded-xl font-bold text-dark-300 hover:text-white transition-colors bg-white/5 border border-white/10 disabled:opacity-50">Back</button>
+                                        <button disabled={isProcessing} type="button" onClick={() => setPaymentMethod(null)} className="flex-1 py-3 rounded-xl font-bold text-slate-600 hover:text-slate-900 transition-colors bg-slate-100 border border-slate-300 disabled:opacity-50">Back</button>
                                         <button disabled={isProcessing} type="submit" className="flex-1 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold transition-colors shadow-lg shadow-blue-500/20 disabled:opacity-50">
                                             {isProcessing ? 'Processing...' : `Pay $${selectedPlan?.price}`}
                                         </button>

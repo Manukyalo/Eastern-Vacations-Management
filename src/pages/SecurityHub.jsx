@@ -95,16 +95,16 @@ const SecurityHub = ({ bookings, drivers, vehicles }) => {
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                    <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                    <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
                         <ShieldAlert className="text-red-500" />
                         AI Security Operations Center
                     </h2>
-                    <p className="text-dark-400 text-sm">Real-time threat detection and system redundancy controls.</p>
+                    <p className="text-slate-500 text-sm">Real-time threat detection and system redundancy controls.</p>
                 </div>
                 <button
                     onClick={handleBackup}
                     disabled={isBackingUp}
-                    className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-white shadow-lg transition-all ${isBackingUp ? 'bg-dark-700 cursor-not-allowed' : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:-translate-y-0.5 shadow-blue-500/20'}`}
+                    className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-slate-900 shadow-lg transition-all ${isBackingUp ? 'bg-slate-100 cursor-not-allowed' : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:-translate-y-0.5 shadow-blue-500/20'}`}
                 >
                     <DownloadCloud size={20} className={isBackingUp ? "animate-bounce" : ""} />
                     {isBackingUp ? 'Backing Up...' : 'Backup System Data'}
@@ -115,7 +115,7 @@ const SecurityHub = ({ bookings, drivers, vehicles }) => {
                 <div className="lg:col-span-2 space-y-6">
                     <div className="glass-card p-6 border-red-500/20 bg-gradient-to-br from-red-900/10 to-transparent">
                         <div className="flex items-center justify-between mb-6">
-                            <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                            <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
                                 <Activity className="text-red-400 animate-pulse" />
                                 Live Threat Monitor
                             </h3>
@@ -125,11 +125,11 @@ const SecurityHub = ({ bookings, drivers, vehicles }) => {
                             </span>
                         </div>
 
-                        <div className="bg-dark-900/80 rounded-xl p-4 font-mono text-sm border border-white/5 h-64 overflow-y-auto space-y-2">
+                        <div className="bg-white/80 rounded-xl p-4 font-mono text-sm border border-slate-200 h-64 overflow-y-auto space-y-2">
                             {logs.map(log => (
-                                <div key={log.id} className="flex gap-4 p-2 rounded hover:bg-white/5 transition-colors border-l-2"
+                                <div key={log.id} className="flex gap-4 p-2 rounded hover:bg-slate-100 transition-colors border-l-2"
                                     style={{ borderColor: log.type === 'error' ? '#f87171' : log.type === 'warning' ? '#fbbf24' : log.type === 'success' ? '#34d399' : '#60a5fa' }}>
-                                    <span className="text-dark-400 w-20 shrink-0">{log.time}</span>
+                                    <span className="text-slate-500 w-20 shrink-0">{log.time}</span>
                                     <span className={
                                         log.type === 'error' ? 'text-red-400' :
                                             log.type === 'warning' ? 'text-orange-400' :
@@ -142,20 +142,20 @@ const SecurityHub = ({ bookings, drivers, vehicles }) => {
                 </div>
 
                 <div className="space-y-6">
-                    <div className="glass-card border-white/5">
-                        <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                    <div className="glass-card border-slate-200">
+                        <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
                             <Database className="text-blue-400" />
                             Data Redundancy
                         </h3>
                         <div className="space-y-4">
-                            <div className="bg-dark-900/50 p-4 rounded-xl border border-white/10">
-                                <p className="text-xs text-dark-400 tracking-wider uppercase mb-1">Last Backup</p>
-                                <p className="text-white font-medium">{lastBackup}</p>
+                            <div className="bg-white/50 p-4 rounded-xl border border-slate-300">
+                                <p className="text-xs text-slate-500 tracking-wider uppercase mb-1">Last Backup</p>
+                                <p className="text-slate-900 font-medium">{lastBackup}</p>
                             </div>
-                            <div className="bg-dark-900/50 p-4 rounded-xl border border-white/10 flex items-center justify-between">
+                            <div className="bg-white/50 p-4 rounded-xl border border-slate-300 flex items-center justify-between">
                                 <div>
-                                    <p className="text-xs text-dark-400 tracking-wider uppercase mb-1">Backup Server</p>
-                                    <p className="text-white font-medium flex items-center gap-2">
+                                    <p className="text-xs text-slate-500 tracking-wider uppercase mb-1">Backup Server</p>
+                                    <p className="text-slate-900 font-medium flex items-center gap-2">
                                         <Server size={14} className="text-emerald-400" /> AWS eu-west-1
                                     </p>
                                 </div>
@@ -164,16 +164,16 @@ const SecurityHub = ({ bookings, drivers, vehicles }) => {
                         </div>
 
                         {/* Backup Vault Section */}
-                        <div className="mt-6 pt-6 border-t border-white/5">
-                            <h4 className="text-sm font-bold text-white mb-3">Local Backup Vault</h4>
+                        <div className="mt-6 pt-6 border-t border-slate-200">
+                            <h4 className="text-sm font-bold text-slate-900 mb-3">Local Backup Vault</h4>
                             <div className="space-y-2 h-40 overflow-y-auto pr-2">
                                 {backupHistory.map(backup => (
-                                    <div key={backup.id} className="bg-dark-900/40 p-3 rounded-lg border border-white/5 flex items-center justify-between hover:bg-white/5 transition-colors group">
+                                    <div key={backup.id} className="bg-dark-900/40 p-3 rounded-lg border border-slate-200 flex items-center justify-between hover:bg-slate-100 transition-colors group">
                                         <div>
-                                            <p className="text-sm text-white font-medium">{backup.date}</p>
+                                            <p className="text-sm text-slate-900 font-medium">{backup.date}</p>
                                             <div className="flex gap-2 items-center mt-1">
-                                                <span className="text-xs text-dark-400 font-mono">{backup.size}</span>
-                                                <span className={`text-[10px] px-1.5 py-0.5 rounded capitalize ${backup.type === 'manual' ? 'bg-blue-500/20 text-blue-300' : 'bg-dark-700 text-dark-300'}`}>
+                                                <span className="text-xs text-slate-500 font-mono">{backup.size}</span>
+                                                <span className={`text-[10px] px-1.5 py-0.5 rounded capitalize ${backup.type === 'manual' ? 'bg-blue-500/20 text-blue-300' : 'bg-slate-100 text-slate-600'}`}>
                                                     {backup.type}
                                                 </span>
                                             </div>
@@ -189,13 +189,13 @@ const SecurityHub = ({ bookings, drivers, vehicles }) => {
                         </div>
                     </div>
 
-                    <div className="glass-card border-white/5 bg-gradient-to-b from-dark-800 to-dark-900">
+                    <div className="glass-card border-slate-200 bg-gradient-to-b from-dark-800 to-dark-900">
                         <div className="flex flex-col items-center text-center p-4">
-                            <div className="p-4 bg-dark-900 rounded-full border border-white/10 mb-4 shadow-lg">
+                            <div className="p-4 bg-white rounded-full border border-slate-300 mb-4 shadow-lg">
                                 <Lock size={32} className="text-emerald-400" />
                             </div>
-                            <h4 className="text-white font-bold mb-2">End-to-End Encrypted</h4>
-                            <p className="text-sm text-dark-400 leading-relaxed">
+                            <h4 className="text-slate-900 font-bold mb-2">End-to-End Encrypted</h4>
+                            <p className="text-sm text-slate-500 leading-relaxed">
                                 All data is AES-256 encrypted at rest. Traffic is scanned by AI heuristics in real-time. Only Superadmins have access to this portal.
                             </p>
                         </div>

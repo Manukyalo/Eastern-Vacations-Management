@@ -34,24 +34,24 @@ const Invoices = ({ bookings }) => {
             {/* Header Section */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
-                    <h1 className="text-4xl sm:text-5xl font-black text-white tracking-tight mb-3">Customer Invoices</h1>
-                    <p className="text-dark-400 text-lg">Generate formal PDF receipts for confirmed Safari bookings.</p>
+                    <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight mb-3">Customer Invoices</h1>
+                    <p className="text-slate-500 text-lg">Generate formal PDF receipts for confirmed Safari bookings.</p>
                 </div>
             </div>
 
             {/* Metrics Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 <div className="glass-card p-6 flex flex-col gap-2">
-                    <div className="text-dark-400 text-sm font-bold uppercase tracking-wider">Total Generated</div>
-                    <div className="text-3xl font-black text-white">{invoiceableBookings.length}</div>
+                    <div className="text-slate-500 text-sm font-bold uppercase tracking-wider">Total Generated</div>
+                    <div className="text-3xl font-black text-slate-900">{invoiceableBookings.length}</div>
                 </div>
                 <div className="glass-card p-6 flex flex-col gap-2 border-emerald-500/20 bg-emerald-500/5">
                     <div className="text-emerald-400 text-sm font-bold uppercase tracking-wider">Paid Invoices</div>
-                    <div className="text-3xl font-black text-white">{invoiceableBookings.filter(b => b.paymentStatus === 'paid').length}</div>
+                    <div className="text-3xl font-black text-slate-900">{invoiceableBookings.filter(b => b.paymentStatus === 'paid').length}</div>
                 </div>
                 <div className="glass-card p-6 flex flex-col gap-2 border-orange-500/20 bg-orange-500/5">
                     <div className="text-orange-400 text-sm font-bold uppercase tracking-wider">Pending Balances</div>
-                    <div className="text-3xl font-black text-white">{invoiceableBookings.filter(b => b.paymentStatus === 'pending').length}</div>
+                    <div className="text-3xl font-black text-slate-900">{invoiceableBookings.filter(b => b.paymentStatus === 'pending').length}</div>
                 </div>
             </div>
 
@@ -61,7 +61,7 @@ const Invoices = ({ bookings }) => {
                     <input
                         type="text"
                         placeholder="Search by client name or destination..."
-                        className="w-full bg-dark-900/80 border border-white/10 rounded-xl py-3.5 px-4 text-white placeholder-dark-400 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500/50 transition-all font-medium shadow-inner"
+                        className="w-full bg-white/80 border border-slate-300 rounded-xl py-3.5 px-4 text-slate-900 placeholder-dark-400 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500/50 transition-all font-medium shadow-inner"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
@@ -69,12 +69,12 @@ const Invoices = ({ bookings }) => {
             </div>
 
             {/* Invoices Data Grid */}
-            <div className="glass-card !p-0 overflow-hidden border-white/10">
+            <div className="glass-card !p-0 overflow-hidden border-slate-300">
                 <div className="overflow-x-auto min-h-[50vh]">
                     <div className="w-full">
                         <table className="w-full text-left border-collapse">
                             <thead>
-                                <tr className="bg-white/5 border-b border-white/10 text-dark-300 text-xs uppercase tracking-wider">
+                                <tr className="bg-slate-100 border-b border-slate-300 text-slate-600 text-xs uppercase tracking-wider">
                                     <th className="p-4 font-semibold whitespace-nowrap">Invoice ID</th>
                                     <th className="p-4 font-semibold whitespace-nowrap">Client Name</th>
                                     <th className="p-4 font-semibold whitespace-nowrap">Destination</th>
@@ -85,18 +85,18 @@ const Invoices = ({ bookings }) => {
                             </thead>
                             <tbody className="divide-y divide-white/5">
                                 {invoiceableBookings.map((booking) => (
-                                    <tr key={booking._id} className="hover:bg-white/5 transition-colors group">
-                                        <td className="p-4 font-mono text-dark-400 text-sm whitespace-nowrap">
+                                    <tr key={booking._id} className="hover:bg-slate-100 transition-colors group">
+                                        <td className="p-4 font-mono text-slate-500 text-sm whitespace-nowrap">
                                             EV-{booking._id.substring(0, 8).toUpperCase()}
                                         </td>
-                                        <td className="p-4 font-medium text-white whitespace-nowrap">
+                                        <td className="p-4 font-medium text-slate-900 whitespace-nowrap">
                                             {booking.clientName}
                                         </td>
-                                        <td className="p-4 text-dark-300 whitespace-nowrap">
+                                        <td className="p-4 text-slate-600 whitespace-nowrap">
                                             {booking.destination || booking.route}
                                         </td>
                                         <td className="p-4 whitespace-nowrap">
-                                            <div className="text-white font-medium">{typeof booking.price === 'number' ? booking.price.toLocaleString() : booking.payment}</div>
+                                            <div className="text-slate-900 font-medium">{typeof booking.price === 'number' ? booking.price.toLocaleString() : booking.payment}</div>
                                         </td>
                                         <td className="p-4 whitespace-nowrap">
                                             <div className={`flex items-center gap-1.5 text-xs font-semibold ${booking.paymentStatus === 'paid' ? 'text-emerald-400' : 'text-orange-400'}`}>
@@ -138,7 +138,7 @@ const Invoices = ({ bookings }) => {
                                 ))}
                                 {invoiceableBookings.length === 0 && (
                                     <tr>
-                                        <td colSpan="6" className="p-8 text-center text-dark-400">
+                                        <td colSpan="6" className="p-8 text-center text-slate-500">
                                             No confirmed bookings available for invoicing yet.
                                         </td>
                                     </tr>

@@ -44,7 +44,7 @@ const StatCard = ({ title, value, icon, color, trend }) => {
             <div className={`absolute inset-0 bg-gradient-to-br ${colorMap[color]} opacity-50`} />
             <div className="relative z-10">
                 <div className="flex justify-between items-start mb-4">
-                    <div className="p-3 bg-dark-900/50 rounded-xl border border-white/5 shadow-inner">
+                    <div className="p-3 bg-white/50 rounded-xl border border-slate-200 shadow-inner">
                         {icon}
                     </div>
                     {trend && (
@@ -54,8 +54,8 @@ const StatCard = ({ title, value, icon, color, trend }) => {
                         </span>
                     )}
                 </div>
-                <h3 className="text-dark-400 text-sm font-medium mb-1">{title}</h3>
-                <p className="text-3xl font-bold text-white tracking-tight">{value}</p>
+                <h3 className="text-slate-500 text-sm font-medium mb-1">{title}</h3>
+                <p className="text-3xl font-bold text-slate-900 tracking-tight">{value}</p>
             </div>
 
             <div className={`absolute -right-6 -bottom-6 w-24 h-24 rounded-full bg-current opacity-10 blur-2xl group-hover:scale-150 transition-transform duration-500`} />
@@ -148,10 +148,10 @@ const Dashboard = ({ bookings, drivers, vehicles, user }) => {
     return (
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-12">
             <div className="glass-card mb-8 border-primary-500/20 bg-gradient-to-r from-primary-900/20 to-transparent">
-                <h2 className="text-2xl font-bold text-white mb-2">
+                <h2 className="text-2xl font-bold text-slate-900 mb-2">
                     Ready for today's adventures?
                 </h2>
-                <p className="text-dark-400">
+                <p className="text-slate-500">
                     You have <span className="text-primary-400 font-bold">{pendingBookings} pending bookings</span> that need your attention.
                 </p>
             </div>
@@ -167,13 +167,13 @@ const Dashboard = ({ bookings, drivers, vehicles, user }) => {
 
             {/* Admin Chart Section */}
             {user?.role === 'admin' && (
-                <div className="glass-card mt-8 p-6 border border-white/5">
+                <div className="glass-card mt-8 p-6 border border-slate-200">
                     <div className="flex justify-between items-center mb-6">
                         <div>
-                            <h3 className="text-lg font-bold text-white">Revenue Overview</h3>
-                            <p className="text-sm text-dark-400">Monthly financial performance</p>
+                            <h3 className="text-lg font-bold text-slate-900">Revenue Overview</h3>
+                            <p className="text-sm text-slate-500">Monthly financial performance</p>
                         </div>
-                        <select className="bg-dark-900 border border-white/10 text-white text-sm rounded-lg px-3 py-2 outline-none focus:border-primary-500/50">
+                        <select className="bg-white border border-slate-300 text-slate-900 text-sm rounded-lg px-3 py-2 outline-none focus:border-primary-500/50">
                             <option>This Year</option>
                             <option>Last Year</option>
                         </select>
@@ -187,29 +187,29 @@ const Dashboard = ({ bookings, drivers, vehicles, user }) => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
                 <div className="lg:col-span-2 glass-card">
                     <div className="flex justify-between items-center mb-6">
-                        <h3 className="text-lg font-bold text-white">Recent Deployments</h3>
+                        <h3 className="text-lg font-bold text-slate-900">Recent Deployments</h3>
                         <button className="text-sm text-primary-400 hover:text-primary-300 transition-colors">View All</button>
                     </div>
 
                     <div className="space-y-4">
                         {bookings?.slice(0, 5).map((booking) => (
-                            <div key={booking._id} className="flex items-center justify-between p-4 rounded-xl bg-dark-800/50 border border-white/5 hover:bg-white/5 transition-colors">
+                            <div key={booking._id} className="flex items-center justify-between p-4 rounded-xl bg-slate-50/50 border border-slate-200 hover:bg-slate-100 transition-colors">
                                 <div className="flex items-center gap-4">
                                     <div className={`p-2 rounded-lg ${booking.status === 'confirmed' ? 'bg-emerald-500/10 text-emerald-400' :
                                         booking.status === 'pending' ? 'bg-orange-500/10 text-orange-400' :
-                                            'bg-dark-500/10 text-dark-400'
+                                            'bg-dark-500/10 text-slate-500'
                                         }`}>
                                         {booking.status === 'confirmed' ? <CheckCircle size={20} /> :
                                             booking.status === 'pending' ? <Clock size={20} /> :
                                                 <AlertTriangle size={20} />}
                                     </div>
                                     <div>
-                                        <h4 className="text-white font-medium">{booking.clientName}</h4>
-                                        <p className="text-xs text-dark-400">{booking.destination} &bull; {booking.startDate}</p>
+                                        <h4 className="text-slate-900 font-medium">{booking.clientName}</h4>
+                                        <p className="text-xs text-slate-500">{booking.destination} &bull; {booking.startDate}</p>
                                     </div>
                                 </div>
                                 <div className="text-right">
-                                    {user?.role === 'admin' && <p className="text-white font-bold">{booking.payment.toLocaleString()}</p>}
+                                    {user?.role === 'admin' && <p className="text-slate-900 font-bold">{booking.payment.toLocaleString()}</p>}
                                     <p className={`text-xs capitalize font-medium ${booking.paymentStatus === 'paid' ? 'text-emerald-400' : 'text-orange-400'}`}>
                                         {booking.paymentStatus}
                                     </p>
@@ -221,7 +221,7 @@ const Dashboard = ({ bookings, drivers, vehicles, user }) => {
 
                 <div className="glass-card flex flex-col gap-6">
                     <div>
-                        <h3 className="text-lg font-bold text-white mb-4">AI Insurance Alerts</h3>
+                        <h3 className="text-lg font-bold text-slate-900 mb-4">AI Insurance Alerts</h3>
                         <div className="space-y-3">
                             {/* Render alerts dynamically from AI tracker */}
                             {aiAlerts.filter(a => a.id.startsWith('ins-')).map(alert => (
@@ -235,7 +235,7 @@ const Dashboard = ({ bookings, drivers, vehicles, user }) => {
                                 </div>
                             ))}
                             {aiAlerts.filter(a => a.id.startsWith('ins-')).length === 0 && (
-                                <p className="text-dark-400 text-sm italic">AI Tracker: All policies active.</p>
+                                <p className="text-slate-500 text-sm italic">AI Tracker: All policies active.</p>
                             )}
                         </div>
                     </div>

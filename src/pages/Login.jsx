@@ -29,7 +29,7 @@ const Login = ({ onLogin }) => {
     };
 
     return (
-        <div className="min-h-screen relative flex items-center justify-center font-mono overflow-hidden bg-dark-900 selection:bg-primary-500/30">
+        <div className="min-h-screen relative flex items-center justify-center font-mono overflow-hidden bg-white selection:bg-primary-500/30">
             {/* Fallback Dynamic Gradient (Will sit behind or be removed when Spline is active) */}
             <div className="absolute inset-0 z-0 flex items-center justify-center opacity-30">
                 <div className="absolute w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] bg-primary-600/20 rounded-full blur-[100px] animate-pulse-slow"></div>
@@ -37,7 +37,7 @@ const Login = ({ onLogin }) => {
             </div>
 
             <div className={`relative z-10 w-full max-w-md px-6 ${loginAnimating ? 'animate-out zoom-out duration-700' : 'animate-in fade-in slide-in-from-bottom-8 duration-700'}`}>
-                <div className="glass-card !p-8 border-t border-l border-white/20 shadow-2xl relative overflow-hidden">
+                <div className="glass-card !p-8 border-t border-l border-slate-300 shadow-2xl relative overflow-hidden">
 
                     {/* Shine effect */}
                     <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 translate-x-[-100%] hover:translate-x-[100%] transition-transform duration-1000"></div>
@@ -50,20 +50,20 @@ const Login = ({ onLogin }) => {
                         <h1 className="text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-orange-500 mb-2 tracking-tight">
                             Eastern Vacations
                         </h1>
-                        <p className="text-dark-400 text-sm font-medium">SaaS Management Platform v2.0</p>
+                        <p className="text-slate-500 text-sm font-medium">SaaS Management Platform v2.0</p>
                     </div>
 
-                    <div className="flex bg-dark-800/50 p-1 rounded-xl mb-6 border border-white/5">
+                    <div className="flex bg-slate-50/50 p-1 rounded-xl mb-6 border border-slate-200">
                         <button
                             onClick={() => handleTabChange('admin')}
-                            className={`flex-1 py-2 rounded-lg text-sm font-bold flex items-center justify-center gap-2 transition-all duration-300 ${activeTab === 'admin' ? 'bg-gradient-to-r from-primary-500 to-orange-500 text-white shadow-lg' : 'text-dark-400 hover:text-white hover:bg-white/5'}`}
+                            className={`flex-1 py-2 rounded-lg text-sm font-bold flex items-center justify-center gap-2 transition-all duration-300 ${activeTab === 'admin' ? 'bg-gradient-to-r from-primary-500 to-orange-500 text-white shadow-lg' : 'text-slate-500 hover:text-white hover:bg-slate-100'}`}
                         >
                             <Shield size={16} />
                             Admin
                         </button>
                         <button
                             onClick={() => handleTabChange('reservation')}
-                            className={`flex-1 py-2 rounded-lg text-sm font-bold flex items-center justify-center gap-2 transition-all duration-300 ${activeTab === 'reservation' ? 'bg-gradient-to-r from-primary-500 to-orange-500 text-white shadow-lg' : 'text-dark-400 hover:text-white hover:bg-white/5'}`}
+                            className={`flex-1 py-2 rounded-lg text-sm font-bold flex items-center justify-center gap-2 transition-all duration-300 ${activeTab === 'reservation' ? 'bg-gradient-to-r from-primary-500 to-orange-500 text-white shadow-lg' : 'text-slate-500 hover:text-white hover:bg-slate-100'}`}
                         >
                             <Users size={16} />
                             Reservation
@@ -78,32 +78,32 @@ const Login = ({ onLogin }) => {
                         )}
 
                         <div className="space-y-1">
-                            <label className="text-xs font-semibold text-dark-300 uppercase tracking-wider ml-1">Email Address</label>
+                            <label className="text-xs font-semibold text-slate-600 uppercase tracking-wider ml-1">Email Address</label>
                             <input
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 placeholder="name@easternvacations.com"
-                                className="w-full bg-dark-800/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-dark-500 focus:outline-none focus:border-primary-500/50 focus:ring-1 focus:ring-primary-500/50 transition-all font-sans"
+                                className="w-full bg-slate-50/50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 placeholder:text-dark-500 focus:outline-none focus:border-primary-500/50 focus:ring-1 focus:ring-primary-500/50 transition-all font-sans"
                                 required
                             />
                         </div>
 
                         <div className="space-y-1 relative">
-                            <label className="text-xs font-semibold text-dark-300 uppercase tracking-wider ml-1">Password</label>
+                            <label className="text-xs font-semibold text-slate-600 uppercase tracking-wider ml-1">Password</label>
                             <div className="relative">
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     placeholder="••••••••"
-                                    className="w-full bg-dark-800/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-dark-500 focus:outline-none focus:border-primary-500/50 focus:ring-1 focus:ring-primary-500/50 transition-all font-sans pr-12"
+                                    className="w-full bg-slate-50/50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 placeholder:text-dark-500 focus:outline-none focus:border-primary-500/50 focus:ring-1 focus:ring-primary-500/50 transition-all font-sans pr-12"
                                     required
                                 />
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-dark-400 hover:text-white transition-colors p-1"
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-900 transition-colors p-1"
                                 >
                                     {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                                 </button>
