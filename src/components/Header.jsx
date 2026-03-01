@@ -82,7 +82,7 @@ const Header = ({ toggleSidebar, user, vehicles, bookings }) => {
                     </button>
 
                     {showNotifications && (
-                        <div className="absolute right-0 mt-2 w-80 sm:w-[26rem] glass-card !p-0 border-white/10 shadow-2xl overflow-hidden animate-in fade-in slide-in-from-top-2 z-50">
+                        <div className="absolute right-0 mt-2 w-80 sm:w-[26rem] glass-card bg-dark-900 !p-0 border-white/10 shadow-2xl overflow-hidden animate-in fade-in slide-in-from-top-2 z-50">
                             <div className="p-4 border-b border-white/5 bg-white/5 flex justify-between items-center">
                                 <h3 className="font-bold text-white">Notifications</h3>
                                 <span className="text-xs font-semibold bg-primary-500/20 text-primary-400 px-2 py-1 rounded-full">{alerts.length} New</span>

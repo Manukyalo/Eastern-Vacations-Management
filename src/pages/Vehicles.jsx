@@ -106,9 +106,6 @@ const Vehicles = ({ user, vehicles, setVehicles }) => {
                                         <tr key={vehicle._id} className="hover:bg-white/5 transition-colors group">
                                             <td className="p-4 whitespace-nowrap">
                                                 <div className="flex items-center gap-3">
-                                                    <div className="bg-blue-500/10 p-2 rounded-lg">
-                                                        <Car size={20} className="text-blue-400" />
-                                                    </div>
                                                     <span className="font-medium text-white">{vehicle.model}</span>
                                                 </div>
                                             </td>
