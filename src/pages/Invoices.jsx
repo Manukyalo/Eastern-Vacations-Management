@@ -105,24 +105,28 @@ const Invoices = ({ bookings }) => {
                                             </div>
                                         </td>
                                         <td className="p-4 text-right whitespace-nowrap">
-                                            <div className="flex items-center justify-end gap-2">
+                                            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-2 w-full">
                                                 <button
                                                     onClick={() => handleEmailShare(booking)}
-                                                    className="p-2.5 bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 rounded-lg transition-colors border border-blue-500/20"
+                                                    className="inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:py-2 bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 rounded-lg font-bold transition-colors border border-blue-500/20 w-full sm:w-auto"
                                                     title="Share via Email"
                                                 >
-                                                    <Mail size={18} />
+                                                    <Mail size={16} />
+                                                    <span className="hidden xl:inline">Email Invoice</span>
+                                                    <span className="xl:hidden">Email</span>
                                                 </button>
                                                 <button
                                                     onClick={() => handleWhatsAppShare(booking)}
-                                                    className="p-2.5 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 rounded-lg transition-colors border border-emerald-500/20"
+                                                    className="inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:py-2 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 rounded-lg font-bold transition-colors border border-emerald-500/20 w-full sm:w-auto"
                                                     title="Share via WhatsApp"
                                                 >
-                                                    <MessageSquare size={18} />
+                                                    <MessageSquare size={16} />
+                                                    <span className="hidden xl:inline">Send WhatsApp</span>
+                                                    <span className="xl:hidden">WhatsApp</span>
                                                 </button>
                                                 <button
                                                     onClick={() => generateInvoice(booking)}
-                                                    className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-primary-500 to-orange-500 text-white rounded-lg font-bold shadow-lg shadow-orange-500/20 hover:-translate-y-0.5 transition-all text-sm w-full sm:w-auto"
+                                                    className="inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:py-2 bg-gradient-to-r from-primary-500 to-orange-500 text-white rounded-lg font-bold shadow-lg shadow-orange-500/20 hover:-translate-y-0.5 transition-all text-sm w-full sm:w-auto"
                                                 >
                                                     <Download size={16} />
                                                     <span className="hidden xl:inline">Download PDF</span>

@@ -21,16 +21,22 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
                 clientName: formData.get('clientName'),
                 destination: formData.get('destination'),
                 startDate: formData.get('startDate'),
+                endDate: formData.get('endDate'),
+                guests: Number(formData.get('guests')),
                 payment: Number(formData.get('payment')),
                 vehicle: formData.get('vehicle'),
-                driverId: formData.get('driverId'),
+                driver: formData.get('driverId'),
                 status: 'pending',
                 paymentStatus: 'pending',
                 category: activeTab
             });
             setBookings(prev => [...prev, res.data]);
             setIsAddModalOpen(false);
-        } catch (err) { console.error('Error creating booking:', err); }
+            alert('Booking registered successfully!');
+        } catch (err) {
+            console.error('Error creating booking:', err);
+            alert('Transaction Failed. System validation error:\n' + err.message);
+        }
     };
 
     const handleUpdateBookingStatus = async (id, newStatus) => {
@@ -224,10 +230,20 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
                             <input name="driverId" type="text" placeholder="e.g. John Doe" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-500 transition-colors" />
                         </div>
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">Start Date</label>
                             <input name="startDate" required type="date" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-500 transition-colors/[color-scheme:dark]" />
+                        </div>
+                        <div>
+                            <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">End Date</label>
+                            <input name="endDate" required type="date" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-500 transition-colors/[color-scheme:dark]" />
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">Number of Guests</label>
+                            <input name="guests" required type="number" min="1" placeholder="2" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-500 transition-colors" />
                         </div>
                         <div>
                             <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">Payment Initial (Ksh)</label>
