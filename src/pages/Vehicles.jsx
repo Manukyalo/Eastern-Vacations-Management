@@ -223,7 +223,9 @@ const Vehicles = ({ user, vehicles, setVehicles }) => {
                         <div className="bg-white/50 p-4 rounded-xl border border-slate-300 flex justify-between items-center">
                             <div>
                                 <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Insurance Valid Until</p>
-                                <p className="text-slate-900">{selectedVehicle.insuranceExpiry}</p>
+                                <p className="text-slate-900 font-medium">
+                                    {selectedVehicle.insuranceExpiry ? new Date(selectedVehicle.insuranceExpiry).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : 'N/A'}
+                                </p>
                             </div>
                             <ShieldAlert size={24} className={Math.ceil((new Date(selectedVehicle.insuranceExpiry) - new Date()) / (1000 * 60 * 60 * 24)) <= 30 ? "text-orange-500 animate-pulse" : "text-dark-500"} />
                         </div>
