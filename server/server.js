@@ -12,40 +12,37 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Initialize Memory DB Before Routes
-const startServer = async () => {
-  try {
-    await connectDB();
+// Initialize Memory DB globally for cold starts
+connectDB();
 
-    // Routes
-    app.use('/api/auth', require('./routes/auth'));
-    app.use('/api/bookings', require('./routes/bookings'));
-    app.use('/api/drivers', require('./routes/drivers'));
-    app.use('/api/vehicles', require('./routes/vehicles'));
-    app.use('/api/ai', aiRoutes); // Embedded AI Recovery
-    app.use('/api/users', require('./routes/users'));
-    app.use('/api/payments', require('./routes/payments'));
+// Routes
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/bookings', require('./routes/bookings'));
+app.use('/api/drivers', require('./routes/drivers'));
+app.use('/api/vehicles', require('./routes/vehicles'));
+app.use('/api/ai', aiRoutes); // Embedded AI Recovery
+app.use('/api/users', require('./routes/users'));
+app.use('/api/payments', require('./routes/payments'));
 
-    // Health check
-    app.get('/api/health', (req, res) => {
-      res.json({ status: 'OK', message: 'Eastern Vacations API is running' });
-    });
+// Health check
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'OK', message: 'Eastern Vacations API is running on Vercel' });
+});
 
-    // Error handling middleware
-    app.use((err, req, res, next) => {
-      console.error(err.stack);
-      res.status(500).json({ message: 'Something went wrong!', error: err.message });
-    });
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: 'Something went wrong!', error: err.message });
+});
 
-    const PORT = process.env.PORT || 5000;
-    app.listen(PORT, () => {
-      console.log(`🚀 Server running on port ${PORT}`);
-      console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
-    });
-  } catch (error) {
-    console.error('Failed to start server:', error);
-    process.exit(1);
-  }
-};
+// Local Development Fallback
+if (process.env.NODE_ENV !== 'production') {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running locally on port ${PORT}`);
+    console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+  });
+}
 
-startServer();
+// Vercel requires the raw express App to be exported
+module.exports = app;
