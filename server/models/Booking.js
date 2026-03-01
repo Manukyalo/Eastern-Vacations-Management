@@ -51,6 +51,10 @@ const bookingSchema = new mongoose.Schema({
     enum: ['pending', 'confirmed', 'completed', 'cancelled'],
     default: 'pending'
   },
+  requiresAdminVerification: {
+    type: Boolean,
+    default: false
+  },
   driver: {
     type: String,
     default: ''

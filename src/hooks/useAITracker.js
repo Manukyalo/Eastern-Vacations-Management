@@ -43,6 +43,18 @@ export const useAITracker = (vehicles, bookings) => {
                     date: new Date().toISOString(),
                 });
             }
+
+            // 3. Admin Verification Rule
+            const reqAdminCount = bookings.filter(b => b.requiresAdminVerification).length;
+            if (reqAdminCount > 0) {
+                alerts.push({
+                    id: `book-admin-verify`,
+                    type: 'warning',
+                    title: 'Action Required: Payment Verification',
+                    message: `There are ${reqAdminCount} payment(s) pending final admin verification.`,
+                    date: new Date().toISOString(),
+                });
+            }
         }
 
         return alerts;

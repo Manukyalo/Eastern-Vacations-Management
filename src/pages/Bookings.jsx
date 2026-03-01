@@ -49,9 +49,16 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
 
     const handleConfirmPayment = async (id) => {
         try {
-            await bookingAPI.update(id, { paymentStatus: 'paid' });
+            await bookingAPI.update(id, { paymentStatus: 'paid', requiresAdminVerification: true });
             setBookings(prev => prev.map(b => b._id === id ? { ...b, paymentStatus: 'paid' } : b));
             setOpenDropdown(null);
+
+            if (user?.role === 'reservation') {
+                alert('Payment logged. A notification has been sent to the Admin for final verification.');
+                // In a full implementation, this would trigger a socket event or email to the admin.
+            } else {
+                alert('Payment confirmed successfully.');
+            }
         } catch (err) { console.error('Error confirming payment:', err); }
     };
 

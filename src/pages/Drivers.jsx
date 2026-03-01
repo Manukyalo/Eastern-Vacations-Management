@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Plus, Search, MoreVertical, ShieldCheck, Watch, Save } from 'lucide-react';
+import { Plus, Search, MoreVertical, ShieldCheck, Watch, Save, Calendar, MapPin, Users, Car, Plane, Clock, Navigation } from 'lucide-react';
 import Modal from '../components/Modal';
 import { driverAPI } from '../services/api';
+import { KENYA_PARKS } from '../utils/constants';
 
 const Drivers = ({ user, drivers, setDrivers }) => {
     const maxDrivers = user?.planType === 'Basic' ? 5 : user?.planType === 'Pro' ? 50 : Infinity;
@@ -9,6 +10,17 @@ const Drivers = ({ user, drivers, setDrivers }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [openDropdown, setOpenDropdown] = useState(null);
+    const [activeTab, setActiveTab] = useState('standard');
+
+    // Task Management State
+    const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+    const [selectedDriver, setSelectedDriver] = useState(null);
+    const [editingTaskIndex, setEditingTaskIndex] = useState(null);
+
+    const filteredDrivers = drivers.filter(d =>
+        (d.driverType || 'standard') === activeTab &&
+        d.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     const handleRegisterDriver = async (e) => {
         e.preventDefault();
@@ -17,8 +29,9 @@ const Drivers = ({ user, drivers, setDrivers }) => {
             const res = await driverAPI.create({
                 name: formData.get('name'),
                 phone: formData.get('phone'),
-                task: formData.get('task'),
-                status: 'available'
+                driverType: formData.get('driverType'),
+                status: 'available',
+                tasks: []
             });
             setDrivers(prev => [...prev, res.data]);
             setIsAddModalOpen(false);
@@ -44,6 +57,80 @@ const Drivers = ({ user, drivers, setDrivers }) => {
         } catch (err) { console.error('Error updating driver status:', err); }
     };
 
+    const openTaskModal = (driver) => {
+        setSelectedDriver(driver);
+        setEditingTaskIndex(null);
+        setIsTaskModalOpen(true);
+        setOpenDropdown(null);
+    };
+
+    const extractFormData = (formData) => {
+        const taskObj = {
+            date: formData.get('date'),
+            time: formData.get('time'),
+            pickupLocation: formData.get('pickupLocation'),
+            dropoffLocation: formData.get('dropoffLocation'),
+            guests: Number(formData.get('guests')),
+            vehicleType: formData.get('vehicleType'),
+            flightNumber: formData.get('flightNumber') || '',
+            flightArrivalTime: formData.get('flightArrivalTime') || '',
+            sgrArrivalTime: formData.get('sgrArrivalTime') || ''
+        };
+
+        if (selectedDriver?.driverType === 'safari') {
+            taskObj.park = formData.get('park');
+            taskObj.days = Number(formData.get('days'));
+            taskObj.nights = Number(formData.get('nights'));
+        }
+
+        // Preserve status if editing
+        if (editingTaskIndex !== null && selectedDriver.tasks[editingTaskIndex]) {
+            taskObj.status = selectedDriver.tasks[editingTaskIndex].status;
+        } else {
+            taskObj.status = 'pending';
+        }
+
+        return taskObj;
+    };
+
+    const handleSaveTask = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const newTask = extractFormData(formData);
+
+        const updatedTasks = [...(selectedDriver.tasks || [])];
+        if (editingTaskIndex !== null) {
+            updatedTasks[editingTaskIndex] = newTask;
+        } else {
+            updatedTasks.push(newTask);
+        }
+
+        try {
+            const res = await driverAPI.update(selectedDriver._id, { tasks: updatedTasks });
+            setDrivers(prev => prev.map(d => d._id === selectedDriver._id ? res.data : d));
+            setSelectedDriver(res.data);
+            setEditingTaskIndex(null);
+            e.target.reset(); // Reset form after saving
+        } catch (err) {
+            console.error('Error saving task:', err);
+            alert('Failed to save task.');
+        }
+    };
+
+    const handleToggleTaskStatus = async (taskIndex) => {
+        const updatedTasks = [...(selectedDriver.tasks || [])];
+        const currentStatus = updatedTasks[taskIndex].status;
+        updatedTasks[taskIndex].status = currentStatus === 'pending' ? 'completed' : 'pending';
+
+        try {
+            const res = await driverAPI.update(selectedDriver._id, { tasks: updatedTasks });
+            setDrivers(prev => prev.map(d => d._id === selectedDriver._id ? res.data : d));
+            setSelectedDriver(res.data);
+        } catch (err) {
+            console.error('Error toggling task:', err);
+        }
+    };
+
     return (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
@@ -56,7 +143,31 @@ const Drivers = ({ user, drivers, setDrivers }) => {
                     className={`flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold shadow-lg transition-all w-full sm:w-auto ${canAddDriver ? 'bg-gradient-to-r from-primary-500 to-orange-500 hover:from-primary-400 hover:to-orange-400 text-white shadow-primary-500/20 hover:-translate-y-0.5' : 'bg-dark-700 text-dark-400 cursor-not-allowed border border-white/5'}`}
                 >
                     <Plus size={20} />
-                    {canAddDriver ? 'Add Driver' : 'Upgrade to Add'}
+                    {canAddDriver ? 'Register Driver' : 'Upgrade to Add'}
+                </button>
+            </div>
+
+            {/* Navigation Tabs */}
+            <div className="flex overflow-x-auto hide-scrollbar gap-2 border-b border-white/10 pb-2">
+                <button
+                    onClick={() => setActiveTab('standard')}
+                    className={`flex items-center gap-2 px-5 py-3 rounded-t-xl font-bold transition-all whitespace-nowrap ${activeTab === 'standard'
+                        ? 'bg-white/10 text-white border-b-2 border-primary-500'
+                        : 'text-dark-400 hover:text-white hover:bg-white/5'
+                        }`}
+                >
+                    <Car size={16} />
+                    City & Transfers
+                </button>
+                <button
+                    onClick={() => setActiveTab('safari')}
+                    className={`flex items-center gap-2 px-5 py-3 rounded-t-xl font-bold transition-all whitespace-nowrap ${activeTab === 'safari'
+                        ? 'bg-white/10 text-white border-b-2 border-primary-500'
+                        : 'text-dark-400 hover:text-white hover:bg-white/5'
+                        }`}
+                >
+                    <MapPin size={16} />
+                    Safari Guides
                 </button>
             </div>
 
@@ -73,37 +184,59 @@ const Drivers = ({ user, drivers, setDrivers }) => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {drivers.filter(d => d.name.toLowerCase().includes(searchTerm.toLowerCase())).map((driver) => (
-                    <div key={driver._id} className="glass-card hover:bg-white/5 border-white/10 transition-colors group relative overflow-visible">
-                        <div className="flex justify-between items-start mb-4">
-                            <div className="flex items-center gap-3">
-                                <div className="h-12 w-12 rounded-full bg-dark-800 border-2 border-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold text-xl">
-                                    {driver.name.charAt(0)}
-                                </div>
-                                <div>
-                                    <h3 className="text-white font-bold">{driver.name}</h3>
-                                    <div className="flex items-center gap-1 text-xs text-dark-400 mt-0.5">
-                                        <ShieldCheck size={14} className="text-emerald-400" />
-                                        Certified Guide
+                {filteredDrivers.map((driver) => (
+                    <div key={driver._id} className="glass-card hover:bg-white/5 border-white/10 transition-colors group relative overflow-visible flex flex-col justify-between">
+                        <div>
+                            <div className="flex justify-between items-start mb-4">
+                                <div className="flex items-center gap-3">
+                                    <div className="h-12 w-12 rounded-full bg-dark-800 border-2 border-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold text-xl">
+                                        {driver.name.charAt(0)}
+                                    </div>
+                                    <div>
+                                        <h3 className="text-white font-bold">{driver.name}</h3>
+                                        <div className="flex items-center gap-1 text-xs text-dark-400 mt-0.5">
+                                            <ShieldCheck size={14} className="text-emerald-400" />
+                                            {driver.driverType === 'safari' ? 'Safari Guide' : 'Transfer Driver'}
+                                        </div>
                                     </div>
                                 </div>
+                                <div className="relative">
+                                    <button
+                                        onClick={() => setOpenDropdown(openDropdown === driver._id ? null : driver._id)}
+                                        className="text-dark-400 hover:text-white p-2 rounded-lg hover:bg-white/10 transition-colors"
+                                    >
+                                        <MoreVertical size={20} />
+                                    </button>
+                                    {openDropdown === driver._id && (
+                                        <div className="absolute right-0 top-10 w-40 bg-dark-800 border border-white/10 shadow-2xl rounded-xl z-20 overflow-hidden animate-in fade-in zoom-in-95">
+                                            <button onClick={() => openTaskModal(driver)} className="w-full text-left px-4 py-2 text-sm text-primary-400 hover:bg-primary-400/10 transition-colors">Manage Tasks</button>
+                                            {driver.status === 'available' ? (
+                                                <button onClick={() => handleUpdateDriverStatus(driver._id, 'suspended')} className="w-full text-left px-4 py-2 text-sm text-orange-400 hover:bg-orange-400/10 transition-colors">Suspend</button>
+                                            ) : (
+                                                <button onClick={() => handleUpdateDriverStatus(driver._id, 'available')} className="w-full text-left px-4 py-2 text-sm text-emerald-400 hover:bg-emerald-400/10 transition-colors">Reactivate</button>
+                                            )}
+                                            <button onClick={() => handleDeleteDriver(driver._id)} className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-red-400/10 transition-colors">Delete</button>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
-                            <div className="relative">
-                                <button
-                                    onClick={() => setOpenDropdown(openDropdown === driver._id ? null : driver._id)}
-                                    className="text-dark-400 hover:text-white p-2 rounded-lg hover:bg-white/10 transition-colors"
-                                >
-                                    <MoreVertical size={20} />
-                                </button>
-                                {openDropdown === driver._id && (
-                                    <div className="absolute right-0 top-10 w-32 bg-dark-800 border border-white/10 shadow-2xl rounded-xl z-20 overflow-hidden animate-in fade-in zoom-in-95">
-                                        <button onClick={() => { setOpenDropdown(null); alert('View Driver Profile'); }} className="w-full text-left px-4 py-2 text-sm text-dark-200 hover:bg-white/10 hover:text-white transition-colors">View Profile</button>
-                                        {driver.status === 'available' ? (
-                                            <button onClick={() => handleUpdateDriverStatus(driver._id, 'suspended')} className="w-full text-left px-4 py-2 text-sm text-orange-400 hover:bg-orange-400/10 transition-colors">Suspend</button>
-                                        ) : (
-                                            <button onClick={() => handleUpdateDriverStatus(driver._id, 'available')} className="w-full text-left px-4 py-2 text-sm text-emerald-400 hover:bg-emerald-400/10 transition-colors">Reactivate</button>
-                                        )}
-                                        <button onClick={() => handleDeleteDriver(driver._id)} className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-red-400/10 transition-colors">Delete</button>
+
+                            {/* Legacy Task Fallback OR Pending Tasks Count */}
+                            <div className="mt-4 mb-2">
+                                {(driver.tasks && driver.tasks.length > 0) ? (
+                                    <div className="text-sm font-medium text-dark-200 bg-dark-800/50 p-3 rounded-lg border border-white/5">
+                                        <span className="text-primary-400 font-bold">{driver.tasks.filter(t => t.status === 'pending').length}</span> Pending Tasks
+                                        <br />
+                                        <span className="text-emerald-400 font-bold">{driver.tasks.filter(t => t.status === 'completed').length}</span> Completed
+                                    </div>
+                                ) : driver.task ? (
+                                    <div className="text-sm font-medium text-dark-200 bg-dark-800/50 p-3 rounded-lg border border-white/5">
+                                        <span className="text-dark-400 text-xs block mb-1">Legacy Task:</span>
+                                        {driver.task}
+                                    </div>
+                                ) : (
+                                    <div className="text-sm font-medium text-dark-400 italic bg-dark-800/50 p-3 rounded-lg border border-white/5">
+                                        No tasks assigned.
                                     </div>
                                 )}
                             </div>
@@ -117,12 +250,15 @@ const Drivers = ({ user, drivers, setDrivers }) => {
                                     {driver.status}
                                 </span>
                             </div>
-                            {driver.status !== 'available' && <Watch size={18} className="text-orange-400 animate-pulse" />}
+                            <button onClick={() => openTaskModal(driver)} className="text-xs font-bold bg-white/5 hover:bg-white/10 text-white px-3 py-1.5 rounded-lg transition-colors">
+                                Schedule
+                            </button>
                         </div>
                     </div>
                 ))}
             </div>
 
+            {/* Registration Modal */}
             <Modal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} title="Register New Driver">
                 <form className="space-y-4" onSubmit={handleRegisterDriver}>
                     <div>
@@ -134,8 +270,11 @@ const Drivers = ({ user, drivers, setDrivers }) => {
                         <input name="phone" required type="text" placeholder="e.g. +254 712 345 678" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-colors" />
                     </div>
                     <div>
-                        <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">Assign Task</label>
-                        <input name="task" type="text" placeholder="e.g. Airport Transfer" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-colors" />
+                        <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">Driver Classification</label>
+                        <select name="driverType" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-colors">
+                            <option value="standard">City & Transfer Driver</option>
+                            <option value="safari">Safari Guide</option>
+                        </select>
                     </div>
                     <div className="pt-4 flex justify-end gap-3">
                         <button type="button" onClick={() => setIsAddModalOpen(false)} className="px-5 py-2.5 rounded-xl font-bold text-dark-300 hover:text-white transition-colors">Cancel</button>
@@ -146,8 +285,141 @@ const Drivers = ({ user, drivers, setDrivers }) => {
                     </div>
                 </form>
             </Modal>
+
+            {/* Task Management Modal */}
+            <Modal isOpen={isTaskModalOpen} onClose={() => { setIsTaskModalOpen(false); setEditingTaskIndex(null); }} title={`Manage Tasks: ${selectedDriver?.name}`}>
+                <div className="space-y-6">
+                    {/* Task List */}
+                    <div className="max-h-60 overflow-y-auto space-y-3 pr-2">
+                        {selectedDriver?.tasks?.length === 0 ? (
+                            <p className="text-dark-400 text-sm text-center py-4 bg-dark-800/50 rounded-xl border border-white/5">No active or completed tasks.</p>
+                        ) : (
+                            selectedDriver?.tasks?.map((task, index) => (
+                                <div key={index} className={`p-4 rounded-xl border ${task.status === 'completed' ? 'bg-emerald-500/5 border-emerald-500/20' : 'bg-dark-800 border-white/10'} relative group`}>
+                                    <div className="flex justify-between items-start mb-2">
+                                        <div className="font-bold text-white text-sm">
+                                            {task.date} at {task.time}
+                                        </div>
+                                        <div className="flex gap-2">
+                                            <button onClick={() => handleToggleTaskStatus(index)} className={`text-xs px-2 py-1 rounded-md font-bold transition-colors ${task.status === 'completed' ? 'bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30' : 'bg-orange-500/20 text-orange-400 hover:bg-orange-500/30'}`}>
+                                                {task.status === 'completed' ? 'Completed' : 'Mark Complete'}
+                                            </button>
+                                            <button onClick={() => setEditingTaskIndex(index)} className="text-xs px-2 py-1 bg-white/10 text-white rounded-md hover:bg-white/20 transition-colors">
+                                                Edit
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="text-xs text-dark-300 space-y-1">
+                                        <div className="flex items-center gap-1"><Navigation size={12} /> Route: {task.pickupLocation} → {task.dropoffLocation}</div>
+                                        {task.flightNumber && <div className="flex items-center gap-1"><Plane size={12} /> Flight: {task.flightNumber} (Arr: {task.flightArrivalTime})</div>}
+                                        {task.sgrArrivalTime && <div className="flex items-center gap-1"><Clock size={12} /> SGR Arrival: {task.sgrArrivalTime}</div>}
+                                        {selectedDriver.driverType === 'safari' && task.park && (
+                                            <div className="flex items-center gap-1 text-primary-400 mt-2 font-medium">
+                                                <MapPin size={12} /> {task.park} - {task.days} Days / {task.nights} Nights
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            ))
+                        )}
+                    </div>
+
+                    <hr className="border-white/10" />
+
+                    {/* Add/Edit Task Form */}
+                    <form onSubmit={handleSaveTask} className="space-y-4 bg-dark-800/50 p-4 rounded-xl border border-white/5">
+                        <h4 className="text-sm font-bold text-white mb-2 flex items-center gap-2">
+                            {editingTaskIndex !== null ? '✎ Edit Task Schedule' : '📅 Add New Task'}
+                        </h4>
+
+                        <div className="grid grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-[10px] font-semibold text-dark-400 uppercase tracking-wider mb-1">Date</label>
+                                <input name="date" required type="date" defaultValue={editingTaskIndex !== null ? selectedDriver.tasks[editingTaskIndex].date : ''} className="w-full bg-dark-900 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-primary-500" />
+                            </div>
+                            <div>
+                                <label className="block text-[10px] font-semibold text-dark-400 uppercase tracking-wider mb-1">Time</label>
+                                <input name="time" required type="time" defaultValue={editingTaskIndex !== null ? selectedDriver.tasks[editingTaskIndex].time : ''} className="w-full bg-dark-900 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-primary-500" />
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-[10px] font-semibold text-dark-400 uppercase tracking-wider mb-1">Pickup Location</label>
+                                <input name="pickupLocation" required type="text" placeholder="e.g. JKIA" defaultValue={editingTaskIndex !== null ? selectedDriver.tasks[editingTaskIndex].pickupLocation : ''} className="w-full bg-dark-900 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-primary-500" />
+                            </div>
+                            <div>
+                                <label className="block text-[10px] font-semibold text-dark-400 uppercase tracking-wider mb-1">Dropoff Location</label>
+                                <input name="dropoffLocation" required type="text" placeholder="e.g. Hotel" defaultValue={editingTaskIndex !== null ? selectedDriver.tasks[editingTaskIndex].dropoffLocation : ''} className="w-full bg-dark-900 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-primary-500" />
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-3 gap-4">
+                            <div className="col-span-1">
+                                <label className="block text-[10px] font-semibold text-dark-400 uppercase tracking-wider mb-1 flex items-center gap-1"><Plane size={10} /> Flight No. (Opt)</label>
+                                <input name="flightNumber" type="text" placeholder="e.g. KQ100" defaultValue={editingTaskIndex !== null ? selectedDriver.tasks[editingTaskIndex].flightNumber : ''} className="w-full bg-dark-900 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-primary-500" />
+                            </div>
+                            <div className="col-span-1">
+                                <label className="block text-[10px] font-semibold text-dark-400 uppercase tracking-wider mb-1 flex items-center gap-1"><Clock size={10} /> Flight Arr. (Opt)</label>
+                                <input name="flightArrivalTime" type="time" defaultValue={editingTaskIndex !== null ? selectedDriver.tasks[editingTaskIndex].flightArrivalTime : ''} className="w-full bg-dark-900 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-primary-500" />
+                            </div>
+                            <div className="col-span-1">
+                                <label className="block text-[10px] font-semibold text-dark-400 uppercase tracking-wider mb-1 flex items-center gap-1"><Clock size={10} /> SGR Arr. (Opt)</label>
+                                <input name="sgrArrivalTime" type="time" defaultValue={editingTaskIndex !== null ? selectedDriver.tasks[editingTaskIndex].sgrArrivalTime : ''} className="w-full bg-dark-900 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-primary-500" />
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-[10px] font-semibold text-dark-400 uppercase tracking-wider mb-1 flex items-center gap-1"><Users size={10} /> Guests</label>
+                                <input name="guests" required type="number" min="1" defaultValue={editingTaskIndex !== null ? selectedDriver.tasks[editingTaskIndex].guests : ''} className="w-full bg-dark-900 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-primary-500" />
+                            </div>
+                            <div>
+                                <label className="block text-[10px] font-semibold text-dark-400 uppercase tracking-wider mb-1 flex items-center gap-1"><Car size={10} /> Vehicle Type</label>
+                                <input name="vehicleType" required type="text" placeholder="e.g. Land Cruiser" defaultValue={editingTaskIndex !== null ? selectedDriver.tasks[editingTaskIndex].vehicleType : ''} className="w-full bg-dark-900 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-primary-500" />
+                            </div>
+                        </div>
+
+                        {selectedDriver?.driverType === 'safari' && (
+                            <div className="bg-primary-500/5 border border-primary-500/20 p-3 rounded-xl mt-4 space-y-4">
+                                <h5 className="text-xs font-bold text-primary-400 flex items-center gap-1"><MapPin size={12} /> Safari Itinerary Details</h5>
+                                <div>
+                                    <label className="block text-[10px] font-semibold text-dark-400 uppercase tracking-wider mb-1">National Park / Reserve</label>
+                                    <select name="park" required defaultValue={editingTaskIndex !== null ? selectedDriver.tasks[editingTaskIndex].park : ''} className="w-full bg-dark-900 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-primary-500">
+                                        <option value="">Select a Park...</option>
+                                        {KENYA_PARKS.map(park => (
+                                            <option key={park} value={park}>{park}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="block text-[10px] font-semibold text-dark-400 uppercase tracking-wider mb-1">Days</label>
+                                        <input name="days" required type="number" min="1" defaultValue={editingTaskIndex !== null ? selectedDriver.tasks[editingTaskIndex].days : ''} className="w-full bg-dark-900 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-primary-500" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-[10px] font-semibold text-dark-400 uppercase tracking-wider mb-1">Nights</label>
+                                        <input name="nights" required type="number" min="0" defaultValue={editingTaskIndex !== null ? selectedDriver.tasks[editingTaskIndex].nights : ''} className="w-full bg-dark-900 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-primary-500" />
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        <div className="pt-2 flex justify-end gap-2">
+                            {editingTaskIndex !== null && (
+                                <button type="button" onClick={() => { setEditingTaskIndex(null); }} className="px-4 py-2 text-sm rounded-lg font-bold text-dark-300 hover:text-white transition-colors border border-white/10">Discard Edit</button>
+                            )}
+                            <button type="submit" className="flex items-center gap-2 bg-gradient-to-r from-primary-500 to-orange-500 text-white px-4 py-2 rounded-lg font-bold shadow-lg shadow-orange-500/20 hover:-translate-y-0.5 transition-all text-sm">
+                                <Save size={14} />
+                                {editingTaskIndex !== null ? 'Update Selected Task' : '+ Add New Task'}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </Modal>
         </div>
     );
 };
 
 export default Drivers;
+

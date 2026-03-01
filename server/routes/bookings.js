@@ -66,9 +66,13 @@ router.put('/:id', protect, async (req, res) => {
       return res.status(404).json({ message: 'Booking not found' });
     }
 
-    // Check if updating payment info - admin only
+    // Check if updating payment info - admin only, unless it's a reservation staff setting requiresAdminVerification to true
     if ((req.body.payment !== undefined || req.body.paymentStatus !== undefined) && req.user.role !== 'admin') {
-      return res.status(403).json({ message: 'Only admins can update payment information' });
+      if (req.user.role === 'reservation' && req.body.requiresAdminVerification === true) {
+        // Allowed
+      } else {
+        return res.status(403).json({ message: 'Only admins can update payment information without requiring verification' });
+      }
     }
 
     // Update booking fields

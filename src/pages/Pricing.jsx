@@ -103,6 +103,8 @@ const Pricing = ({ user, setUser }) => {
                 { text: 'Pesapal international payments', highlight: true },
                 { text: 'Applicable for feature beta updates' },
                 { text: 'Reduction on future app developments' },
+                { text: 'Game Sanctuaries support included', highlight: true },
+                { text: 'Admin Payment Notifications', highlight: true },
                 { text: 'Autonomous AI Diagnostic Assistant', highlight: true },
             ]
         }
