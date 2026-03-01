@@ -78,19 +78,6 @@ const Pricing = ({ user, setUser }) => {
 
     const tiers = [
         {
-            name: 'Basic',
-            price: 29,
-            kesPrice: '3,800',
-            description: 'Essential tools for emerging tour operators managing local safaris.',
-            cta: 'Start with Basic',
-            features: [
-                { text: 'Up to 50 active bookings/mo' },
-                { text: 'Manage 5 drivers & vehicles' },
-                { text: 'Basic email support' },
-                { text: 'Standard dashboard analytics' },
-            ]
-        },
-        {
             name: 'Pro',
             price: 99,
             kesPrice: '12,900',
@@ -133,7 +120,7 @@ const Pricing = ({ user, setUser }) => {
                 </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 px-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 max-w-5xl mx-auto gap-8 mb-16 px-4">
                 {tiers.map((tier) => (
                     <PricingCard
                         key={tier.name}

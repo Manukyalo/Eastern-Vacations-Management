@@ -71,13 +71,10 @@ const Vehicles = ({ user, vehicles, setVehicles }) => {
 
             <div className="glass-card p-5 sm:p-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-5 shadow-2xl">
                 <div className="relative w-full sm:flex-1 sm:max-w-md shrink-0">
-                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <Search size={18} className="text-dark-400" />
-                    </div>
                     <input
                         type="text"
                         placeholder="Search by model or plate..."
-                        className="w-full bg-dark-900/80 border border-white/10 rounded-xl py-3.5 pl-11 pr-4 text-white placeholder-dark-400 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500/50 transition-all font-medium shadow-inner"
+                        className="w-full bg-dark-900/80 border border-white/10 rounded-xl py-3.5 px-4 text-white placeholder-dark-400 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500/50 transition-all font-medium shadow-inner"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
