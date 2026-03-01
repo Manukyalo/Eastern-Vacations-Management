@@ -201,6 +201,11 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
                                                         <Calendar size={18} />
                                                     </button>
                                                 )}
+                                                {booking.status === 'confirmed' && (
+                                                    <button onClick={() => handleUpdateBookingStatus(booking._id, 'completed')} className="p-2 sm:p-2.5 bg-purple-500/10 text-purple-400 hover:bg-purple-500/20 rounded-lg transition-colors border border-purple-500/20 w-full sm:w-auto flex justify-center" title="Mark as Completed">
+                                                        <CheckCircle size={18} />
+                                                    </button>
+                                                )}
                                                 {booking.status === 'completed' && (
                                                     <button onClick={() => handleDeleteBooking(booking._id)} className="p-2 sm:p-2.5 bg-red-500/10 text-red-500 hover:bg-red-500/20 rounded-lg transition-colors border border-red-500/20 w-full sm:w-auto flex justify-center" title="Delete Booking">
                                                         <Trash size={18} />
