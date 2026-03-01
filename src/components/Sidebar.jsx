@@ -35,15 +35,8 @@ const Sidebar = ({ role, onLogout, isMobile, isOpen, setIsOpen }) => {
             )}
             <aside className={sidebarClasses}>
                 <div className="p-6 flex items-center gap-3 border-b border-white/5">
-                    <div className="bg-gradient-to-br from-primary-400 to-orange-500 p-2 rounded-xl shadow-lg shadow-orange-500/20">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
-                            <path d="M12 2c5 0 9 4 9 9 0 2-1 4-2 5.5l1 4.5-5-2c-1 .3-2 .5-3 .5s-2-.2-3-.5l-5 2 1-4.5C4 15 3 13 3 11c0-5 4-9 9-9z" />
-                            <circle cx="9" cy="11" r="1.5" fill="currentColor" />
-                            <circle cx="15" cy="11" r="1.5" fill="currentColor" />
-                            <path d="M12 14c-1 0-2 .5-2 1.5" />
-                            <path d="M12 14c1 0 2 .5 2 1.5" />
-                            <path d="M11 16h2" />
-                        </svg>
+                    <div className="w-10 h-10 flex items-center justify-center shrink-0">
+                        <img src="/icon/eastern-vacations-kenya-logo-rounded.png" alt="Eastern Vacations" className="w-full h-full object-contain drop-shadow-md" />
                     </div>
                     <div>
                         <h2 className="font-bold text-xl text-white tracking-tight">Eastern</h2>
