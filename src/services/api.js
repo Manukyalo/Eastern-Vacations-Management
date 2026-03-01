@@ -1,9 +1,16 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+// Auto-detect if we are running in the browser on Vercel/Production
+const getBaseUrl = () => {
+    if (import.meta.env.VITE_API_URL) return import.meta.env.VITE_API_URL;
+    if (typeof window !== 'undefined' && window.location.origin.includes('vercel.app')) {
+        return window.location.origin; // In production, API and frontend share the same origin
+    }
+    return 'http://localhost:5000'; // Local development fallback
+};
 
 const api = axios.create({
-    baseURL: `${API_URL}/api`,
+    baseURL: `${getBaseUrl()}/api`,
     headers: {
         'Content-Type': 'application/json',
     },
