@@ -125,7 +125,7 @@ const SecurityHub = ({ bookings, drivers, vehicles }) => {
                             </span>
                         </div>
 
-                        <div className="bg-white/80 dark:bg-white/10 rounded-xl p-4 font-mono text-sm border border-slate-200 dark:border-white/5 h-64 overflow-y-auto space-y-2">
+                        <div className="bg-white/80 dark:bg-white/10 rounded-xl p-4 font-sans text-sm border border-slate-200 dark:border-white/5 h-64 overflow-y-auto space-y-2">
                             {logs.map(log => (
                                 <div key={log.id} className="flex gap-4 p-2 rounded hover:bg-slate-100 dark:bg-[#1e293b] transition-colors border-l-2"
                                     style={{ borderColor: log.type === 'error' ? '#f87171' : log.type === 'warning' ? '#fbbf24' : log.type === 'success' ? '#34d399' : '#60a5fa' }}>
@@ -172,7 +172,7 @@ const SecurityHub = ({ bookings, drivers, vehicles }) => {
                                         <div>
                                             <p className="text-sm text-slate-900 dark:text-white font-medium">{backup.date}</p>
                                             <div className="flex gap-2 items-center mt-1">
-                                                <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">{backup.size}</span>
+                                                <span className="text-xs text-slate-500 dark:text-slate-400 font-sans">{backup.size}</span>
                                                 <span className={`text-[10px] px-1.5 py-0.5 rounded capitalize ${backup.type === 'manual' ? 'bg-blue-500/20 text-blue-300' : 'bg-slate-100 dark:bg-[#1e293b] text-slate-600 dark:text-slate-300'}`}>
                                                     {backup.type}
                                                 </span>

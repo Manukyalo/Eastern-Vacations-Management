@@ -29,7 +29,7 @@ const Login = ({ onLogin }) => {
     };
 
     return (
-        <div className="min-h-screen relative flex items-center justify-center font-mono overflow-hidden bg-white dark:bg-[#1e293b] selection:bg-primary-500/30">
+        <div className="min-h-screen relative flex items-center justify-center font-sans overflow-hidden bg-white dark:bg-[#1e293b] selection:bg-primary-500/30">
             {/* Fallback Dynamic Gradient (Will sit behind or be removed when Spline is active) */}
             <div className="absolute inset-0 z-0 flex items-center justify-center opacity-30">
                 <div className="absolute w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] bg-primary-600/20 rounded-full blur-[100px] animate-pulse-slow"></div>

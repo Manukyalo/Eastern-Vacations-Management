@@ -110,7 +110,7 @@ const Header = ({ toggleSidebar, user, vehicles, bookings }) => {
                                                 className="p-1.5 text-slate-500 dark:text-slate-400 opacity-0 group-hover:opacity-100 peer hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-all"
                                                 title="Dismiss Notification"
                                             >
-                                                <span className="text-xs font-bold leading-none font-mono tracking-tighter">X</span>
+                                                <span className="text-xs font-bold leading-none font-sans tracking-tighter">X</span>
                                             </button>
                                         </div>
                                     ))

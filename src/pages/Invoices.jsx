@@ -86,7 +86,7 @@ const Invoices = ({ bookings }) => {
                             <tbody className="divide-y divide-white/5">
                                 {invoiceableBookings.map((booking) => (
                                     <tr key={booking._id} className="hover:bg-slate-100 dark:bg-[#1e293b] transition-colors group">
-                                        <td className="p-4 font-mono text-slate-500 dark:text-slate-400 text-sm whitespace-nowrap">
+                                        <td className="p-4 font-sans text-slate-500 dark:text-slate-400 text-sm whitespace-nowrap">
                                             EV-{booking._id.substring(0, 8).toUpperCase()}
                                         </td>
                                         <td className="p-4 font-medium text-slate-900 dark:text-white whitespace-nowrap">

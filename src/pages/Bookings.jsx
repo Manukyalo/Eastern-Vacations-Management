@@ -190,7 +190,7 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
                                             </div>
                                         </td>
                                         <td className="p-4 text-right">
-                                            <div className="flex flex-wrap items-center justify-end gap-2 ml-auto w-48 sm:w-[280px]">
+                                            <div className="flex flex-wrap items-center justify-end gap-2 min-w-max">
                                                 {booking.paymentStatus === 'pending' && (user?.role === 'reservation' || user?.role === 'admin') && (
                                                     <button onClick={() => handleConfirmPayment(booking._id)} className="p-2 sm:p-2.5 bg-blue-50 text-blue-500 hover:bg-blue-100 rounded-lg transition-colors border border-blue-200" title="Confirm Payment">
                                                         <CheckCircle size={18} />

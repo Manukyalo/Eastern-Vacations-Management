@@ -35,7 +35,8 @@
 
     html,
     body {
-        @apply bg-slate-50 dark:bg-dark-900 text-slate-900 dark:text-white font-mono antialiased overflow-x-hidden w-full relative transition-colors duration-300;
+        @apply bg-slate-50 dark:bg-dark-900 text-slate-900 dark:text-white font-sans antialiased overflow-x-hidden w-full relative transition-colors duration-300;
+        font-family: 'Plus Jakarta Sans', sans-serif;
     }
 }
 

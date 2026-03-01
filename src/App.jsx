@@ -28,7 +28,7 @@ class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-white dark:bg-[#1e293b] flex items-center justify-center p-6 font-mono text-left z-50 relative">
+        <div className="min-h-screen bg-white dark:bg-[#1e293b] flex items-center justify-center p-6 font-sans text-left z-50 relative">
           <div className="bg-red-900/20 border border-red-500/30 p-8 rounded-2xl max-w-4xl w-full">
             <h1 className="text-3xl font-black text-red-400 mb-4 flex items-center gap-3"><AlertTriangle size={32} /> Fatal React Render Exception</h1>
             <p className="text-red-200 mb-6">A component failed to render on your current device viewport. Please copy the stack trace below and send it to the developer:</p>

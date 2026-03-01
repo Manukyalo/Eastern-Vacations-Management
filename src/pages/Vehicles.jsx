@@ -116,7 +116,7 @@ const Vehicles = ({ user, vehicles, setVehicles }) => {
                                             </td>
                                             <td className="block sm:table-cell mb-4 sm:mb-0 p-0 sm:p-4 whitespace-nowrap">
                                                 <div className="sm:hidden text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">License Plate</div>
-                                                <div className="text-primary-400 font-black font-mono tracking-wider">{vehicle.plate}</div>
+                                                <div className="text-primary-400 font-black font-sans tracking-wider">{vehicle.plate}</div>
                                             </td>
                                             <td className="block sm:table-cell mb-4 sm:mb-0 p-0 sm:p-4 whitespace-nowrap">
                                                 <div className="sm:hidden text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">Insurance Expiry</div>
@@ -211,7 +211,7 @@ const Vehicles = ({ user, vehicles, setVehicles }) => {
                         <div className="grid grid-cols-2 gap-4">
                             <div className="bg-white/50 dark:bg-white/5 p-4 rounded-xl border border-slate-300 dark:border-white/10">
                                 <p className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">License Plate</p>
-                                <p className="text-slate-900 dark:text-white font-mono tracking-wider">{selectedVehicle.plate}</p>
+                                <p className="text-slate-900 dark:text-white font-sans tracking-wider">{selectedVehicle.plate}</p>
                             </div>
                             <div className="bg-white/50 dark:bg-white/5 p-4 rounded-xl border border-slate-300 dark:border-white/10">
                                 <p className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Current Status</p>

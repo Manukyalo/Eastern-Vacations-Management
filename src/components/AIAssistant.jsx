@@ -100,7 +100,7 @@ const AIAssistant = ({ user }) => {
                                     <h3 className="text-slate-900 dark:text-white font-bold text-sm">System AI Assistant</h3>
                                     <div className="flex items-center gap-1.5 mt-0.5">
                                         <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
-                                        <span className="text-[10px] text-emerald-400 font-mono uppercase tracking-wider">Engine Online</span>
+                                        <span className="text-[10px] text-emerald-400 font-sans uppercase tracking-wider">Engine Online</span>
                                     </div>
                                 </div>
                             </div>
@@ -110,7 +110,7 @@ const AIAssistant = ({ user }) => {
                         </div>
 
                         {/* Chat History */}
-                        <div className="flex-1 overflow-y-auto p-4 space-y-4 font-mono text-sm bg-dark-900/40">
+                        <div className="flex-1 overflow-y-auto p-4 space-y-4 font-sans text-sm bg-dark-900/40">
                             {messages.map((msg) => (
                                 <motion.div
                                     initial={{ opacity: 0, x: msg.sender === 'user' ? 10 : -10 }}
@@ -171,7 +171,7 @@ const AIAssistant = ({ user }) => {
                                     value={inputValue}
                                     onChange={(e) => setInputValue(e.target.value)}
                                     placeholder="Report an issue or ask for system diagnostics..."
-                                    className="w-full bg-slate-900 border border-slate-700 rounded-xl py-3 pl-4 pr-12 text-white placeholder-slate-400 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all font-mono text-sm"
+                                    className="w-full bg-slate-900 border border-slate-700 rounded-xl py-3 pl-4 pr-12 text-white placeholder-slate-400 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all font-sans text-sm"
                                     disabled={isTyping}
                                 />
                                 <button
