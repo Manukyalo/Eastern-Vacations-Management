@@ -125,7 +125,7 @@ const SecurityHub = ({ bookings, drivers, vehicles }) => {
                             </span>
                         </div>
 
-                        <div className="bg-white dark:bg-[#1e293b]/80 dark:bg-white dark:bg-[#1e293b]/10 rounded-xl p-4 font-mono text-sm border border-slate-200 dark:border-white/5 h-64 overflow-y-auto space-y-2">
+                        <div className="bg-white/80 dark:bg-white/10 rounded-xl p-4 font-mono text-sm border border-slate-200 dark:border-white/5 h-64 overflow-y-auto space-y-2">
                             {logs.map(log => (
                                 <div key={log.id} className="flex gap-4 p-2 rounded hover:bg-slate-100 dark:bg-[#1e293b] transition-colors border-l-2"
                                     style={{ borderColor: log.type === 'error' ? '#f87171' : log.type === 'warning' ? '#fbbf24' : log.type === 'success' ? '#34d399' : '#60a5fa' }}>
@@ -148,11 +148,11 @@ const SecurityHub = ({ bookings, drivers, vehicles }) => {
                             Data Redundancy
                         </h3>
                         <div className="space-y-4">
-                            <div className="bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 p-4 rounded-xl border border-slate-300 dark:border-white/10">
+                            <div className="bg-white/50 dark:bg-white/5 p-4 rounded-xl border border-slate-300 dark:border-white/10">
                                 <p className="text-xs text-slate-500 dark:text-slate-400 tracking-wider uppercase mb-1">Last Backup</p>
                                 <p className="text-slate-900 dark:text-white font-medium">{lastBackup}</p>
                             </div>
-                            <div className="bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 p-4 rounded-xl border border-slate-300 dark:border-white/10 flex items-center justify-between">
+                            <div className="bg-white/50 dark:bg-white/5 p-4 rounded-xl border border-slate-300 dark:border-white/10 flex items-center justify-between">
                                 <div>
                                     <p className="text-xs text-slate-500 dark:text-slate-400 tracking-wider uppercase mb-1">Backup Server</p>
                                     <p className="text-slate-900 dark:text-white font-medium flex items-center gap-2">

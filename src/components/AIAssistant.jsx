@@ -104,7 +104,7 @@ const AIAssistant = ({ user }) => {
                                     </div>
                                 </div>
                             </div>
-                            <button onClick={() => setIsOpen(false)} className="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-white p-1.5 rounded-lg hover:bg-slate-200 transition-colors">
+                            <button onClick={() => setIsOpen(false)} className="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-white p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
                                 <X size={20} />
                             </button>
                         </div>

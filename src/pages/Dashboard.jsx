@@ -44,7 +44,7 @@ const StatCard = ({ title, value, icon, color, trend }) => {
             <div className={`absolute inset-0 bg-gradient-to-br ${colorMap[color]} opacity-50`} />
             <div className="relative z-10">
                 <div className="flex justify-between items-start mb-4">
-                    <div className="p-3 bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 rounded-xl border border-slate-200 dark:border-white/5 shadow-inner">
+                    <div className="p-3 bg-white/50 dark:bg-white/5 rounded-xl border border-slate-200 dark:border-white/5 shadow-inner">
                         {icon}
                     </div>
                     {trend && (

@@ -51,11 +51,11 @@ const Header = ({ toggleSidebar, user, vehicles, bookings }) => {
     };
 
     return (
-        <header className="sticky top-0 z-30 flex items-center justify-between px-4 py-4 sm:px-6 lg:px-8 bg-white dark:bg-[#1e293b]/80 dark:bg-white dark:bg-[#1e293b]/10 backdrop-blur-lg border-b border-slate-200 dark:border-white/5">
+        <header className="sticky top-0 z-30 flex items-center justify-between px-4 py-4 sm:px-6 lg:px-8 bg-white/80 dark:bg-white/10 backdrop-blur-lg border-b border-slate-200 dark:border-white/5">
             <div className="flex items-center gap-4">
                 <button
                     onClick={toggleSidebar}
-                    className="p-2 -ml-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:text-white hover:bg-slate-200 lg:hidden transition-colors"
+                    className="p-2 -ml-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-800 lg:hidden transition-colors"
                 >
                     <Menu size={24} />
                 </button>
@@ -70,7 +70,7 @@ const Header = ({ toggleSidebar, user, vehicles, bookings }) => {
                 <div className="relative" ref={notifRef}>
                     <button
                         onClick={() => setShowNotifications(!showNotifications)}
-                        className={`relative p-2 rounded-xl transition-colors ${showNotifications ? 'bg-slate-200 text-slate-900 dark:text-white' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:text-white hover:bg-slate-200'}`}
+                        className={`relative p-2 rounded-xl transition-colors ${showNotifications ? 'bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-white' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-800'}`}
                     >
                         <Bell size={22} className={alerts.length > 0 ? "animate-pulse-slow text-orange-400" : ""} />
                         {alerts.length > 0 && (
@@ -120,7 +120,7 @@ const Header = ({ toggleSidebar, user, vehicles, bookings }) => {
                     )}
                 </div>
 
-                <div className="h-8 w-[1px] bg-slate-200 hidden sm:block"></div>
+                <div className="h-8 w-[1px] bg-slate-200 dark:bg-slate-800 hidden sm:block"></div>
 
                 <div className="flex items-center gap-3 cursor-pointer hover:bg-slate-100 dark:bg-[#1e293b] p-1 pr-3 rounded-full transition-colors border border-transparent hover:border-slate-300 dark:border-white/10">
                     <div className="h-9 w-9 rounded-full bg-gradient-to-tr from-primary-600 to-orange-500 flex items-center justify-center shadow-lg shadow-orange-500/20">

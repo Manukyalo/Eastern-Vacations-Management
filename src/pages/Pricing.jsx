@@ -62,7 +62,7 @@ const PricingCard = ({ tier, isSelected, onSelect }) => {
                     ? 'bg-gradient-to-r from-primary-500 to-orange-500 text-white shadow-lg shadow-orange-500/30'
                     : isEnterprise
                         ? 'bg-purple-600 hover:bg-purple-500 text-white hover:shadow-lg hover:shadow-purple-500/30 hover:-translate-y-1'
-                        : 'bg-slate-100 dark:bg-[#1e293b] border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white hover:bg-slate-200 hover:-translate-y-1'
+                        : 'bg-slate-100 dark:bg-[#1e293b] border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-800 hover:-translate-y-1'
                     }`}
             >
                 {isSelected ? 'Active Subscription' : tier.cta}
@@ -214,7 +214,7 @@ const Pricing = ({ user, setUser }) => {
                                     </h4>
                                     <div>
                                         <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">M-Pesa Phone Number</label>
-                                        <input required disabled={isProcessing} type="tel" placeholder="e.g. 0712345678" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-green-500 transition-colors" />
+                                        <input required disabled={isProcessing} type="tel" placeholder="e.g. 0712345678" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-green-500 transition-colors" />
                                     </div>
                                     <div className="flex gap-3 pt-2">
                                         <button disabled={isProcessing} type="button" onClick={() => setPaymentMethod(null)} className="flex-1 py-3 rounded-xl font-bold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:text-white transition-colors bg-slate-100 dark:bg-[#1e293b] disabled:opacity-50">Back</button>
@@ -245,16 +245,16 @@ const Pricing = ({ user, setUser }) => {
                                     </h4>
                                     <div>
                                         <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Card Number</label>
-                                        <input required disabled={isProcessing} type="text" placeholder="XXXX XXXX XXXX XXXX" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors" />
+                                        <input required disabled={isProcessing} type="text" placeholder="XXXX XXXX XXXX XXXX" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors" />
                                     </div>
                                     <div className="grid grid-cols-2 gap-4">
                                         <div>
                                             <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Expiry Date</label>
-                                            <input required disabled={isProcessing} type="text" placeholder="MM/YY" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors" />
+                                            <input required disabled={isProcessing} type="text" placeholder="MM/YY" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors" />
                                         </div>
                                         <div>
                                             <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">CVV</label>
-                                            <input required disabled={isProcessing} type="password" placeholder="123" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors" />
+                                            <input required disabled={isProcessing} type="password" placeholder="123" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors" />
                                         </div>
                                     </div>
                                     <div className="flex gap-3 pt-2">

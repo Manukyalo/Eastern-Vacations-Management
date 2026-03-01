@@ -61,7 +61,7 @@ const Invoices = ({ bookings }) => {
                     <input
                         type="text"
                         placeholder="Search by client name or destination..."
-                        className="w-full bg-white dark:bg-[#1e293b]/80 dark:bg-white dark:bg-[#1e293b]/10 border border-slate-300 dark:border-white/10 rounded-xl py-3.5 px-4 text-slate-900 dark:text-white placeholder-dark-400 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500/50 transition-all font-medium shadow-inner"
+                        className="w-full bg-white/80 dark:bg-white/10 border border-slate-300 dark:border-white/10 rounded-xl py-3.5 px-4 text-slate-900 dark:text-white placeholder-dark-400 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500/50 transition-all font-medium shadow-inner"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />

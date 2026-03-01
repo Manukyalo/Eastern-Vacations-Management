@@ -153,7 +153,7 @@ const Drivers = ({ user, drivers, setDrivers }) => {
                 <button
                     onClick={() => setActiveTab('standard')}
                     className={`flex items-center gap-2 px-5 py-3 rounded-t-xl font-bold transition-all whitespace-nowrap ${activeTab === 'standard'
-                        ? 'bg-slate-200 text-slate-900 dark:text-white border-b-2 border-primary-500'
+                        ? 'bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-white border-b-2 border-primary-500'
                         : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-white hover:bg-slate-100 dark:bg-[#1e293b]'
                         }`}
                 >
@@ -163,7 +163,7 @@ const Drivers = ({ user, drivers, setDrivers }) => {
                 <button
                     onClick={() => setActiveTab('safari')}
                     className={`flex items-center gap-2 px-5 py-3 rounded-t-xl font-bold transition-all whitespace-nowrap ${activeTab === 'safari'
-                        ? 'bg-slate-200 text-slate-900 dark:text-white border-b-2 border-primary-500'
+                        ? 'bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-white border-b-2 border-primary-500'
                         : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-white hover:bg-slate-100 dark:bg-[#1e293b]'
                         }`}
                 >
@@ -177,7 +177,7 @@ const Drivers = ({ user, drivers, setDrivers }) => {
                     <input
                         type="text"
                         placeholder="Search by driver name..."
-                        className="w-full bg-white dark:bg-[#1e293b]/80 dark:bg-white dark:bg-[#1e293b]/10 border border-slate-300 dark:border-white/10 rounded-xl py-3.5 px-4 text-slate-900 dark:text-white placeholder-dark-400 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500/50 transition-all font-medium shadow-inner"
+                        className="w-full bg-white/80 dark:bg-white/10 border border-slate-300 dark:border-white/10 rounded-xl py-3.5 px-4 text-slate-900 dark:text-white placeholder-dark-400 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500/50 transition-all font-medium shadow-inner"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
@@ -204,7 +204,7 @@ const Drivers = ({ user, drivers, setDrivers }) => {
                                 <div className="relative">
                                     <button
                                         onClick={() => setOpenDropdown(openDropdown === driver._id ? null : driver._id)}
-                                        className="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-white p-2 rounded-lg hover:bg-slate-200 transition-colors"
+                                        className="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-white p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors"
                                     >
                                         <MoreVertical size={20} />
                                     </button>
@@ -251,7 +251,7 @@ const Drivers = ({ user, drivers, setDrivers }) => {
                                     {driver.status}
                                 </span>
                             </div>
-                            <button onClick={() => openTaskModal(driver)} className="text-xs font-bold bg-slate-100 dark:bg-[#1e293b] hover:bg-slate-200 text-slate-900 dark:text-white px-3 py-1.5 rounded-lg transition-colors">
+                            <button onClick={() => openTaskModal(driver)} className="text-xs font-bold bg-slate-100 dark:bg-[#1e293b] hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-900 dark:text-white px-3 py-1.5 rounded-lg transition-colors">
                                 Schedule
                             </button>
                         </div>
@@ -264,15 +264,15 @@ const Drivers = ({ user, drivers, setDrivers }) => {
                 <form className="space-y-4" onSubmit={handleRegisterDriver}>
                     <div>
                         <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Driver Name</label>
-                        <input name="name" required type="text" placeholder="e.g. John Doe" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-colors" />
+                        <input name="name" required type="text" placeholder="e.g. John Doe" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-colors" />
                     </div>
                     <div>
                         <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Phone Number</label>
-                        <input name="phone" required type="text" placeholder="e.g. +254 712 345 678" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-colors" />
+                        <input name="phone" required type="text" placeholder="e.g. +254 712 345 678" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-colors" />
                     </div>
                     <div>
                         <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Driver Classification</label>
-                        <select name="driverType" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-colors">
+                        <select name="driverType" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-colors">
                             <option value="standard">City & Transfer Driver</option>
                             <option value="safari">Safari Guide</option>
                         </select>
@@ -305,7 +305,7 @@ const Drivers = ({ user, drivers, setDrivers }) => {
                                             <button onClick={() => handleToggleTaskStatus(index)} className={`text-xs px-2 py-1 rounded-md font-bold transition-colors ${task.status === 'completed' ? 'bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30' : 'bg-orange-500/20 text-orange-400 hover:bg-orange-500/30'}`}>
                                                 {task.status === 'completed' ? 'Completed' : 'Mark Complete'}
                                             </button>
-                                            <button onClick={() => setEditingTaskIndex(index)} className="text-xs px-2 py-1 bg-slate-200 text-slate-900 dark:text-white rounded-md hover:bg-slate-300 transition-colors">
+                                            <button onClick={() => setEditingTaskIndex(index)} className="text-xs px-2 py-1 bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-white rounded-md hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors">
                                                 Edit
                                             </button>
                                         </div>

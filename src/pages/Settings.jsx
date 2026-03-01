@@ -69,16 +69,16 @@ const Settings = ({ companyDetails, setCompanyDetails }) => {
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                         <div>
                                             <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">First Name</label>
-                                            <input required type="text" placeholder="e.g. Admin" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors" />
+                                            <input required type="text" placeholder="e.g. Admin" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors" />
                                         </div>
                                         <div>
                                             <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Last Name</label>
-                                            <input required type="text" placeholder="e.g. Executive" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors" />
+                                            <input required type="text" placeholder="e.g. Executive" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors" />
                                         </div>
                                     </div>
                                     <div>
                                         <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Email Address</label>
-                                        <input type="email" defaultValue="admin@easternvacations.com" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-600 dark:text-slate-300 focus:outline-none focus:border-primary-500 transition-colors cursor-not-allowed" disabled />
+                                        <input type="email" defaultValue="admin@easternvacations.com" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-600 dark:text-slate-300 focus:outline-none focus:border-primary-500 transition-colors cursor-not-allowed" disabled />
                                         <p className="text-xs text-dark-500 mt-2">Email changes require identity verification by a Superadmin.</p>
                                     </div>
                                     <div className="pt-4 flex justify-end">
@@ -101,7 +101,7 @@ const Settings = ({ companyDetails, setCompanyDetails }) => {
                                         </div>
                                         <button
                                             onClick={toggleTheme}
-                                            className="p-2 rounded-lg bg-white dark:bg-[#1e293b]/50 border border-slate-300 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:text-white hover:bg-slate-200 transition-colors"
+                                            className="p-2 rounded-lg bg-white dark:bg-[#1e293b]/50 border border-slate-300 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors"
                                             title="Toggle Theme"
                                         >
                                             {isDarkMode ? <Sun size={20} className="text-primary-400" /> : <Moon size={20} />}
@@ -119,14 +119,14 @@ const Settings = ({ companyDetails, setCompanyDetails }) => {
                                             <p className="font-bold text-slate-900 dark:text-white">M-Pesa Daraja API</p>
                                             <p className="text-xs text-slate-500 dark:text-slate-400">Status: <span className="text-emerald-400 font-semibold">Active</span></p>
                                         </div>
-                                        <button onClick={() => setIsMpesaModalOpen(true)} className="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:text-white px-4 py-2 border border-slate-300 dark:border-white/10 rounded-lg transition-colors bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 hover:bg-slate-200">Configure</button>
+                                        <button onClick={() => setIsMpesaModalOpen(true)} className="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:text-white px-4 py-2 border border-slate-300 dark:border-white/10 rounded-lg transition-colors bg-white/50 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-slate-800">Configure</button>
                                     </div>
                                     <div className="flex items-center justify-between p-4 rounded-xl border border-slate-300 dark:border-white/10 bg-slate-100 dark:bg-[#1e293b]">
                                         <div>
                                             <p className="font-bold text-slate-900 dark:text-white">Pesapal v3</p>
                                             <p className="text-xs text-slate-500 dark:text-slate-400">Status: <span className="text-emerald-400 font-semibold">Active</span></p>
                                         </div>
-                                        <button onClick={() => setIsPesapalModalOpen(true)} className="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:text-white px-4 py-2 border border-slate-300 dark:border-white/10 rounded-lg transition-colors bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 hover:bg-slate-200">Configure</button>
+                                        <button onClick={() => setIsPesapalModalOpen(true)} className="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:text-white px-4 py-2 border border-slate-300 dark:border-white/10 rounded-lg transition-colors bg-white/50 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-slate-800">Configure</button>
                                     </div>
                                 </div>
                             </div>
@@ -139,11 +139,11 @@ const Settings = ({ companyDetails, setCompanyDetails }) => {
                             <form className="space-y-5" onSubmit={(e) => { e.preventDefault(); alert('Company Details updated!'); }}>
                                 <div>
                                     <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Company Name</label>
-                                    <input required type="text" value={companyDetails.name} onChange={(e) => setCompanyDetails({ ...companyDetails, name: e.target.value })} className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors" />
+                                    <input required type="text" value={companyDetails.name} onChange={(e) => setCompanyDetails({ ...companyDetails, name: e.target.value })} className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors" />
                                 </div>
                                 <div>
                                     <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Address</label>
-                                    <input required type="text" value={companyDetails.address} onChange={(e) => setCompanyDetails({ ...companyDetails, address: e.target.value })} className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors" />
+                                    <input required type="text" value={companyDetails.address} onChange={(e) => setCompanyDetails({ ...companyDetails, address: e.target.value })} className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors" />
                                 </div>
                                 <div className="pt-4 flex justify-end">
                                     <button type="submit" className="flex items-center gap-2 bg-gradient-to-r from-primary-500 to-orange-500 text-white px-6 py-2.5 rounded-xl font-bold shadow-lg shadow-orange-500/20 hover:-translate-y-0.5 transition-all">
@@ -183,16 +183,16 @@ const Settings = ({ companyDetails, setCompanyDetails }) => {
                             <form className="space-y-5" onSubmit={(e) => { e.preventDefault(); alert('Password updated!'); }}>
                                 <div>
                                     <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Current Password</label>
-                                    <input required type="password" placeholder="••••••••" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-red-500 transition-colors" />
+                                    <input required type="password" placeholder="••••••••" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-red-500 transition-colors" />
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                     <div>
                                         <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">New Password</label>
-                                        <input required type="password" placeholder="••••••••" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-red-500 transition-colors" />
+                                        <input required type="password" placeholder="••••••••" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-red-500 transition-colors" />
                                     </div>
                                     <div>
                                         <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Confirm Password</label>
-                                        <input required type="password" placeholder="••••••••" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-red-500 transition-colors" />
+                                        <input required type="password" placeholder="••••••••" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-red-500 transition-colors" />
                                     </div>
                                 </div>
                                 <div className="pt-4 flex justify-end">
@@ -212,25 +212,25 @@ const Settings = ({ companyDetails, setCompanyDetails }) => {
                 <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); alert('M-Pesa config updated!'); setIsMpesaModalOpen(false); }}>
                     <div>
                         <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Consumer Key</label>
-                        <input required type="text" defaultValue="sk_live_mpesa_***" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-colors" />
+                        <input required type="text" defaultValue="sk_live_mpesa_***" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-colors" />
                     </div>
                     <div>
                         <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Consumer Secret</label>
-                        <input required type="password" defaultValue="secret_***" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-colors" />
+                        <input required type="password" defaultValue="secret_***" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-colors" />
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Shortcode</label>
-                            <input required type="text" defaultValue="174379" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-colors" />
+                            <input required type="text" defaultValue="174379" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-colors" />
                         </div>
                         <div>
                             <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Passkey</label>
-                            <input required type="password" defaultValue="passkey123" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-colors" />
+                            <input required type="password" defaultValue="passkey123" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-colors" />
                         </div>
                     </div>
                     <div>
                         <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Callback URL</label>
-                        <input required type="url" defaultValue="https://api.easternvacations.com/webhooks/mpesa" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-600 dark:text-slate-300 focus:outline-none focus:border-emerald-500 transition-colors" />
+                        <input required type="url" defaultValue="https://api.easternvacations.com/webhooks/mpesa" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-600 dark:text-slate-300 focus:outline-none focus:border-emerald-500 transition-colors" />
                     </div>
                     <div className="pt-4 flex justify-end gap-3">
                         <button type="button" onClick={() => setIsMpesaModalOpen(false)} className="px-5 py-2.5 rounded-xl font-bold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:text-white transition-colors border border-transparent hover:border-slate-300 dark:border-white/10">Cancel</button>
@@ -247,15 +247,15 @@ const Settings = ({ companyDetails, setCompanyDetails }) => {
                 <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); alert('Pesapal config updated!'); setIsPesapalModalOpen(false); }}>
                     <div>
                         <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Consumer Key</label>
-                        <input required type="text" defaultValue="pk_live_pesapal_***" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors" />
+                        <input required type="text" defaultValue="pk_live_pesapal_***" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors" />
                     </div>
                     <div>
                         <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Consumer Secret</label>
-                        <input required type="password" defaultValue="secret_***" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors" />
+                        <input required type="password" defaultValue="secret_***" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors" />
                     </div>
                     <div>
                         <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">IPN (Instant Payment Notification) URL</label>
-                        <input required type="url" defaultValue="https://api.easternvacations.com/webhooks/pesapal" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-600 dark:text-slate-300 focus:outline-none focus:border-blue-500 transition-colors" />
+                        <input required type="url" defaultValue="https://api.easternvacations.com/webhooks/pesapal" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-600 dark:text-slate-300 focus:outline-none focus:border-blue-500 transition-colors" />
                     </div>
                     <div className="pt-4 flex justify-end gap-3">
                         <button type="button" onClick={() => setIsPesapalModalOpen(false)} className="px-5 py-2.5 rounded-xl font-bold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:text-white transition-colors border border-transparent hover:border-slate-300 dark:border-white/10">Cancel</button>

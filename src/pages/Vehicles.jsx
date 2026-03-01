@@ -79,7 +79,7 @@ const Vehicles = ({ user, vehicles, setVehicles }) => {
                     <input
                         type="text"
                         placeholder="Search by model or plate..."
-                        className="w-full bg-white dark:bg-[#1e293b]/80 dark:bg-white dark:bg-[#1e293b]/10 border border-slate-300 dark:border-white/10 rounded-xl py-3.5 px-4 text-slate-900 dark:text-white placeholder-dark-400 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500/50 transition-all font-medium shadow-inner"
+                        className="w-full bg-white/80 dark:bg-white/10 border border-slate-300 dark:border-white/10 rounded-xl py-3.5 px-4 text-slate-900 dark:text-white placeholder-dark-400 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500/50 transition-all font-medium shadow-inner"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
@@ -107,7 +107,7 @@ const Vehicles = ({ user, vehicles, setVehicles }) => {
                                     const isExpiringSoon = daysToExpiry <= 30;
 
                                     return (
-                                        <tr key={vehicle._id} className="block sm:table-row bg-white dark:bg-[#1e293b]/80 dark:bg-white dark:bg-[#1e293b]/10 sm:bg-transparent rounded-2xl p-5 sm:p-0 border border-slate-200 dark:border-white/5 sm:border-none relative hover:bg-slate-100 dark:bg-[#1e293b] transition-colors group shadow-lg sm:shadow-none">
+                                        <tr key={vehicle._id} className="block sm:table-row bg-white/80 dark:bg-white/10 sm:bg-transparent rounded-2xl p-5 sm:p-0 border border-slate-200 dark:border-white/5 sm:border-none relative hover:bg-slate-100 dark:bg-[#1e293b] transition-colors group shadow-lg sm:shadow-none">
                                             <td className="block sm:table-cell mb-4 sm:mb-0 p-0 sm:p-4 whitespace-nowrap">
                                                 <div className="sm:hidden text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">Model / Year</div>
                                                 <div className="flex items-center gap-3">
@@ -140,7 +140,7 @@ const Vehicles = ({ user, vehicles, setVehicles }) => {
                                             <td className="block sm:table-cell p-0 sm:p-4 text-left sm:text-right relative whitespace-nowrap mt-4 sm:mt-0 pt-4 sm:pt-0 border-t border-slate-200 dark:border-white/5 sm:border-none">
                                                 <button
                                                     onClick={() => setOpenDropdown(openDropdown === vehicle._id ? null : vehicle._id)}
-                                                    className="w-full sm:w-auto flex items-center justify-center gap-2 p-3 sm:p-2 bg-slate-50 dark:bg-[#0f172a] border border-slate-300 dark:border-white/10 sm:border-none sm:bg-transparent text-slate-900 dark:text-white hover:bg-slate-200 rounded-xl sm:rounded-lg transition-colors font-bold"
+                                                    className="w-full sm:w-auto flex items-center justify-center gap-2 p-3 sm:p-2 bg-slate-50 dark:bg-[#0f172a] border border-slate-300 dark:border-white/10 sm:border-none sm:bg-transparent text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl sm:rounded-lg transition-colors font-bold"
                                                 >
                                                     <span className="sm:hidden">Manage Vehicle Configuration</span>
                                                     <MoreVertical size={18} className="hidden sm:block" />
@@ -148,8 +148,8 @@ const Vehicles = ({ user, vehicles, setVehicles }) => {
 
                                                 {openDropdown === vehicle._id && (
                                                     <div className="absolute left-0 sm:left-auto right-0 sm:right-8 top-16 sm:top-10 w-full sm:w-36 bg-slate-50 dark:bg-[#0f172a] border border-slate-300 dark:border-white/10 shadow-2xl rounded-xl z-20 overflow-hidden animate-in fade-in zoom-in-95">
-                                                        <button onClick={() => { setOpenDropdown(null); setSelectedVehicle(vehicle); }} className="w-full text-left px-5 py-3 sm:px-4 sm:py-2 text-sm font-semibold text-slate-900 dark:text-white hover:bg-slate-200 transition-colors border-b border-slate-200 dark:border-white/5 sm:border-none">View Details Log</button>
-                                                        <button onClick={() => { setOpenDropdown(null); alert('Assign Driver Modal'); }} className="w-full text-left px-5 py-3 sm:px-4 sm:py-2 text-sm font-semibold text-slate-900 dark:text-white hover:bg-slate-200 transition-colors border-b border-slate-200 dark:border-white/5 sm:border-none">Assign Driver Unit</button>
+                                                        <button onClick={() => { setOpenDropdown(null); setSelectedVehicle(vehicle); }} className="w-full text-left px-5 py-3 sm:px-4 sm:py-2 text-sm font-semibold text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors border-b border-slate-200 dark:border-white/5 sm:border-none">View Details Log</button>
+                                                        <button onClick={() => { setOpenDropdown(null); alert('Assign Driver Modal'); }} className="w-full text-left px-5 py-3 sm:px-4 sm:py-2 text-sm font-semibold text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors border-b border-slate-200 dark:border-white/5 sm:border-none">Assign Driver Unit</button>
 
                                                         {vehicle.status === 'available' ? (
                                                             <button onClick={() => handleUpdateVehicleStatus(vehicle._id, 'suspended')} className="w-full text-left px-4 py-2 text-sm text-orange-400 hover:bg-orange-400/10 transition-colors">Suspend Option</button>
@@ -174,21 +174,21 @@ const Vehicles = ({ user, vehicles, setVehicles }) => {
                 <form className="space-y-4" onSubmit={handleRegisterVehicle}>
                     <div>
                         <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Vehicle Model</label>
-                        <input name="model" required type="text" placeholder="e.g. Land Cruiser V8" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors" />
+                        <input name="model" required type="text" placeholder="e.g. Land Cruiser V8" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors" />
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">License Plate</label>
-                            <input name="plate" required type="text" placeholder="e.g. KCA 123B" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors" />
+                            <input name="plate" required type="text" placeholder="e.g. KCA 123B" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors" />
                         </div>
                         <div>
                             <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Seats Capacity</label>
-                            <input name="seats" required type="number" min="2" max="50" placeholder="e.g. 8" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors" />
+                            <input name="seats" required type="number" min="2" max="50" placeholder="e.g. 8" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors" />
                         </div>
                     </div>
                     <div>
                         <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Insurance Expiry</label>
-                        <input name="insuranceExpiry" required type="date" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors/[color-scheme:dark]" />
+                        <input name="insuranceExpiry" required type="date" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors/[color-scheme:dark]" />
                     </div>
                     <div className="pt-4 flex flex-col sm:flex-row justify-end gap-3">
                         <button type="button" onClick={() => setIsAddModalOpen(false)} className="w-full sm:w-auto flex justify-center px-5 py-3 rounded-xl font-bold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:text-white bg-slate-50 dark:bg-[#0f172a] sm:bg-transparent border border-slate-200 dark:border-white/5 sm:border-transparent transition-colors">Cancel</button>
@@ -204,23 +204,23 @@ const Vehicles = ({ user, vehicles, setVehicles }) => {
             <Modal isOpen={!!selectedVehicle} onClose={() => setSelectedVehicle(null)} title="Vehicle Profile">
                 {selectedVehicle && (
                     <div className="space-y-4">
-                        <div className="bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 p-4 rounded-xl border border-slate-300 dark:border-white/10">
+                        <div className="bg-white/50 dark:bg-white/5 p-4 rounded-xl border border-slate-300 dark:border-white/10">
                             <p className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Model & Make</p>
                             <p className="text-slate-900 dark:text-white font-bold text-lg">{selectedVehicle.model}</p>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
-                            <div className="bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 p-4 rounded-xl border border-slate-300 dark:border-white/10">
+                            <div className="bg-white/50 dark:bg-white/5 p-4 rounded-xl border border-slate-300 dark:border-white/10">
                                 <p className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">License Plate</p>
                                 <p className="text-slate-900 dark:text-white font-mono tracking-wider">{selectedVehicle.plate}</p>
                             </div>
-                            <div className="bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 p-4 rounded-xl border border-slate-300 dark:border-white/10">
+                            <div className="bg-white/50 dark:bg-white/5 p-4 rounded-xl border border-slate-300 dark:border-white/10">
                                 <p className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Current Status</p>
                                 <span className={`inline-block mt-1 px-2.5 py-1 rounded-full text-xs font-semibold ${selectedVehicle.status === 'available' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-blue-500/10 text-blue-400'}`}>
                                     {selectedVehicle.status}
                                 </span>
                             </div>
                         </div>
-                        <div className="bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 p-4 rounded-xl border border-slate-300 dark:border-white/10 flex justify-between items-center">
+                        <div className="bg-white/50 dark:bg-white/5 p-4 rounded-xl border border-slate-300 dark:border-white/10 flex justify-between items-center">
                             <div>
                                 <p className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Insurance Valid Until</p>
                                 <p className="text-slate-900 dark:text-white font-medium">

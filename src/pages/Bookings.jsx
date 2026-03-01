@@ -123,7 +123,7 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id)}
                         className={`flex items-center gap-2 px-5 py-3 rounded-t-xl font-bold transition-all whitespace-nowrap ${activeTab === tab.id
-                            ? 'bg-slate-200 text-slate-900 dark:text-white border-b-2 border-primary-500'
+                            ? 'bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-white border-b-2 border-primary-500'
                             : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-white hover:bg-slate-100 dark:bg-[#1e293b]'
                             }`}
                     >
@@ -138,14 +138,14 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
                     <input
                         type="text"
                         placeholder={`Search ${currentTab.label.toLowerCase()}...`}
-                        className="w-full bg-white dark:bg-[#1e293b]/80 dark:bg-white dark:bg-[#1e293b]/10 border border-slate-300 dark:border-white/10 rounded-xl py-3.5 px-4 text-slate-900 dark:text-white placeholder-dark-400 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500/50 transition-all font-medium shadow-inner"
+                        className="w-full bg-white/80 dark:bg-white/10 border border-slate-300 dark:border-white/10 rounded-xl py-3.5 px-4 text-slate-900 dark:text-white placeholder-dark-400 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500/50 transition-all font-medium shadow-inner"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </div>
                 <button
                     onClick={() => setIsFilterActive(!isFilterActive)}
-                    className={`flex items-center gap-2 border px-5 py-3 rounded-xl transition-colors w-full sm:w-auto shrink-0 justify-center h-full ${isFilterActive ? 'bg-primary-500/20 border-primary-500/50 text-primary-400' : 'bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border-slate-300 dark:border-white/10 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:bg-[#1e293b]'
+                    className={`flex items-center gap-2 border px-5 py-3 rounded-xl transition-colors w-full sm:w-auto shrink-0 justify-center h-full ${isFilterActive ? 'bg-primary-500/20 border-primary-500/50 text-primary-400' : 'bg-white/50 dark:bg-white/5 border-slate-300 dark:border-white/10 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:bg-[#1e293b]'
                         }`}
                 >
                     <Filter size={20} />
@@ -241,40 +241,40 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
                 <form className="space-y-4" onSubmit={handleSaveBooking}>
                     <div>
                         <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Client Name</label>
-                        <input name="clientName" required type="text" placeholder="e.g. Michael Scott" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors" />
+                        <input name="clientName" required type="text" placeholder="e.g. Michael Scott" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors" />
                     </div>
                     <div>
                         <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Route / Destination</label>
-                        <input name="destination" required type="text" placeholder="e.g. Airport Transfer or Masai Mara" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors" />
+                        <input name="destination" required type="text" placeholder="e.g. Airport Transfer or Masai Mara" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors" />
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Assign Vehicle</label>
-                            <input name="vehicle" type="text" placeholder="e.g. Toyota Hiace KCD 123A" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors" />
+                            <input name="vehicle" type="text" placeholder="e.g. Toyota Hiace KCD 123A" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors" />
                         </div>
                         <div>
                             <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Assign Driver</label>
-                            <input name="driverId" type="text" placeholder="e.g. John Doe" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors" />
+                            <input name="driverId" type="text" placeholder="e.g. John Doe" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors" />
                         </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Start Date</label>
-                            <input name="startDate" required type="date" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors/[color-scheme:dark]" />
+                            <input name="startDate" required type="date" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors/[color-scheme:dark]" />
                         </div>
                         <div>
                             <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">End Date</label>
-                            <input name="endDate" required type="date" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors/[color-scheme:dark]" />
+                            <input name="endDate" required type="date" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors/[color-scheme:dark]" />
                         </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Number of Guests</label>
-                            <input name="guests" required type="number" min="1" placeholder="2" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors" />
+                            <input name="guests" required type="number" min="1" placeholder="2" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors" />
                         </div>
                         <div>
                             <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Payment Initial (Ksh)</label>
-                            <input name="payment" required type="number" placeholder="2500" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors" />
+                            <input name="payment" required type="number" placeholder="2500" className="w-full bg-white/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors" />
                         </div>
                     </div>
                     <div className="pt-4 flex flex-col sm:flex-row justify-end gap-3">
