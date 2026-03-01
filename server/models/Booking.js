@@ -31,6 +31,11 @@ const bookingSchema = new mongoose.Schema({
     required: true,
     min: 1
   },
+  category: {
+    type: String,
+    enum: ['safaris', 'transfers', 'city_tours', 'drop_offs'],
+    default: 'safaris'
+  },
   payment: {
     type: Number,
     required: true,

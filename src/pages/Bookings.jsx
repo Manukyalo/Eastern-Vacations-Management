@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Plus, Search, Filter, MoreVertical, Calendar, Save, Car, MapPin, Navigation, FileText, ChevronDown } from 'lucide-react';
+import { Plus, Search, Filter, MoreVertical, Calendar, Save, Car, MapPin, Navigation, FileText, ChevronDown, MessageSquare, Mail, CheckCircle } from 'lucide-react';
 import Modal from '../components/Modal';
 import { bookingAPI } from '../services/api';
 import { generateInvoice } from '../utils/generateInvoice';
@@ -77,6 +77,21 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
         b.category === activeTab &&
         b.clientName.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    const handleWhatsAppShare = (booking) => {
+        const text = encodeURIComponent(
+            `Hello ${booking.clientName},\n\nYour Eastern Vacations invoice for the ${booking.destination || booking.route} safari is ready.\n\nTotal Due: KES ${typeof booking.price === 'number' ? booking.price.toLocaleString() : booking.payment}\n\n*Please ensure you have attached the PDF receipt.*`
+        );
+        window.open(`https://wa.me/?text=${text}`, '_blank');
+    };
+
+    const handleEmailShare = (booking) => {
+        const subject = encodeURIComponent(`Eastern Vacations Invoice - ${booking.clientName}`);
+        const body = encodeURIComponent(
+            `Hello ${booking.clientName},\n\nPlease find attached your formal Eastern Vacations invoice for the recent ${booking.destination || booking.route} safari.\n\nTotal Due: KES ${typeof booking.price === 'number' ? booking.price.toLocaleString() : booking.payment}\n\nThank you for choosing Eastern Vacations Kenya.\n\nBest regards,\nThe Reservations Team`
+        );
+        window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    };
 
     return (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -167,33 +182,29 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
                                                 {booking.paymentStatus}
                                             </div>
                                         </td>
-                                        <td className="p-4 text-right relative whitespace-nowrap">
-                                            <div className="flex items-center justify-end gap-2">
-                                                <button
-                                                    onClick={() => generateInvoice(booking)}
-                                                    className="flex items-center gap-2 px-3 py-1.5 bg-primary-500/20 text-primary-400 hover:bg-primary-500/30 rounded-lg font-bold transition-all"
-                                                >
-                                                    <FileText size={16} />
-                                                    <span className="hidden sm:block">Invoice</span>
+                                        <td className="p-4 text-right whitespace-nowrap">
+                                            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-2 w-full">
+                                                {booking.paymentStatus === 'pending' && (
+                                                    <button onClick={() => handleConfirmPayment(booking._id)} className="p-2 sm:p-2.5 bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 rounded-lg transition-colors border border-blue-500/20 w-full sm:w-auto flex justify-center" title="Confirm Payment">
+                                                        <CheckCircle size={18} />
+                                                    </button>
+                                                )}
+                                                {booking.status === 'pending' && (
+                                                    <button onClick={() => handleUpdateBookingStatus(booking._id, 'confirmed')} className="p-2 sm:p-2.5 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 rounded-lg transition-colors border border-emerald-500/20 w-full sm:w-auto flex justify-center" title="Confirm Safari">
+                                                        <Calendar size={18} />
+                                                    </button>
+                                                )}
+                                                <button onClick={() => handleEmailShare(booking)} className="p-2 sm:p-2.5 bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20 rounded-lg transition-colors border border-indigo-500/20 w-full sm:w-auto flex justify-center" title="Email Client">
+                                                    <Mail size={18} />
                                                 </button>
-
-                                                <button
-                                                    onClick={() => setOpenDropdown(openDropdown === booking._id ? null : booking._id)}
-                                                    className="flex items-center gap-2 px-3 py-1.5 bg-dark-700 hover:bg-dark-600 text-white border border-white/10 rounded-lg font-bold transition-all"
-                                                >
-                                                    <span className="hidden sm:block">Manage</span>
-                                                    <ChevronDown size={16} />
+                                                <button onClick={() => handleWhatsAppShare(booking)} className="p-2 sm:p-2.5 bg-green-500/10 text-green-400 hover:bg-green-500/20 rounded-lg transition-colors border border-green-500/20 w-full sm:w-auto flex justify-center" title="WhatsApp Client">
+                                                    <MessageSquare size={18} />
+                                                </button>
+                                                <button onClick={() => generateInvoice(booking)} className="inline-flex items-center justify-center gap-2 px-4 py-2 sm:py-2.5 bg-gradient-to-r from-primary-500 to-orange-500 text-white rounded-lg font-bold shadow-lg shadow-orange-500/20 hover:-translate-y-0.5 transition-all text-sm w-full sm:w-auto">
+                                                    <FileText size={16} />
+                                                    <span className="hidden xl:inline">PDF</span>
                                                 </button>
                                             </div>
-
-                                            {openDropdown === booking._id && (
-                                                <div className="absolute right-4 top-14 w-40 bg-dark-800 border border-white/10 shadow-2xl rounded-xl z-20 overflow-hidden animate-in fade-in zoom-in-95">
-                                                    {booking.status === 'pending' && <button onClick={() => handleUpdateBookingStatus(booking._id, 'confirmed')} className="w-full text-left px-4 py-3 text-sm font-semibold text-emerald-400 hover:bg-emerald-400/10 transition-colors">Confirm Safari</button>}
-                                                    {booking.paymentStatus === 'pending' && <button onClick={() => handleConfirmPayment(booking._id)} className="w-full text-left px-4 py-3 text-sm font-semibold text-blue-400 hover:bg-blue-400/10 transition-colors">Confirm Payment</button>}
-                                                    {booking.status !== 'cancelled' && <button onClick={() => handleUpdateBookingStatus(booking._id, 'cancelled')} className="w-full text-left px-4 py-3 text-sm font-semibold text-orange-400 hover:bg-orange-400/10 transition-colors">Cancel Booking</button>}
-                                                    <button onClick={() => handleDeleteBooking(booking._id)} className="w-full text-left px-4 py-3 text-sm font-semibold text-red-400 hover:bg-red-400/10 transition-colors">Delete Record</button>
-                                                </div>
-                                            )}
                                         </td>
                                     </tr>
                                 ))}
