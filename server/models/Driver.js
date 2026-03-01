@@ -44,6 +44,7 @@ const driverSchema = new mongoose.Schema({
     park: { type: String },
     days: { type: Number },
     nights: { type: Number },
+    comment: { type: String },
     createdAt: { type: Date, default: Date.now }
   }],
   // Legacy support for backwards compatibility during transition

@@ -81,6 +81,7 @@ const Drivers = ({ user, drivers, setDrivers }) => {
             taskObj.park = formData.get('park');
             taskObj.days = Number(formData.get('days'));
             taskObj.nights = Number(formData.get('nights'));
+            taskObj.comment = formData.get('comment') || '';
         }
 
         // Preserve status if editing
@@ -314,9 +315,16 @@ const Drivers = ({ user, drivers, setDrivers }) => {
                                         {task.flightNumber && <div className="flex items-center gap-1"><Plane size={12} /> Flight: {task.flightNumber} (Arr: {task.flightArrivalTime})</div>}
                                         {task.sgrArrivalTime && <div className="flex items-center gap-1"><Clock size={12} /> SGR Arrival: {task.sgrArrivalTime}</div>}
                                         {selectedDriver.driverType === 'safari' && task.park && (
-                                            <div className="flex items-center gap-1 text-primary-400 mt-2 font-medium">
-                                                <MapPin size={12} /> {task.park} - {task.days} Days / {task.nights} Nights
-                                            </div>
+                                            <>
+                                                <div className="flex items-center gap-1 text-primary-400 mt-2 font-medium">
+                                                    <MapPin size={12} /> {task.park} - {task.days} Days / {task.nights} Nights
+                                                </div>
+                                                {task.comment && (
+                                                    <div className="mt-1 text-dark-300 italic border-l-2 border-primary-500/30 pl-2">
+                                                        "{task.comment}"
+                                                    </div>
+                                                )}
+                                            </>
                                         )}
                                     </div>
                                 </div>
@@ -401,6 +409,10 @@ const Drivers = ({ user, drivers, setDrivers }) => {
                                         <label className="block text-[10px] font-semibold text-dark-400 uppercase tracking-wider mb-1">Nights</label>
                                         <input name="nights" required type="number" min="0" defaultValue={editingTaskIndex !== null ? selectedDriver.tasks[editingTaskIndex].nights : ''} className="w-full bg-dark-900 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-primary-500" />
                                     </div>
+                                </div>
+                                <div>
+                                    <label className="block text-[10px] font-semibold text-dark-400 uppercase tracking-wider mb-1">Admin/Reservation Comment (Optional)</label>
+                                    <textarea name="comment" rows="2" placeholder="Add notes for this week/two-weeks safari..." defaultValue={editingTaskIndex !== null ? selectedDriver.tasks[editingTaskIndex].comment : ''} className="w-full bg-dark-900 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-primary-500 resize-none"></textarea>
                                 </div>
                             </div>
                         )}
