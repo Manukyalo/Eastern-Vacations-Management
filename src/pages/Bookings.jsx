@@ -104,12 +104,12 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
                 <div className="space-y-1.5">
-                    <h2 className="text-3xl font-black text-slate-900 tracking-tight">Manage Reservations</h2>
-                    <p className="text-slate-500 text-sm font-medium">Organize safaris, transfers, and city tours.</p>
+                    <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Manage Reservations</h2>
+                    <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">Organize safaris, transfers, and city tours.</p>
                 </div>
                 <button
                     onClick={() => canAddBooking ? setIsAddModalOpen(true) : alert("Basic Plan limit reached (50 maximum). Upgrade to Pro or Enterprise for unlimited safaris!")}
-                    className={`flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold shadow-lg transition-all whitespace-nowrap w-full sm:w-auto ${canAddBooking ? 'bg-gradient-to-r from-primary-500 to-orange-500 hover:from-primary-400 hover:to-orange-400 text-white shadow-primary-500/20 hover:-translate-y-0.5' : 'bg-slate-100 text-slate-500 cursor-not-allowed border border-slate-200'}`}
+                    className={`flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold shadow-lg transition-all whitespace-nowrap w-full sm:w-auto ${canAddBooking ? 'bg-gradient-to-r from-primary-500 to-orange-500 hover:from-primary-400 hover:to-orange-400 text-white shadow-primary-500/20 hover:-translate-y-0.5' : 'bg-slate-100 dark:bg-[#1e293b] text-slate-500 dark:text-slate-400 cursor-not-allowed border border-slate-200 dark:border-white/5'}`}
                 >
                     <Plus size={20} />
                     {canAddBooking ? currentTab.actionText : 'Upgrade to Add'}
@@ -117,14 +117,14 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
             </div>
 
             {/* Navigation Tabs */}
-            <div className="flex overflow-x-auto hide-scrollbar gap-2 border-b border-slate-300 pb-2">
+            <div className="flex overflow-x-auto hide-scrollbar gap-2 border-b border-slate-300 dark:border-white/10 pb-2">
                 {tabs.map(tab => (
                     <button
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id)}
                         className={`flex items-center gap-2 px-5 py-3 rounded-t-xl font-bold transition-all whitespace-nowrap ${activeTab === tab.id
-                            ? 'bg-slate-200 text-slate-900 border-b-2 border-primary-500'
-                            : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100'
+                            ? 'bg-slate-200 text-slate-900 dark:text-white border-b-2 border-primary-500'
+                            : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-white hover:bg-slate-100 dark:bg-[#1e293b]'
                             }`}
                     >
                         {tab.icon}
@@ -138,14 +138,14 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
                     <input
                         type="text"
                         placeholder={`Search ${currentTab.label.toLowerCase()}...`}
-                        className="w-full bg-white/80 border border-slate-300 rounded-xl py-3.5 px-4 text-slate-900 placeholder-dark-400 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500/50 transition-all font-medium shadow-inner"
+                        className="w-full bg-white dark:bg-[#1e293b]/80 dark:bg-white dark:bg-[#1e293b]/10 border border-slate-300 dark:border-white/10 rounded-xl py-3.5 px-4 text-slate-900 dark:text-white placeholder-dark-400 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500/50 transition-all font-medium shadow-inner"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </div>
                 <button
                     onClick={() => setIsFilterActive(!isFilterActive)}
-                    className={`flex items-center gap-2 border px-5 py-3 rounded-xl transition-colors w-full sm:w-auto shrink-0 justify-center h-full ${isFilterActive ? 'bg-primary-500/20 border-primary-500/50 text-primary-400' : 'bg-white/50 border-slate-300 text-slate-700 hover:bg-slate-100'
+                    className={`flex items-center gap-2 border px-5 py-3 rounded-xl transition-colors w-full sm:w-auto shrink-0 justify-center h-full ${isFilterActive ? 'bg-primary-500/20 border-primary-500/50 text-primary-400' : 'bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border-slate-300 dark:border-white/10 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:bg-[#1e293b]'
                         }`}
                 >
                     <Filter size={20} />
@@ -155,12 +155,12 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
             </div>
 
             {/* Data Grid */}
-            <div className="glass-card !p-0 overflow-hidden border-slate-300">
+            <div className="glass-card !p-0 overflow-hidden border-slate-300 dark:border-white/10">
                 <div className="overflow-x-auto min-h-[50vh]">
                     <div className="w-full">
                         <table className="w-full text-left border-collapse">
                             <thead>
-                                <tr className="bg-slate-100 border-b border-slate-300 text-slate-600 text-xs uppercase tracking-wider">
+                                <tr className="bg-slate-100 dark:bg-[#1e293b] border-b border-slate-300 dark:border-white/10 text-slate-600 dark:text-slate-300 text-xs uppercase tracking-wider">
                                     <th className="p-4 font-semibold whitespace-nowrap">Client Name</th>
                                     <th className="p-4 font-semibold whitespace-nowrap">Destination / Route</th>
                                     <th className="p-4 font-semibold whitespace-nowrap">Date</th>
@@ -171,10 +171,10 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
                             </thead>
                             <tbody className="divide-y divide-white/5">
                                 {filteredBookings.map((booking) => (
-                                    <tr key={booking._id} className="hover:bg-slate-100 transition-colors group">
-                                        <td className="p-4 font-medium text-slate-900 whitespace-nowrap">{booking.clientName}</td>
-                                        <td className="p-4 text-slate-600 whitespace-nowrap">{booking.destination}</td>
-                                        <td className="p-4 text-slate-600 flex items-center gap-2 whitespace-nowrap mt-1">
+                                    <tr key={booking._id} className="hover:bg-slate-100 dark:bg-[#1e293b] transition-colors group">
+                                        <td className="p-4 font-medium text-slate-900 dark:text-white whitespace-nowrap">{booking.clientName}</td>
+                                        <td className="p-4 text-slate-600 dark:text-slate-300 whitespace-nowrap">{booking.destination}</td>
+                                        <td className="p-4 text-slate-600 dark:text-slate-300 flex items-center gap-2 whitespace-nowrap mt-1">
                                             <Calendar size={16} className="text-primary-400" />
                                             {booking.startDate}
                                         </td>
@@ -184,13 +184,13 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
                                             </span>
                                         </td>
                                         <td className="p-4 whitespace-nowrap">
-                                            <div className="text-slate-900 font-medium">Ksh {booking.payment}</div>
+                                            <div className="text-slate-900 dark:text-white font-medium">Ksh {booking.payment}</div>
                                             <div className={`text-xs ${booking.paymentStatus === 'paid' ? 'text-emerald-400' : 'text-orange-400'}`}>
                                                 {booking.paymentStatus}
                                             </div>
                                         </td>
                                         <td className="p-4 text-right">
-                                            <div className="flex flex-wrap items-center justify-end sm:justify-end gap-2 w-full min-w-[100px]">
+                                            <div className="flex flex-wrap items-center justify-end gap-2 ml-auto w-48 sm:w-[280px]">
                                                 {booking.paymentStatus === 'pending' && (user?.role === 'reservation' || user?.role === 'admin') && (
                                                     <button onClick={() => handleConfirmPayment(booking._id)} className="p-2 sm:p-2.5 bg-blue-50 text-blue-500 hover:bg-blue-100 rounded-lg transition-colors border border-blue-200" title="Confirm Payment">
                                                         <CheckCircle size={18} />
@@ -226,7 +226,7 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
                                 ))}
                                 {filteredBookings.length === 0 && (
                                     <tr>
-                                        <td colSpan="6" className="p-8 text-center text-slate-500">
+                                        <td colSpan="6" className="p-8 text-center text-slate-500 dark:text-slate-400">
                                             No {currentTab.label.toLowerCase()} found. Try adjusting your search.
                                         </td>
                                     </tr>
@@ -240,45 +240,45 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
             <Modal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} title={currentTab.actionText}>
                 <form className="space-y-4" onSubmit={handleSaveBooking}>
                     <div>
-                        <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Client Name</label>
-                        <input name="clientName" required type="text" placeholder="e.g. Michael Scott" className="w-full bg-white/50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-primary-500 transition-colors" />
+                        <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Client Name</label>
+                        <input name="clientName" required type="text" placeholder="e.g. Michael Scott" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors" />
                     </div>
                     <div>
-                        <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Route / Destination</label>
-                        <input name="destination" required type="text" placeholder="e.g. Airport Transfer or Masai Mara" className="w-full bg-white/50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-primary-500 transition-colors" />
+                        <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Route / Destination</label>
+                        <input name="destination" required type="text" placeholder="e.g. Airport Transfer or Masai Mara" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors" />
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Assign Vehicle</label>
-                            <input name="vehicle" type="text" placeholder="e.g. Toyota Hiace KCD 123A" className="w-full bg-white/50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-primary-500 transition-colors" />
+                            <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Assign Vehicle</label>
+                            <input name="vehicle" type="text" placeholder="e.g. Toyota Hiace KCD 123A" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors" />
                         </div>
                         <div>
-                            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Assign Driver</label>
-                            <input name="driverId" type="text" placeholder="e.g. John Doe" className="w-full bg-white/50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-primary-500 transition-colors" />
-                        </div>
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Start Date</label>
-                            <input name="startDate" required type="date" className="w-full bg-white/50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-primary-500 transition-colors/[color-scheme:dark]" />
-                        </div>
-                        <div>
-                            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">End Date</label>
-                            <input name="endDate" required type="date" className="w-full bg-white/50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-primary-500 transition-colors/[color-scheme:dark]" />
+                            <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Assign Driver</label>
+                            <input name="driverId" type="text" placeholder="e.g. John Doe" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors" />
                         </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Number of Guests</label>
-                            <input name="guests" required type="number" min="1" placeholder="2" className="w-full bg-white/50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-primary-500 transition-colors" />
+                            <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Start Date</label>
+                            <input name="startDate" required type="date" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors/[color-scheme:dark]" />
                         </div>
                         <div>
-                            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Payment Initial (Ksh)</label>
-                            <input name="payment" required type="number" placeholder="2500" className="w-full bg-white/50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-primary-500 transition-colors" />
+                            <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">End Date</label>
+                            <input name="endDate" required type="date" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors/[color-scheme:dark]" />
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Number of Guests</label>
+                            <input name="guests" required type="number" min="1" placeholder="2" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors" />
+                        </div>
+                        <div>
+                            <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Payment Initial (Ksh)</label>
+                            <input name="payment" required type="number" placeholder="2500" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors" />
                         </div>
                     </div>
                     <div className="pt-4 flex flex-col sm:flex-row justify-end gap-3">
-                        <button type="button" onClick={() => setIsAddModalOpen(false)} className="w-full sm:w-auto flex justify-center px-5 py-3 rounded-xl font-bold text-slate-600 hover:text-slate-900 bg-slate-50 sm:bg-transparent border border-slate-200 sm:border-transparent transition-colors">Cancel</button>
+                        <button type="button" onClick={() => setIsAddModalOpen(false)} className="w-full sm:w-auto flex justify-center px-5 py-3 rounded-xl font-bold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:text-white bg-slate-50 dark:bg-[#0f172a] sm:bg-transparent border border-slate-200 dark:border-white/5 sm:border-transparent transition-colors">Cancel</button>
                         <button type="submit" className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gradient-to-r from-primary-500 to-orange-500 text-white px-5 py-3 rounded-xl font-bold shadow-lg shadow-orange-500/20 hover:-translate-y-0.5 transition-all">
                             <Save size={18} />
                             Save

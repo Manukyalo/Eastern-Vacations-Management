@@ -20,11 +20,12 @@ const Sidebar = ({ role, onLogout, isMobile, isOpen, setIsOpen }) => {
         { to: '/invoices', icon: <FileText size={20} />, label: 'Invoices' },
         { to: '/drivers', icon: <Users size={20} />, label: 'Drivers' },
         { to: '/vehicles', icon: <Car size={20} />, label: 'Vehicles' },
+        { to: '/settings', icon: <Settings size={20} />, label: 'Settings' },
     ];
 
     const links = role === 'admin' ? adminLinks : staffLinks;
 
-    const sidebarClasses = `fixed inset-y-0 left-0 bg-white/95 backdrop-blur-xl border-r border-slate-300 w-64 transform transition-transform duration-300 ease-in-out z-50 flex flex-col ${isMobile && !isOpen ? '-translate-x-full' : 'translate-x-0'
+    const sidebarClasses = `fixed inset-y-0 left-0 bg-white dark:bg-[#1e293b]/95 backdrop-blur-xl border-r border-slate-300 dark:border-white/10 w-64 transform transition-transform duration-300 ease-in-out z-50 flex flex-col ${isMobile && !isOpen ? '-translate-x-full' : 'translate-x-0'
         } ${!isMobile && 'translate-x-0 relative'}`;
 
     return (
@@ -36,12 +37,12 @@ const Sidebar = ({ role, onLogout, isMobile, isOpen, setIsOpen }) => {
                 />
             )}
             <aside className={sidebarClasses}>
-                <div className="p-6 flex items-center gap-3 border-b border-slate-200">
+                <div className="p-6 flex items-center gap-3 border-b border-slate-200 dark:border-white/5">
                     <div className="w-10 h-10 flex items-center justify-center shrink-0">
                         <img src="/icon/eastern-vacations-kenya-logo-rounded.png" alt="Eastern Vacations" className="w-full h-full object-contain drop-shadow-md" />
                     </div>
                     <div>
-                        <h2 className="font-bold text-xl text-slate-900 tracking-tight">Eastern</h2>
+                        <h2 className="font-bold text-xl text-slate-900 dark:text-white tracking-tight">Eastern</h2>
                         <p className="text-primary-500 text-xs font-semibold tracking-wider uppercase">Vacations</p>
                     </div>
                 </div>
@@ -55,7 +56,7 @@ const Sidebar = ({ role, onLogout, isMobile, isOpen, setIsOpen }) => {
                             className={({ isActive }) =>
                                 `flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group relative overflow-hidden ${isActive
                                     ? 'bg-primary-500/10 text-primary-400 border border-primary-500/20'
-                                    : 'text-slate-500 hover:bg-slate-100 hover:text-slate-700'
+                                    : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:bg-[#1e293b] hover:text-slate-700 dark:text-slate-200'
                                 }`
                             }
                         >
@@ -74,12 +75,12 @@ const Sidebar = ({ role, onLogout, isMobile, isOpen, setIsOpen }) => {
                     ))}
                 </nav>
 
-                <div className="p-4 border-t border-slate-200">
+                <div className="p-4 border-t border-slate-200 dark:border-white/5">
                     {role === 'admin' && (
                         <div className="glass-card mb-4 !p-4 border-primary-500/30 bg-primary-500/5 relative overflow-hidden">
                             <div className="absolute -right-4 -top-4 w-16 h-16 bg-primary-500/20 rounded-full blur-xl" />
-                            <h4 className="text-sm font-bold text-slate-900 mb-1">Pro Plan</h4>
-                            <p className="text-xs text-slate-500 mb-3">14 days left</p>
+                            <h4 className="text-sm font-bold text-slate-900 dark:text-white mb-1">Pro Plan</h4>
+                            <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">14 days left</p>
                             <NavLink
                                 to="/pricing"
                                 className="text-xs font-semibold text-primary-400 hover:text-primary-300 flex items-center gap-1 transition-colors"

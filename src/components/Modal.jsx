@@ -18,13 +18,13 @@ const Modal = ({ isOpen, onClose, title, children }) => {
                         initial={{ scale: 0.95, opacity: 0, y: 20 }}
                         animate={{ scale: 1, opacity: 1, y: 0 }}
                         exit={{ scale: 0.95, opacity: 0, y: 20 }}
-                        className="glass-card w-full max-w-lg relative z-10 border-slate-300 p-6 sm:p-8 max-h-[90vh] overflow-y-auto"
+                        className="glass-card w-full max-w-lg relative z-10 border-slate-300 dark:border-white/10 p-6 sm:p-8 max-h-[90vh] overflow-y-auto"
                     >
                         <div className="flex justify-between items-center mb-6">
-                            <h3 className="text-xl font-bold text-slate-900">{title}</h3>
+                            <h3 className="text-xl font-bold text-slate-900 dark:text-white">{title}</h3>
                             <button
                                 onClick={onClose}
-                                className="text-slate-500 hover:text-slate-900 p-1 rounded-lg hover:bg-slate-200 transition-colors"
+                                className="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-white p-1 rounded-lg hover:bg-slate-200 transition-colors"
                             >
                                 <X size={20} />
                             </button>

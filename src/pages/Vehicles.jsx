@@ -62,12 +62,12 @@ const Vehicles = ({ user, vehicles, setVehicles }) => {
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
                 <div className="space-y-1.5">
-                    <h2 className="text-3xl font-black text-slate-900 tracking-tight">Vehicle Fleet</h2>
-                    <p className="text-slate-500 text-sm font-medium">Monitor Safari Cruisers, Vans, and their insurance validity.</p>
+                    <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Vehicle Fleet</h2>
+                    <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">Monitor Safari Cruisers, Vans, and their insurance validity.</p>
                 </div>
                 <button
                     onClick={() => canAddVehicle ? setIsAddModalOpen(true) : alert(`Plan limit reached (${maxVehicles} maximum). Please upgrade your tier.`)}
-                    className={`flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold shadow-lg transition-all w-full sm:w-auto ${canAddVehicle ? 'bg-gradient-to-r from-primary-500 to-orange-500 hover:from-primary-400 hover:to-orange-400 text-white shadow-primary-500/20 hover:-translate-y-0.5' : 'bg-slate-100 text-slate-500 cursor-not-allowed border border-slate-200'}`}
+                    className={`flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold shadow-lg transition-all w-full sm:w-auto ${canAddVehicle ? 'bg-gradient-to-r from-primary-500 to-orange-500 hover:from-primary-400 hover:to-orange-400 text-white shadow-primary-500/20 hover:-translate-y-0.5' : 'bg-slate-100 dark:bg-[#1e293b] text-slate-500 dark:text-slate-400 cursor-not-allowed border border-slate-200 dark:border-white/5'}`}
                 >
                     <Plus size={20} />
                     {canAddVehicle ? 'Register Vehicle' : 'Upgrade to Add'}
@@ -79,19 +79,19 @@ const Vehicles = ({ user, vehicles, setVehicles }) => {
                     <input
                         type="text"
                         placeholder="Search by model or plate..."
-                        className="w-full bg-white/80 border border-slate-300 rounded-xl py-3.5 px-4 text-slate-900 placeholder-dark-400 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500/50 transition-all font-medium shadow-inner"
+                        className="w-full bg-white dark:bg-[#1e293b]/80 dark:bg-white dark:bg-[#1e293b]/10 border border-slate-300 dark:border-white/10 rounded-xl py-3.5 px-4 text-slate-900 dark:text-white placeholder-dark-400 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500/50 transition-all font-medium shadow-inner"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </div>
             </div>
 
-            <div className="glass-card !p-0 overflow-hidden border-slate-300 bg-transparent sm:bg-slate-50/80">
+            <div className="glass-card !p-0 overflow-hidden border-slate-300 dark:border-white/10 bg-transparent sm:bg-slate-50 dark:bg-[#0f172a]/80">
                 <div className="w-full sm:min-h-[50vh]">
                     <div className="w-full px-4 py-4 sm:p-0">
                         <table className="w-full text-left border-collapse block sm:table">
                             <thead className="hidden sm:table-header-group">
-                                <tr className="bg-slate-100 border-b border-slate-300 text-slate-600 text-xs uppercase tracking-wider">
+                                <tr className="bg-slate-100 dark:bg-[#1e293b] border-b border-slate-300 dark:border-white/10 text-slate-600 dark:text-slate-300 text-xs uppercase tracking-wider">
                                     <th className="p-4 font-semibold whitespace-nowrap">Model / Year</th>
                                     <th className="p-4 font-semibold whitespace-nowrap">License Plate</th>
                                     <th className="p-4 font-semibold whitespace-nowrap">Insurance Expiry</th>
@@ -107,49 +107,49 @@ const Vehicles = ({ user, vehicles, setVehicles }) => {
                                     const isExpiringSoon = daysToExpiry <= 30;
 
                                     return (
-                                        <tr key={vehicle._id} className="block sm:table-row bg-white/80 sm:bg-transparent rounded-2xl p-5 sm:p-0 border border-slate-200 sm:border-none relative hover:bg-slate-100 transition-colors group shadow-lg sm:shadow-none">
+                                        <tr key={vehicle._id} className="block sm:table-row bg-white dark:bg-[#1e293b]/80 dark:bg-white dark:bg-[#1e293b]/10 sm:bg-transparent rounded-2xl p-5 sm:p-0 border border-slate-200 dark:border-white/5 sm:border-none relative hover:bg-slate-100 dark:bg-[#1e293b] transition-colors group shadow-lg sm:shadow-none">
                                             <td className="block sm:table-cell mb-4 sm:mb-0 p-0 sm:p-4 whitespace-nowrap">
-                                                <div className="sm:hidden text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">Model / Year</div>
+                                                <div className="sm:hidden text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">Model / Year</div>
                                                 <div className="flex items-center gap-3">
-                                                    <span className="font-medium text-slate-900 text-lg sm:text-base">{vehicle.model}</span>
+                                                    <span className="font-medium text-slate-900 dark:text-white text-lg sm:text-base">{vehicle.model}</span>
                                                 </div>
                                             </td>
                                             <td className="block sm:table-cell mb-4 sm:mb-0 p-0 sm:p-4 whitespace-nowrap">
-                                                <div className="sm:hidden text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">License Plate</div>
+                                                <div className="sm:hidden text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">License Plate</div>
                                                 <div className="text-primary-400 font-black font-mono tracking-wider">{vehicle.plate}</div>
                                             </td>
                                             <td className="block sm:table-cell mb-4 sm:mb-0 p-0 sm:p-4 whitespace-nowrap">
-                                                <div className="sm:hidden text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">Insurance Expiry</div>
+                                                <div className="sm:hidden text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">Insurance Expiry</div>
                                                 <div className="flex items-center gap-2">
                                                     <input
                                                         type="date"
                                                         value={vehicle.insuranceExpiry}
                                                         onChange={(e) => handleUpdateExpiry(vehicle._id, e.target.value)}
-                                                        className={`bg-slate-50 sm:bg-transparent px-3 py-1.5 sm:p-0 rounded-lg sm:rounded-none sm:border-b text-sm focus:outline-none focus:border-blue-500 transition-colors/[color-scheme:dark] ${isExpiringSoon ? 'text-orange-400 border-orange-500/30' : 'text-slate-600 border-slate-300'}`}
+                                                        className={`bg-slate-50 dark:bg-[#0f172a] sm:bg-transparent px-3 py-1.5 sm:p-0 rounded-lg sm:rounded-none sm:border-b text-sm focus:outline-none focus:border-blue-500 transition-colors/[color-scheme:dark] ${isExpiringSoon ? 'text-orange-400 border-orange-500/30' : 'text-slate-600 dark:text-slate-300 border-slate-300 dark:border-white/10'}`}
                                                     />
                                                     {isExpiringSoon && <ShieldAlert size={16} className="text-orange-500 animate-pulse ml-2" />}
                                                 </div>
                                             </td>
                                             <td className="block sm:table-cell mb-4 sm:mb-0 p-0 sm:p-4 whitespace-nowrap">
-                                                <div className="sm:hidden text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">Vehicle Status</div>
+                                                <div className="sm:hidden text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">Vehicle Status</div>
                                                 <span className={`px-3 py-1.5 sm:px-2.5 sm:py-1 rounded-full text-xs font-bold ${vehicle.status === 'available' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-blue-500/10 text-blue-400 border border-blue-500/20'
                                                     }`}>
                                                     {vehicle.status.toUpperCase()}
                                                 </span>
                                             </td>
-                                            <td className="block sm:table-cell p-0 sm:p-4 text-left sm:text-right relative whitespace-nowrap mt-4 sm:mt-0 pt-4 sm:pt-0 border-t border-slate-200 sm:border-none">
+                                            <td className="block sm:table-cell p-0 sm:p-4 text-left sm:text-right relative whitespace-nowrap mt-4 sm:mt-0 pt-4 sm:pt-0 border-t border-slate-200 dark:border-white/5 sm:border-none">
                                                 <button
                                                     onClick={() => setOpenDropdown(openDropdown === vehicle._id ? null : vehicle._id)}
-                                                    className="w-full sm:w-auto flex items-center justify-center gap-2 p-3 sm:p-2 bg-slate-50 border border-slate-300 sm:border-none sm:bg-transparent text-slate-900 hover:bg-slate-200 rounded-xl sm:rounded-lg transition-colors font-bold"
+                                                    className="w-full sm:w-auto flex items-center justify-center gap-2 p-3 sm:p-2 bg-slate-50 dark:bg-[#0f172a] border border-slate-300 dark:border-white/10 sm:border-none sm:bg-transparent text-slate-900 dark:text-white hover:bg-slate-200 rounded-xl sm:rounded-lg transition-colors font-bold"
                                                 >
                                                     <span className="sm:hidden">Manage Vehicle Configuration</span>
                                                     <MoreVertical size={18} className="hidden sm:block" />
                                                 </button>
 
                                                 {openDropdown === vehicle._id && (
-                                                    <div className="absolute left-0 sm:left-auto right-0 sm:right-8 top-16 sm:top-10 w-full sm:w-36 bg-slate-50 border border-slate-300 shadow-2xl rounded-xl z-20 overflow-hidden animate-in fade-in zoom-in-95">
-                                                        <button onClick={() => { setOpenDropdown(null); setSelectedVehicle(vehicle); }} className="w-full text-left px-5 py-3 sm:px-4 sm:py-2 text-sm font-semibold text-slate-900 hover:bg-slate-200 transition-colors border-b border-slate-200 sm:border-none">View Details Log</button>
-                                                        <button onClick={() => { setOpenDropdown(null); alert('Assign Driver Modal'); }} className="w-full text-left px-5 py-3 sm:px-4 sm:py-2 text-sm font-semibold text-slate-900 hover:bg-slate-200 transition-colors border-b border-slate-200 sm:border-none">Assign Driver Unit</button>
+                                                    <div className="absolute left-0 sm:left-auto right-0 sm:right-8 top-16 sm:top-10 w-full sm:w-36 bg-slate-50 dark:bg-[#0f172a] border border-slate-300 dark:border-white/10 shadow-2xl rounded-xl z-20 overflow-hidden animate-in fade-in zoom-in-95">
+                                                        <button onClick={() => { setOpenDropdown(null); setSelectedVehicle(vehicle); }} className="w-full text-left px-5 py-3 sm:px-4 sm:py-2 text-sm font-semibold text-slate-900 dark:text-white hover:bg-slate-200 transition-colors border-b border-slate-200 dark:border-white/5 sm:border-none">View Details Log</button>
+                                                        <button onClick={() => { setOpenDropdown(null); alert('Assign Driver Modal'); }} className="w-full text-left px-5 py-3 sm:px-4 sm:py-2 text-sm font-semibold text-slate-900 dark:text-white hover:bg-slate-200 transition-colors border-b border-slate-200 dark:border-white/5 sm:border-none">Assign Driver Unit</button>
 
                                                         {vehicle.status === 'available' ? (
                                                             <button onClick={() => handleUpdateVehicleStatus(vehicle._id, 'suspended')} className="w-full text-left px-4 py-2 text-sm text-orange-400 hover:bg-orange-400/10 transition-colors">Suspend Option</button>
@@ -173,25 +173,25 @@ const Vehicles = ({ user, vehicles, setVehicles }) => {
             <Modal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} title="Register New Vehicle">
                 <form className="space-y-4" onSubmit={handleRegisterVehicle}>
                     <div>
-                        <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Vehicle Model</label>
-                        <input name="model" required type="text" placeholder="e.g. Land Cruiser V8" className="w-full bg-white/50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-blue-500 transition-colors" />
+                        <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Vehicle Model</label>
+                        <input name="model" required type="text" placeholder="e.g. Land Cruiser V8" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors" />
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">License Plate</label>
-                            <input name="plate" required type="text" placeholder="e.g. KCA 123B" className="w-full bg-white/50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-blue-500 transition-colors" />
+                            <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">License Plate</label>
+                            <input name="plate" required type="text" placeholder="e.g. KCA 123B" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors" />
                         </div>
                         <div>
-                            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Seats Capacity</label>
-                            <input name="seats" required type="number" min="2" max="50" placeholder="e.g. 8" className="w-full bg-white/50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-blue-500 transition-colors" />
+                            <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Seats Capacity</label>
+                            <input name="seats" required type="number" min="2" max="50" placeholder="e.g. 8" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors" />
                         </div>
                     </div>
                     <div>
-                        <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Insurance Expiry</label>
-                        <input name="insuranceExpiry" required type="date" className="w-full bg-white/50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-blue-500 transition-colors/[color-scheme:dark]" />
+                        <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Insurance Expiry</label>
+                        <input name="insuranceExpiry" required type="date" className="w-full bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors/[color-scheme:dark]" />
                     </div>
                     <div className="pt-4 flex flex-col sm:flex-row justify-end gap-3">
-                        <button type="button" onClick={() => setIsAddModalOpen(false)} className="w-full sm:w-auto flex justify-center px-5 py-3 rounded-xl font-bold text-slate-600 hover:text-slate-900 bg-slate-50 sm:bg-transparent border border-slate-200 sm:border-transparent transition-colors">Cancel</button>
+                        <button type="button" onClick={() => setIsAddModalOpen(false)} className="w-full sm:w-auto flex justify-center px-5 py-3 rounded-xl font-bold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:text-white bg-slate-50 dark:bg-[#0f172a] sm:bg-transparent border border-slate-200 dark:border-white/5 sm:border-transparent transition-colors">Cancel</button>
                         <button type="submit" className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gradient-to-r from-primary-500 to-orange-500 hover:from-primary-400 hover:to-orange-400 text-white px-5 py-3 rounded-xl font-bold shadow-lg shadow-primary-500/20 hover:-translate-y-0.5 transition-all">
                             <Save size={18} />
                             Register Vehicle
@@ -204,33 +204,33 @@ const Vehicles = ({ user, vehicles, setVehicles }) => {
             <Modal isOpen={!!selectedVehicle} onClose={() => setSelectedVehicle(null)} title="Vehicle Profile">
                 {selectedVehicle && (
                     <div className="space-y-4">
-                        <div className="bg-white/50 p-4 rounded-xl border border-slate-300">
-                            <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Model & Make</p>
-                            <p className="text-slate-900 font-bold text-lg">{selectedVehicle.model}</p>
+                        <div className="bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 p-4 rounded-xl border border-slate-300 dark:border-white/10">
+                            <p className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Model & Make</p>
+                            <p className="text-slate-900 dark:text-white font-bold text-lg">{selectedVehicle.model}</p>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
-                            <div className="bg-white/50 p-4 rounded-xl border border-slate-300">
-                                <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">License Plate</p>
-                                <p className="text-slate-900 font-mono tracking-wider">{selectedVehicle.plate}</p>
+                            <div className="bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 p-4 rounded-xl border border-slate-300 dark:border-white/10">
+                                <p className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">License Plate</p>
+                                <p className="text-slate-900 dark:text-white font-mono tracking-wider">{selectedVehicle.plate}</p>
                             </div>
-                            <div className="bg-white/50 p-4 rounded-xl border border-slate-300">
-                                <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Current Status</p>
+                            <div className="bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 p-4 rounded-xl border border-slate-300 dark:border-white/10">
+                                <p className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Current Status</p>
                                 <span className={`inline-block mt-1 px-2.5 py-1 rounded-full text-xs font-semibold ${selectedVehicle.status === 'available' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-blue-500/10 text-blue-400'}`}>
                                     {selectedVehicle.status}
                                 </span>
                             </div>
                         </div>
-                        <div className="bg-white/50 p-4 rounded-xl border border-slate-300 flex justify-between items-center">
+                        <div className="bg-white dark:bg-[#1e293b]/50 dark:bg-white dark:bg-[#1e293b]/5 p-4 rounded-xl border border-slate-300 dark:border-white/10 flex justify-between items-center">
                             <div>
-                                <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Insurance Valid Until</p>
-                                <p className="text-slate-900 font-medium">
+                                <p className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Insurance Valid Until</p>
+                                <p className="text-slate-900 dark:text-white font-medium">
                                     {selectedVehicle.insuranceExpiry ? new Date(selectedVehicle.insuranceExpiry).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : 'N/A'}
                                 </p>
                             </div>
                             <ShieldAlert size={24} className={Math.ceil((new Date(selectedVehicle.insuranceExpiry) - new Date()) / (1000 * 60 * 60 * 24)) <= 30 ? "text-orange-500 animate-pulse" : "text-dark-500"} />
                         </div>
                         <div className="pt-4 flex justify-end">
-                            <button onClick={() => setSelectedVehicle(null)} className="px-5 py-2.5 bg-slate-50 text-slate-900 rounded-xl font-bold border border-slate-300 hover:bg-slate-100 transition-colors">
+                            <button onClick={() => setSelectedVehicle(null)} className="px-5 py-2.5 bg-slate-50 dark:bg-[#0f172a] text-slate-900 dark:text-white rounded-xl font-bold border border-slate-300 dark:border-white/10 hover:bg-slate-100 dark:bg-[#1e293b] transition-colors">
                                 Close Details
                             </button>
                         </div>

@@ -74,7 +74,7 @@ const AIAssistant = ({ user }) => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setIsOpen(true)}
-                className={`fixed bottom-6 right-6 w-14 h-14 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-slate-900 shadow-2xl flex items-center justify-center border-2 border-slate-300 transition-all z-[9999] ${isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+                className={`fixed bottom-6 right-6 w-14 h-14 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-slate-900 dark:text-white shadow-2xl flex items-center justify-center border-2 border-slate-300 dark:border-white/10 transition-all z-[9999] ${isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
             >
                 <Bot size={28} />
                 <span className="absolute top-0 right-0 w-3.5 h-3.5 bg-emerald-500 border-2 border-dark-900 rounded-full animate-pulse"></span>
@@ -88,23 +88,23 @@ const AIAssistant = ({ user }) => {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 20, scale: 0.95 }}
                         transition={{ duration: 0.2 }}
-                        className="fixed bottom-6 right-6 w-[400px] h-[600px] max-h-[80vh] flex flex-col glass-card border-slate-300 shadow-2xl z-[9999] overflow-hidden"
+                        className="fixed bottom-6 right-6 w-[400px] h-[600px] max-h-[80vh] flex flex-col glass-card border-slate-300 dark:border-white/10 shadow-2xl z-[9999] overflow-hidden"
                     >
                         {/* Header */}
-                        <div className="bg-gradient-to-r from-blue-900/60 to-indigo-900/60 border-b border-slate-300 p-4 flex justify-between items-center shrink-0">
+                        <div className="bg-gradient-to-r from-blue-900/60 to-indigo-900/60 border-b border-slate-300 dark:border-white/10 p-4 flex justify-between items-center shrink-0">
                             <div className="flex items-center gap-3">
                                 <div className="p-2 bg-blue-500/20 rounded-lg border border-blue-400/30">
                                     <Cpu size={20} className="text-blue-400" />
                                 </div>
                                 <div>
-                                    <h3 className="text-slate-900 font-bold text-sm">System AI Assistant</h3>
+                                    <h3 className="text-slate-900 dark:text-white font-bold text-sm">System AI Assistant</h3>
                                     <div className="flex items-center gap-1.5 mt-0.5">
                                         <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
                                         <span className="text-[10px] text-emerald-400 font-mono uppercase tracking-wider">Engine Online</span>
                                     </div>
                                 </div>
                             </div>
-                            <button onClick={() => setIsOpen(false)} className="text-slate-500 hover:text-slate-900 p-1.5 rounded-lg hover:bg-slate-200 transition-colors">
+                            <button onClick={() => setIsOpen(false)} className="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-white p-1.5 rounded-lg hover:bg-slate-200 transition-colors">
                                 <X size={20} />
                             </button>
                         </div>
@@ -124,13 +124,13 @@ const AIAssistant = ({ user }) => {
                                         </div>
                                     )}
 
-                                    <div className={`max-w-[85%] rounded-2xl px-4 py-3 ${msg.sender === 'user'
-                                        ? 'bg-primary-600/20 border border-primary-500/30 text-slate-900 rounded-br-none'
+                                    <div className={`max-w-[85%] rounded-2xl px-4 py-3 shadow-sm ${msg.sender === 'user'
+                                        ? 'bg-primary-600/20 border border-primary-500/30 text-slate-900 dark:text-white rounded-br-none'
                                         : msg.isSystemLog
-                                            ? 'bg-slate-50 border border-emerald-500/30 text-emerald-400 font-bold w-full text-center flex items-center justify-center gap-2'
+                                            ? 'bg-slate-50 dark:bg-[#0f172a] border border-emerald-500/30 text-emerald-400 font-bold w-full text-center flex items-center justify-center gap-2'
                                             : msg.isError
                                                 ? 'bg-red-500/10 border border-red-500/30 text-red-200 rounded-bl-none'
-                                                : 'bg-slate-50/80 border border-slate-300 text-dark-100 rounded-bl-none'
+                                                : 'bg-slate-800 border border-slate-700 text-slate-100 rounded-bl-none shadow-md'
                                         }`}>
                                         {msg.isSystemLog && <CheckCircle size={16} />}
                                         <p className="leading-relaxed">{msg.text}</p>
@@ -139,7 +139,7 @@ const AIAssistant = ({ user }) => {
                                         {msg.actionLabel && msg.actionCommand && (
                                             <button
                                                 onClick={() => handleExecuteAction(msg.actionCommand)}
-                                                className="mt-3 w-full flex items-center justify-center gap-2 bg-gradient-to-r from-red-600/80 to-orange-600/80 hover:from-red-500 hover:to-orange-500 text-slate-900 py-2 rounded-lg font-bold border border-red-400/30 transition-all shadow-lg"
+                                                className="mt-3 w-full flex items-center justify-center gap-2 bg-gradient-to-r from-red-600/80 to-orange-600/80 hover:from-red-500 hover:to-orange-500 text-slate-900 dark:text-white py-2 rounded-lg font-bold border border-red-400/30 transition-all shadow-lg"
                                             >
                                                 <ShieldAlert size={16} />
                                                 {msg.actionLabel}
@@ -153,7 +153,7 @@ const AIAssistant = ({ user }) => {
                                     <div className="w-8 h-8 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mr-3 shrink-0">
                                         <Bot size={16} className="text-blue-400" />
                                     </div>
-                                    <div className="bg-slate-50/80 border border-slate-300 rounded-2xl rounded-bl-none px-4 py-3 flex items-center gap-1.5">
+                                    <div className="bg-slate-50 dark:bg-[#0f172a]/80 border border-slate-300 dark:border-white/10 rounded-2xl rounded-bl-none px-4 py-3 flex items-center gap-1.5">
                                         <span className="w-2 h-2 rounded-full bg-blue-400/60 animate-bounce"></span>
                                         <span className="w-2 h-2 rounded-full bg-blue-400/60 animate-bounce delay-75"></span>
                                         <span className="w-2 h-2 rounded-full bg-blue-400/60 animate-bounce delay-150"></span>
@@ -164,7 +164,7 @@ const AIAssistant = ({ user }) => {
                         </div>
 
                         {/* Input Area */}
-                        <div className="p-4 bg-white border-t border-slate-300 shrink-0">
+                        <div className="p-4 bg-white dark:bg-[#1e293b] border-t border-slate-300 dark:border-white/10 shrink-0">
                             <form onSubmit={handleSendMessage} className="relative flex items-center">
                                 <input
                                     type="text"

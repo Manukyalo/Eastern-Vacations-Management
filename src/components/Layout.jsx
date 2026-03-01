@@ -22,7 +22,7 @@ const Layout = ({ user, onLogout, vehicles, bookings }) => {
     }, []);
 
     return (
-        <div className="min-h-screen bg-slate-50 text-slate-700 font-mono flex">
+        <div className="min-h-screen bg-slate-50 dark:bg-[#0f172a] text-slate-700 dark:text-slate-200 font-mono flex">
             {/* Dynamic Background Effects */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
                 <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-primary-900/10 blur-[120px]" />
