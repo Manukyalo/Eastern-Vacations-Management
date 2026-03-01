@@ -21,7 +21,10 @@ const Drivers = ({ user, drivers, setDrivers }) => {
             });
             setDrivers(prev => [...prev, res.data]);
             setIsAddModalOpen(false);
-        } catch (err) { console.error('Error creating driver:', err); }
+        } catch (err) {
+            console.error('Error creating driver:', err);
+            alert('Registration Failed: ' + (err.response?.data?.message || err.message));
+        }
     };
 
     const handleDeleteDriver = async (id) => {

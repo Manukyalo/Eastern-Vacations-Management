@@ -223,9 +223,9 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
                             <input name="payment" required type="number" placeholder="2500" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-500 transition-colors" />
                         </div>
                     </div>
-                    <div className="pt-4 flex justify-end gap-3">
-                        <button type="button" onClick={() => setIsAddModalOpen(false)} className="px-5 py-2.5 rounded-xl font-bold text-dark-300 hover:text-white transition-colors border border-transparent hover:border-white/10">Cancel</button>
-                        <button type="submit" className="flex items-center gap-2 bg-gradient-to-r from-primary-500 to-orange-500 text-white px-5 py-2.5 rounded-xl font-bold shadow-lg shadow-orange-500/20 hover:-translate-y-0.5 transition-all">
+                    <div className="pt-4 flex flex-col sm:flex-row justify-end gap-3">
+                        <button type="button" onClick={() => setIsAddModalOpen(false)} className="w-full sm:w-auto flex justify-center px-5 py-3 rounded-xl font-bold text-dark-300 hover:text-white bg-dark-800 sm:bg-transparent border border-white/5 sm:border-transparent transition-colors">Cancel</button>
+                        <button type="submit" className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gradient-to-r from-primary-500 to-orange-500 text-white px-5 py-3 rounded-xl font-bold shadow-lg shadow-orange-500/20 hover:-translate-y-0.5 transition-all">
                             <Save size={18} />
                             Save
                         </button>

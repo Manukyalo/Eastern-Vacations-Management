@@ -1,29 +1,33 @@
 @import "tailwindcss";
 
 @theme {
-    --color-primary-50: #fcf5f1;
-    --color-primary-100: #f8ebe3;
-    --color-primary-200: #f1d7c7;
-    --color-primary-300: #eac3ab;
+    --color-primary-50: #fcfcfb;
+    --color-primary-100: #f9f6df;
+    --color-primary-200: #f3e9b1;
+    --color-primary-300: #ead278;
     --color-primary-400: #E3976A;
-    /* Di Serria - Official Brand Color */
-    --color-primary-500: #d68352;
-    --color-primary-600: #cc875f;
+    /* Eastern Vacations Signature Gold */
+    --color-primary-500: #CC8353;
+    /* Deepened Luxury Gold */
+    --color-primary-600: #B46A3A;
     --color-primary-800: #A9B8C3;
-    /* Cadet Blue - Official Brand Accents */
+    /* Cadet Blue */
     --color-primary-900: #04194E;
-    /* Gulf Blue - Official Brand Deep Contrast */
+    /* Gulf Blue */
 
-    --color-dark-50: #f8fafc;
-    --color-dark-100: #f1f5f9;
-    --color-dark-200: #e2e8f0;
-    --color-dark-300: #cbd5e1;
-    --color-dark-400: #94a3b8;
-    --color-dark-500: #64748b;
-    --color-dark-600: #475569;
-    --color-dark-700: #334155;
-    --color-dark-800: #1e293b;
-    --color-dark-900: #0f172a;
+    /* Ultra-Premium Obsidian Dark Bounds */
+    --color-dark-50: #fafafa;
+    --color-dark-100: #f4f4f5;
+    --color-dark-200: #e4e4e7;
+    --color-dark-300: #a1a1aa;
+    --color-dark-400: #71717a;
+    --color-dark-500: #52525b;
+    --color-dark-600: #3f3f46;
+    --color-dark-700: #27272a;
+    --color-dark-800: #18181b;
+    /* Obsidian Surface */
+    --color-dark-900: #09090b;
+    /* Pure Void Background */
 }
 
 @layer base {
