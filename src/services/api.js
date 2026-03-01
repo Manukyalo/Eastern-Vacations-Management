@@ -34,6 +34,7 @@ api.interceptors.request.use(
 export const authAPI = {
     login: (credentials) => api.post('/auth/login', credentials),
     getProfile: () => api.get('/auth/me'),
+    subscribe: (data) => api.post('/auth/subscribe', data)
 };
 
 // --- Booking Endpoints ---

@@ -3,7 +3,9 @@ import { Plus, Search, MoreVertical, ShieldCheck, Watch, Save } from 'lucide-rea
 import Modal from '../components/Modal';
 import { driverAPI } from '../services/api';
 
-const Drivers = ({ drivers, setDrivers }) => {
+const Drivers = ({ user, drivers, setDrivers }) => {
+    const maxDrivers = user?.planType === 'Basic' ? 5 : user?.planType === 'Pro' ? 50 : Infinity;
+    const canAddDriver = drivers.length < maxDrivers;
     const [searchTerm, setSearchTerm] = useState('');
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [openDropdown, setOpenDropdown] = useState(null);
@@ -46,11 +48,11 @@ const Drivers = ({ drivers, setDrivers }) => {
                     <p className="text-dark-400 text-sm">Manage your certified tour operators and dispatch statuses.</p>
                 </div>
                 <button
-                    onClick={() => setIsAddModalOpen(true)}
-                    className="flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white px-5 py-2.5 rounded-xl font-bold shadow-lg shadow-emerald-500/20 transition-all hover:-translate-y-0.5"
+                    onClick={() => canAddDriver ? setIsAddModalOpen(true) : alert(`Plan limit reached (${maxDrivers} maximum). Please upgrade your tier.`)}
+                    className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold shadow-lg transition-all ${canAddDriver ? 'bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white shadow-emerald-500/20 hover:-translate-y-0.5' : 'bg-dark-700 text-dark-400 cursor-not-allowed border border-white/5'}`}
                 >
                     <Plus size={20} />
-                    Add Driver
+                    {canAddDriver ? 'Add Driver' : 'Upgrade to Add'}
                 </button>
             </div>
 

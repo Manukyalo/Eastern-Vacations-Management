@@ -3,7 +3,9 @@ import { Plus, Search, MoreVertical, ShieldAlert, Key, Save, Car } from 'lucide-
 import Modal from '../components/Modal';
 import { vehicleAPI } from '../services/api';
 
-const Vehicles = ({ vehicles, setVehicles }) => {
+const Vehicles = ({ user, vehicles, setVehicles }) => {
+    const maxVehicles = user?.planType === 'Basic' ? 5 : user?.planType === 'Pro' ? 50 : Infinity;
+    const canAddVehicle = vehicles.length < maxVehicles;
     const [searchTerm, setSearchTerm] = useState('');
     const [openDropdown, setOpenDropdown] = useState(null);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -55,11 +57,11 @@ const Vehicles = ({ vehicles, setVehicles }) => {
                     <p className="text-dark-400 text-sm">Monitor Safari Cruisers, Vans, and their insurance validity.</p>
                 </div>
                 <button
-                    onClick={() => setIsAddModalOpen(true)}
-                    className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white px-5 py-2.5 rounded-xl font-bold shadow-lg shadow-blue-500/20 transition-all hover:-translate-y-0.5"
+                    onClick={() => canAddVehicle ? setIsAddModalOpen(true) : alert(`Plan limit reached (${maxVehicles} maximum). Please upgrade your tier.`)}
+                    className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold shadow-lg transition-all ${canAddVehicle ? 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-blue-500/20 hover:-translate-y-0.5' : 'bg-dark-700 text-dark-400 cursor-not-allowed border border-white/5'}`}
                 >
                     <Plus size={20} />
-                    Register Vehicle
+                    {canAddVehicle ? 'Register Vehicle' : 'Upgrade to Add'}
                 </button>
             </div>
 

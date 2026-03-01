@@ -49,8 +49,8 @@ const Layout = ({ user, onLogout, vehicles, bookings }) => {
                     <Outlet />
                 </main>
 
-                {/* Global Embedded AI Engine */}
-                <AIAssistant user={user} />
+                {/* Global Embedded AI Engine (Enterprise Only) */}
+                {user?.planType === 'Enterprise' && <AIAssistant user={user} />}
             </div>
         </div>
     );

@@ -10,11 +10,16 @@ router.get('/seed', async (req, res) => {
   try {
     const adminExists = await User.findOne({ email: 'admin@easternvacations.com' });
     if (!adminExists) {
+      const futureDate = new Date();
+      futureDate.setFullYear(futureDate.getFullYear() + 100);
+
       await User.create({
         name: 'Admin Executive',
         email: 'admin@easternvacations.com',
         password: '@EasternVacations2026',
-        role: 'admin'
+        role: 'admin',
+        planType: 'Enterprise',
+        subscriptionExpiry: futureDate
       });
     }
 
@@ -61,6 +66,7 @@ router.post('/register', async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        planType: user.planType,
         token: generateToken(user._id)
       });
     }
@@ -100,6 +106,7 @@ router.post('/login', async (req, res) => {
       name: user.name,
       email: user.email,
       role: user.role,
+      planType: user.planType,
       token: generateToken(user._id)
     });
   } catch (error) {
@@ -129,6 +136,36 @@ router.get('/me', async (req, res) => {
     res.json(user);
   } catch (error) {
     res.status(401).json({ message: 'Invalid token' });
+  }
+});
+
+// @route   POST /api/auth/subscribe
+// @desc    Upgrade user subscription tier
+// @access  Private
+router.post('/subscribe', require('../middleware/auth').protect, async (req, res) => {
+  try {
+    const { plan } = req.body;
+
+    if (!['Basic', 'Pro', 'Enterprise'].includes(plan)) {
+      return res.status(400).json({ message: 'Invalid plan type' });
+    }
+
+    const futureDate = new Date();
+    futureDate.setFullYear(futureDate.getFullYear() + 1); // 1 year expiry
+
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user._id,
+      {
+        planType: plan,
+        subscriptionStatus: 'active',
+        subscriptionExpiry: futureDate
+      },
+      { new: true }
+    ).select('-password');
+
+    res.json(updatedUser);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 

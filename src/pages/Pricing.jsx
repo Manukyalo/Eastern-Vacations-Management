@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Check, Zap, Shield, Crown } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { authAPI } from '../services/api';
 
 const PricingCard = ({ tier, isSelected, onSelect }) => {
     const isEnterprise = tier.name === 'Enterprise';
@@ -70,9 +71,10 @@ const PricingCard = ({ tier, isSelected, onSelect }) => {
     );
 };
 
-const Pricing = () => {
+const Pricing = ({ user, setUser }) => {
     const [selectedPlan, setSelectedPlan] = useState(null);
     const [paymentMethod, setPaymentMethod] = useState(null);
+    const [isProcessing, setIsProcessing] = useState(false);
 
     const tiers = [
         {
@@ -112,9 +114,9 @@ const Pricing = () => {
                 { text: 'Everything in Pro', highlight: true },
                 { text: 'Unlimited drivers & vehicles' },
                 { text: 'Pesapal international payments', highlight: true },
-                { text: 'Advanced Revenue Analytics API' },
-                { text: 'Dedicated account manager' },
-                { text: 'Custom brand whitelabeling' },
+                { text: 'Applicable for feature beta updates' },
+                { text: 'Reduction on future app developments' },
+                { text: 'Autonomous AI Diagnostic Assistant', highlight: true },
             ]
         }
     ];
@@ -136,7 +138,7 @@ const Pricing = () => {
                     <PricingCard
                         key={tier.name}
                         tier={tier}
-                        isSelected={selectedPlan?.name === tier.name}
+                        isSelected={user?.planType === tier.name}
                         onSelect={(t) => setSelectedPlan(t)}
                     />
                 ))}
@@ -202,43 +204,75 @@ const Pricing = () => {
                                     </button>
                                 </>
                             ) : paymentMethod === 'mpesa' ? (
-                                <form className="space-y-4 animate-in fade-in zoom-in-95 duration-300" onSubmit={(e) => { e.preventDefault(); alert('STK Push sent to your phone!'); setSelectedPlan(null); setPaymentMethod(null); }}>
+                                <form className="space-y-4 animate-in fade-in zoom-in-95 duration-300" onSubmit={async (e) => {
+                                    e.preventDefault();
+                                    try {
+                                        setIsProcessing(true);
+                                        const res = await authAPI.subscribe({ plan: selectedPlan.name });
+                                        setUser({ ...user, planType: res.data.planType });
+                                        alert('STK Push sent to your phone! Subscription processing...');
+                                        setSelectedPlan(null);
+                                        setPaymentMethod(null);
+                                    } catch (err) {
+                                        alert('Subscription failed: ' + (err.response?.data?.message || err.message));
+                                    } finally {
+                                        setIsProcessing(false);
+                                    }
+                                }}>
                                     <h4 className="text-white font-bold mb-4 flex items-center gap-2">
                                         <div className="w-8 h-8 shrink-0 bg-green-500 rounded flex items-center justify-center text-white font-black italic text-xs">MP</div>
                                         Pay with M-Pesa
                                     </h4>
                                     <div>
                                         <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">M-Pesa Phone Number</label>
-                                        <input required type="tel" placeholder="e.g. 0712345678" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-green-500 transition-colors" />
+                                        <input required disabled={isProcessing} type="tel" placeholder="e.g. 0712345678" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-green-500 transition-colors" />
                                     </div>
                                     <div className="flex gap-3 pt-2">
-                                        <button type="button" onClick={() => setPaymentMethod(null)} className="flex-1 py-3 rounded-xl font-bold text-dark-300 hover:text-white transition-colors bg-white/5">Back</button>
-                                        <button type="submit" className="flex-1 bg-green-500 hover:bg-green-400 text-white rounded-xl font-bold transition-colors">Send STK Push</button>
+                                        <button disabled={isProcessing} type="button" onClick={() => setPaymentMethod(null)} className="flex-1 py-3 rounded-xl font-bold text-dark-300 hover:text-white transition-colors bg-white/5 disabled:opacity-50">Back</button>
+                                        <button disabled={isProcessing} type="submit" className="flex-1 bg-green-500 hover:bg-green-400 text-white rounded-xl font-bold transition-colors disabled:opacity-50">
+                                            {isProcessing ? 'Processing...' : 'Send STK Push'}
+                                        </button>
                                     </div>
                                 </form>
                             ) : (
-                                <form className="space-y-4 animate-in fade-in zoom-in-95 duration-300" onSubmit={(e) => { e.preventDefault(); alert('Payment successful via Pesapal!'); setSelectedPlan(null); setPaymentMethod(null); }}>
+                                <form className="space-y-4 animate-in fade-in zoom-in-95 duration-300" onSubmit={async (e) => {
+                                    e.preventDefault();
+                                    try {
+                                        setIsProcessing(true);
+                                        const res = await authAPI.subscribe({ plan: selectedPlan.name });
+                                        setUser({ ...user, planType: res.data.planType });
+                                        alert('Payment successful via Pesapal!');
+                                        setSelectedPlan(null);
+                                        setPaymentMethod(null);
+                                    } catch (err) {
+                                        alert('Subscription failed: ' + (err.response?.data?.message || err.message));
+                                    } finally {
+                                        setIsProcessing(false);
+                                    }
+                                }}>
                                     <h4 className="text-white font-bold mb-4 flex items-center gap-2">
                                         <div className="w-8 h-8 shrink-0 bg-blue-600 rounded flex items-center justify-center text-white font-black text-xs">Card</div>
                                         Pay with Pesapal
                                     </h4>
                                     <div>
                                         <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">Card Number</label>
-                                        <input required type="text" placeholder="XXXX XXXX XXXX XXXX" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
+                                        <input required disabled={isProcessing} type="text" placeholder="XXXX XXXX XXXX XXXX" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
                                     </div>
                                     <div className="grid grid-cols-2 gap-4">
                                         <div>
                                             <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">Expiry Date</label>
-                                            <input required type="text" placeholder="MM/YY" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
+                                            <input required disabled={isProcessing} type="text" placeholder="MM/YY" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
                                         </div>
                                         <div>
                                             <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">CVV</label>
-                                            <input required type="password" placeholder="123" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
+                                            <input required disabled={isProcessing} type="password" placeholder="123" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
                                         </div>
                                     </div>
                                     <div className="flex gap-3 pt-2">
-                                        <button type="button" onClick={() => setPaymentMethod(null)} className="flex-1 py-3 rounded-xl font-bold text-dark-300 hover:text-white transition-colors bg-white/5 border border-white/10">Back</button>
-                                        <button type="submit" className="flex-1 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold transition-colors shadow-lg shadow-blue-500/20">Pay ${selectedPlan?.price}</button>
+                                        <button disabled={isProcessing} type="button" onClick={() => setPaymentMethod(null)} className="flex-1 py-3 rounded-xl font-bold text-dark-300 hover:text-white transition-colors bg-white/5 border border-white/10 disabled:opacity-50">Back</button>
+                                        <button disabled={isProcessing} type="submit" className="flex-1 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold transition-colors shadow-lg shadow-blue-500/20 disabled:opacity-50">
+                                            {isProcessing ? 'Processing...' : `Pay $${selectedPlan?.price}`}
+                                        </button>
                                     </div>
                                 </form>
                             )}

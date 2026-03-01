@@ -24,6 +24,11 @@ const userSchema = new mongoose.Schema({
     enum: ['admin', 'reservation'],
     default: 'reservation'
   },
+  planType: {
+    type: String,
+    enum: ['Basic', 'Pro', 'Enterprise'],
+    default: 'Basic'
+  },
   isActive: {
     type: Boolean,
     default: true

@@ -3,7 +3,9 @@ import { Plus, Search, Filter, MoreVertical, Calendar, Save, Car, MapPin, Naviga
 import Modal from '../components/Modal';
 import { bookingAPI } from '../services/api';
 
-const Bookings = ({ bookings, setBookings, drivers, vehicles }) => {
+const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
+    const maxBookings = user?.planType === 'Basic' ? 50 : Infinity;
+    const canAddBooking = bookings.length < maxBookings;
     const [searchTerm, setSearchTerm] = useState('');
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isFilterActive, setIsFilterActive] = useState(false);
@@ -77,11 +79,11 @@ const Bookings = ({ bookings, setBookings, drivers, vehicles }) => {
                     <p className="text-dark-400 text-sm">Organize safaris, transfers, and city tours.</p>
                 </div>
                 <button
-                    onClick={() => setIsAddModalOpen(true)}
-                    className="flex items-center gap-2 bg-gradient-to-r from-primary-500 to-orange-500 hover:from-primary-400 hover:to-orange-400 text-white px-5 py-2.5 rounded-xl font-bold shadow-lg shadow-orange-500/20 transition-all hover:-translate-y-0.5 whitespace-nowrap"
+                    onClick={() => canAddBooking ? setIsAddModalOpen(true) : alert("Basic Plan limit reached (50 maximum). Upgrade to Pro or Enterprise for unlimited safaris!")}
+                    className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold shadow-lg transition-all whitespace-nowrap ${canAddBooking ? 'bg-gradient-to-r from-primary-500 to-orange-500 hover:from-primary-400 hover:to-orange-400 text-white shadow-orange-500/20 hover:-translate-y-0.5' : 'bg-dark-700 text-dark-400 cursor-not-allowed border border-white/5'}`}
                 >
                     <Plus size={20} />
-                    {currentTab.actionText}
+                    {canAddBooking ? currentTab.actionText : 'Upgrade to Add'}
                 </button>
             </div>
 

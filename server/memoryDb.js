@@ -30,11 +30,16 @@ const connectDB = async () => {
         // Auto-seed Admin User
         const adminExists = await User.findOne({ email: 'admin@easternvacations.com' });
         if (!adminExists) {
+            const futureDate = new Date();
+            futureDate.setFullYear(futureDate.getFullYear() + 100);
+
             await User.create({
                 name: 'Admin Executive',
                 email: 'admin@easternvacations.com',
                 password: '@EasternVacations2026',
-                role: 'admin'
+                role: 'admin',
+                planType: 'Enterprise',
+                subscriptionExpiry: futureDate
             });
             console.log('✅ Admin user automatically seeded into memory DB.');
         }

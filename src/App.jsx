@@ -64,7 +64,8 @@ const App = () => {
       setUser({
         role: res.data.role,
         name: res.data.name,
-        id: res.data._id
+        id: res.data._id,
+        planType: res.data.planType
       });
     } catch (err) {
       console.error("Login failed:", err);
@@ -87,11 +88,11 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Layout user={user} onLogout={handleLogout} vehicles={vehicles} bookings={bookings} />}>
           <Route index element={<Dashboard bookings={bookings} drivers={drivers} vehicles={vehicles} user={user} />} />
-          <Route path="bookings" element={<Bookings bookings={bookings} setBookings={setBookings} drivers={drivers} vehicles={vehicles} />} />
-          <Route path="drivers" element={<Drivers drivers={drivers} setDrivers={setDrivers} />} />
-          <Route path="vehicles" element={<Vehicles vehicles={vehicles} setVehicles={setVehicles} />} />
+          <Route path="bookings" element={<Bookings user={user} bookings={bookings} setBookings={setBookings} drivers={drivers} vehicles={vehicles} />} />
+          <Route path="drivers" element={<Drivers user={user} drivers={drivers} setDrivers={setDrivers} />} />
+          <Route path="vehicles" element={<Vehicles user={user} vehicles={vehicles} setVehicles={setVehicles} />} />
           <Route path="security-hub" element={user.role === 'admin' ? <SecurityHub bookings={bookings} drivers={drivers} vehicles={vehicles} /> : <Navigate to="/" replace />} />
-          <Route path="pricing" element={user.role === 'admin' ? <Pricing /> : <Navigate to="/" replace />} />
+          <Route path="pricing" element={user.role === 'admin' ? <Pricing user={user} setUser={setUser} /> : <Navigate to="/" replace />} />
           <Route path="settings" element={user.role === 'admin' ? <Settings companyDetails={companyDetails} setCompanyDetails={setCompanyDetails} /> : <Navigate to="/" replace />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
