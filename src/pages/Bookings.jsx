@@ -189,35 +189,35 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
                                                 {booking.paymentStatus}
                                             </div>
                                         </td>
-                                        <td className="p-4 text-right whitespace-nowrap min-w-[120px]">
-                                            <div className="flex flex-wrap items-center justify-end gap-2 w-full">
+                                        <td className="p-4 text-right">
+                                            <div className="flex flex-wrap items-center justify-end sm:justify-end gap-2 w-full min-w-[100px]">
                                                 {booking.paymentStatus === 'pending' && (user?.role === 'reservation' || user?.role === 'admin') && (
-                                                    <button onClick={() => handleConfirmPayment(booking._id)} className="p-2 sm:p-2.5 bg-blue-50 text-blue-500 hover:bg-blue-100 rounded-lg transition-colors border border-blue-200 w-auto flex justify-center" title="Confirm Payment">
+                                                    <button onClick={() => handleConfirmPayment(booking._id)} className="p-2 sm:p-2.5 bg-blue-50 text-blue-500 hover:bg-blue-100 rounded-lg transition-colors border border-blue-200" title="Confirm Payment">
                                                         <CheckCircle size={18} />
                                                     </button>
                                                 )}
                                                 {booking.status === 'pending' && (
-                                                    <button onClick={() => handleUpdateBookingStatus(booking._id, 'confirmed')} className="p-2 sm:p-2.5 bg-emerald-50 text-emerald-500 hover:bg-emerald-100 rounded-lg transition-colors border border-emerald-200 w-auto flex justify-center" title="Confirm Safari">
+                                                    <button onClick={() => handleUpdateBookingStatus(booking._id, 'confirmed')} className="p-2 sm:p-2.5 bg-emerald-50 text-emerald-500 hover:bg-emerald-100 rounded-lg transition-colors border border-emerald-200" title="Confirm Safari">
                                                         <Calendar size={18} />
                                                     </button>
                                                 )}
                                                 {booking.status === 'confirmed' && (
-                                                    <button onClick={() => handleUpdateBookingStatus(booking._id, 'completed')} className="p-2 sm:p-2.5 bg-purple-50 text-purple-500 hover:bg-purple-100 rounded-lg transition-colors border border-purple-200 w-auto flex justify-center" title="Mark as Completed">
+                                                    <button onClick={() => handleUpdateBookingStatus(booking._id, 'completed')} className="p-2 sm:p-2.5 bg-purple-50 text-purple-500 hover:bg-purple-100 rounded-lg transition-colors border border-purple-200" title="Mark as Completed">
                                                         <CheckCircle size={18} />
                                                     </button>
                                                 )}
                                                 {booking.status === 'completed' && (
-                                                    <button onClick={() => handleDeleteBooking(booking._id)} className="p-2 sm:p-2.5 bg-red-50 text-red-500 hover:bg-red-100 rounded-lg transition-colors border border-red-200 w-auto flex justify-center" title="Delete Booking">
+                                                    <button onClick={() => handleDeleteBooking(booking._id)} className="p-2 sm:p-2.5 bg-red-50 text-red-500 hover:bg-red-100 rounded-lg transition-colors border border-red-200" title="Delete Booking">
                                                         <Trash size={18} />
                                                     </button>
                                                 )}
-                                                <button onClick={() => handleEmailShare(booking)} className="p-2 sm:p-2.5 bg-indigo-50 text-indigo-500 hover:bg-indigo-100 rounded-lg transition-colors border border-indigo-200 w-auto flex justify-center" title="Email Client">
+                                                <button onClick={() => handleEmailShare(booking)} className="p-2 sm:p-2.5 bg-indigo-50 text-indigo-500 hover:bg-indigo-100 rounded-lg transition-colors border border-indigo-200" title="Email Client">
                                                     <Mail size={18} />
                                                 </button>
-                                                <button onClick={() => handleWhatsAppShare(booking)} className="p-2 sm:p-2.5 bg-green-50 text-green-500 hover:bg-green-100 rounded-lg transition-colors border border-green-200 w-auto flex justify-center" title="WhatsApp Client">
+                                                <button onClick={() => handleWhatsAppShare(booking)} className="p-2 sm:p-2.5 bg-green-50 text-green-500 hover:bg-green-100 rounded-lg transition-colors border border-green-200" title="WhatsApp Client">
                                                     <MessageSquare size={18} />
                                                 </button>
-                                                <button onClick={() => generateInvoice(booking)} className="p-2 sm:p-2.5 flex items-center justify-center gap-2 bg-gradient-to-r from-primary-400 to-orange-500 text-white rounded-lg font-bold shadow-sm shadow-orange-500/20 hover:-translate-y-0.5 transition-all text-sm w-auto">
+                                                <button onClick={() => generateInvoice(booking)} className="p-2 sm:p-2.5 flex items-center justify-center gap-2 bg-gradient-to-r from-primary-400 to-orange-500 text-white rounded-lg font-bold shadow-sm shadow-orange-500/20 hover:-translate-y-0.5 transition-all text-sm">
                                                     <FileText size={18} />
                                                 </button>
                                             </div>

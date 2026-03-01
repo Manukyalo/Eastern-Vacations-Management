@@ -171,7 +171,7 @@ const AIAssistant = ({ user }) => {
                                     value={inputValue}
                                     onChange={(e) => setInputValue(e.target.value)}
                                     placeholder="Report an issue or ask for system diagnostics..."
-                                    className="w-full bg-slate-50 border border-slate-300 rounded-xl py-3 pl-4 pr-12 text-slate-900 placeholder-dark-500 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all font-mono text-sm"
+                                    className="w-full bg-slate-900 border border-slate-700 rounded-xl py-3 pl-4 pr-12 text-white placeholder-slate-400 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all font-mono text-sm"
                                     disabled={isTyping}
                                 />
                                 <button
