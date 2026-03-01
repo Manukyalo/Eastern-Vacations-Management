@@ -3,6 +3,37 @@ const router = express.Router();
 const User = require('../models/User');
 const { generateToken } = require('../middleware/auth');
 
+// @route   GET /api/auth/seed
+// @desc    One-Time Seed route for Vercel Cloud Database initialization
+// @access  Public (Emergency Setup)
+router.get('/seed', async (req, res) => {
+  try {
+    const adminExists = await User.findOne({ email: 'admin@easternvacations.com' });
+    if (!adminExists) {
+      await User.create({
+        name: 'Admin Executive',
+        email: 'admin@easternvacations.com',
+        password: '@EasternVacations2026',
+        role: 'admin'
+      });
+    }
+
+    const staffExists = await User.findOne({ email: 'staff@easternvacations.com' });
+    if (!staffExists) {
+      await User.create({
+        name: 'Reservation Agent',
+        email: 'staff@easternvacations.com',
+        password: 'Reservations@2026',
+        role: 'reservation'
+      });
+    }
+
+    res.status(200).json({ message: '✅ Database successfully populated with initial Admin and Staff credentials.' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // @route   POST /api/auth/register
 // @desc    Register new user
 // @access  Public (but should be protected in production)
@@ -88,9 +119,9 @@ router.get('/me', async (req, res) => {
 
     const jwt = require('jsonwebtoken');
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key-change-in-production');
-    
+
     const user = await User.findById(decoded.id).select('-password');
-    
+
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
