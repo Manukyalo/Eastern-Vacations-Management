@@ -53,6 +53,11 @@ const Vehicles = ({ user, vehicles, setVehicles }) => {
         }
     };
 
+    const filteredVehicles = vehicles.filter(v =>
+        v.model?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        v.plate?.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
