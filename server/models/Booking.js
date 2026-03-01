@@ -47,9 +47,8 @@ const bookingSchema = new mongoose.Schema({
     default: 'pending'
   },
   driver: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Driver',
-    default: null
+    type: String,
+    default: ''
   },
   vehicle: {
     type: String,

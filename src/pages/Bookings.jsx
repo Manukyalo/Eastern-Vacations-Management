@@ -210,12 +210,7 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
                         </div>
                         <div>
                             <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">Assign Driver</label>
-                            <select name="driverId" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-500 transition-colors appearance-none">
-                                <option value="">Select a Driver...</option>
-                                {drivers?.map(d => (
-                                    <option className="bg-dark-900 text-white" key={d._id} value={d._id}>{d.name}</option>
-                                ))}
-                            </select>
+                            <input name="driverId" type="text" placeholder="e.g. John Doe" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-500 transition-colors" />
                         </div>
                     </div>
                     <div className="grid grid-cols-2 gap-4">
