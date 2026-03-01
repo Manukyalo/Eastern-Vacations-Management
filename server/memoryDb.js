@@ -9,15 +9,23 @@ let mongod;
  */
 const connectDB = async () => {
     try {
-        mongod = await MongoMemoryServer.create();
-        const uri = mongod.getUri();
+        let uri = process.env.MONGODB_URI;
 
-        await mongoose.connect(uri, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
+        if (uri) {
+            console.log(`✅ Connecting to Production Cloud MongoDB Database...`);
+        } else {
+            if (process.env.NODE_ENV === 'production') {
+                console.error("❌ FATAL: Vercel Serverless environments cannot run local memory databases! You must provide a MONGODB_URI.");
+                throw new Error("Missing MONGODB_URI environment variable in production.");
+            }
+            console.log(`⚠️ No Cloud URI found. Booting Local In-Memory DB...`);
+            mongod = await MongoMemoryServer.create();
+            uri = mongod.getUri();
+        }
 
-        console.log(`✅ In-Memory MongoDB Connected: ${uri}`);
+        await mongoose.connect(uri);
+
+        console.log(`✅ Database Connected successfully.`);
 
         // Auto-seed Admin User
         const adminExists = await User.findOne({ email: 'admin@easternvacations.com' });
