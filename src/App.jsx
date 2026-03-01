@@ -7,6 +7,7 @@ import Pricing from './pages/Pricing';
 import { authAPI, bookingAPI, driverAPI, vehicleAPI } from './services/api';
 
 import Bookings from './pages/Bookings';
+import Invoices from './pages/Invoices';
 import Drivers from './pages/Drivers';
 import Vehicles from './pages/Vehicles';
 import Settings from './pages/Settings';
@@ -89,6 +90,7 @@ const App = () => {
         <Route path="/" element={<Layout user={user} onLogout={handleLogout} vehicles={vehicles} bookings={bookings} />}>
           <Route index element={<Dashboard bookings={bookings} drivers={drivers} vehicles={vehicles} user={user} />} />
           <Route path="bookings" element={<Bookings user={user} bookings={bookings} setBookings={setBookings} drivers={drivers} vehicles={vehicles} />} />
+          <Route path="invoices" element={<Invoices bookings={bookings} />} />
           <Route path="drivers" element={<Drivers user={user} drivers={drivers} setDrivers={setDrivers} />} />
           <Route path="vehicles" element={<Vehicles user={user} vehicles={vehicles} setVehicles={setVehicles} />} />
           <Route path="security-hub" element={user.role === 'admin' ? <SecurityHub bookings={bookings} drivers={drivers} vehicles={vehicles} /> : <Navigate to="/" replace />} />

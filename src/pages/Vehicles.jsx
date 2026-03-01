@@ -81,61 +81,70 @@ const Vehicles = ({ user, vehicles, setVehicles }) => {
                 </div>
             </div>
 
-            <div className="glass-card !p-0 overflow-hidden border-white/10">
-                <div className="overflow-x-auto min-h-[50vh]">
-                    <div className="w-full">
-                        <table className="w-full text-left border-collapse">
-                            <thead>
+            <div className="glass-card !p-0 overflow-hidden border-white/10 bg-transparent sm:bg-dark-800/80">
+                <div className="w-full sm:min-h-[50vh]">
+                    <div className="w-full px-4 py-4 sm:p-0">
+                        <table className="w-full text-left border-collapse block sm:table">
+                            <thead className="hidden sm:table-header-group">
                                 <tr className="bg-white/5 border-b border-white/10 text-dark-300 text-xs uppercase tracking-wider">
-                                    <th className="p-4 font-semibold whitespace-nowrap">Vehicle Specs</th>
+                                    <th className="p-4 font-semibold whitespace-nowrap">Model / Year</th>
                                     <th className="p-4 font-semibold whitespace-nowrap">License Plate</th>
                                     <th className="p-4 font-semibold whitespace-nowrap">Insurance Expiry</th>
                                     <th className="p-4 font-semibold whitespace-nowrap">Status</th>
                                     <th className="p-4 font-semibold text-right whitespace-nowrap">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-white/5">
-                                {vehicles.filter(v => v.model.toLowerCase().includes(searchTerm.toLowerCase()) || v.plate.toLowerCase().includes(searchTerm.toLowerCase())).map((vehicle) => {
-                                    const daysToExpiry = Math.ceil((new Date(vehicle.insuranceExpiry) - new Date()) / (1000 * 60 * 60 * 24));
+                            <tbody className="block sm:table-row-group divide-y-0 sm:divide-y divide-white/5 mt-4 sm:mt-0 space-y-4 sm:space-y-0">
+                                {filteredVehicles.map((vehicle) => {
+                                    const expiryDate = new Date(vehicle.insuranceExpiry);
+                                    const today = new Date();
+                                    const daysToExpiry = Math.ceil((expiryDate - today) / (1000 * 60 * 60 * 24));
                                     const isExpiringSoon = daysToExpiry <= 30;
 
                                     return (
-                                        <tr key={vehicle._id} className="hover:bg-white/5 transition-colors group">
-                                            <td className="p-4 whitespace-nowrap">
+                                        <tr key={vehicle._id} className="block sm:table-row bg-dark-900/80 sm:bg-transparent rounded-2xl p-5 sm:p-0 border border-white/5 sm:border-none relative hover:bg-white/5 transition-colors group shadow-lg sm:shadow-none">
+                                            <td className="block sm:table-cell mb-4 sm:mb-0 p-0 sm:p-4 whitespace-nowrap">
+                                                <div className="sm:hidden text-xs font-bold text-dark-400 uppercase tracking-widest mb-1">Model / Year</div>
                                                 <div className="flex items-center gap-3">
-                                                    <span className="font-medium text-white">{vehicle.model}</span>
+                                                    <span className="font-medium text-white text-lg sm:text-base">{vehicle.model}</span>
                                                 </div>
                                             </td>
-                                            <td className="p-4 text-dark-200 font-mono tracking-wider whitespace-nowrap">{vehicle.plate}</td>
-                                            <td className="p-4 whitespace-nowrap">
+                                            <td className="block sm:table-cell mb-4 sm:mb-0 p-0 sm:p-4 whitespace-nowrap">
+                                                <div className="sm:hidden text-xs font-bold text-dark-400 uppercase tracking-widest mb-1">License Plate</div>
+                                                <div className="text-primary-400 font-black font-mono tracking-wider">{vehicle.plate}</div>
+                                            </td>
+                                            <td className="block sm:table-cell mb-4 sm:mb-0 p-0 sm:p-4 whitespace-nowrap">
+                                                <div className="sm:hidden text-xs font-bold text-dark-400 uppercase tracking-widest mb-1">Insurance Expiry</div>
                                                 <div className="flex items-center gap-2">
                                                     <input
                                                         type="date"
                                                         value={vehicle.insuranceExpiry}
                                                         onChange={(e) => handleUpdateExpiry(vehicle._id, e.target.value)}
-                                                        className={`bg-transparent border-b text-sm focus:outline-none focus:border-blue-500 transition-colors/[color-scheme:dark] ${isExpiringSoon ? 'text-orange-400 border-orange-500/30' : 'text-dark-300 border-white/10'}`}
+                                                        className={`bg-dark-800 sm:bg-transparent px-3 py-1.5 sm:p-0 rounded-lg sm:rounded-none sm:border-b text-sm focus:outline-none focus:border-blue-500 transition-colors/[color-scheme:dark] ${isExpiringSoon ? 'text-orange-400 border-orange-500/30' : 'text-dark-300 border-white/10'}`}
                                                     />
-                                                    {isExpiringSoon && <ShieldAlert size={16} className="text-orange-500 animate-pulse" />}
+                                                    {isExpiringSoon && <ShieldAlert size={16} className="text-orange-500 animate-pulse ml-2" />}
                                                 </div>
                                             </td>
-                                            <td className="p-4 whitespace-nowrap">
-                                                <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${vehicle.status === 'available' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-blue-500/10 text-blue-400'
+                                            <td className="block sm:table-cell mb-4 sm:mb-0 p-0 sm:p-4 whitespace-nowrap">
+                                                <div className="sm:hidden text-xs font-bold text-dark-400 uppercase tracking-widest mb-1">Vehicle Status</div>
+                                                <span className={`px-3 py-1.5 sm:px-2.5 sm:py-1 rounded-full text-xs font-bold ${vehicle.status === 'available' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-blue-500/10 text-blue-400 border border-blue-500/20'
                                                     }`}>
-                                                    {vehicle.status}
+                                                    {vehicle.status.toUpperCase()}
                                                 </span>
                                             </td>
-                                            <td className="p-4 text-right relative whitespace-nowrap">
+                                            <td className="block sm:table-cell p-0 sm:p-4 text-left sm:text-right relative whitespace-nowrap mt-4 sm:mt-0 pt-4 sm:pt-0 border-t border-white/5 sm:border-none">
                                                 <button
                                                     onClick={() => setOpenDropdown(openDropdown === vehicle._id ? null : vehicle._id)}
-                                                    className="p-2 text-dark-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+                                                    className="w-full sm:w-auto flex items-center justify-center gap-2 p-3 sm:p-2 bg-dark-800 border border-white/10 sm:border-none sm:bg-transparent text-white hover:bg-white/10 rounded-xl sm:rounded-lg transition-colors font-bold"
                                                 >
-                                                    <MoreVertical size={18} />
+                                                    <span className="sm:hidden">Manage Vehicle Configuration</span>
+                                                    <MoreVertical size={18} className="hidden sm:block" />
                                                 </button>
 
                                                 {openDropdown === vehicle._id && (
-                                                    <div className="absolute right-8 top-10 w-36 bg-dark-800 border border-white/10 shadow-2xl rounded-xl z-20 overflow-hidden animate-in fade-in zoom-in-95">
-                                                        <button onClick={() => { setOpenDropdown(null); setSelectedVehicle(vehicle); }} className="w-full text-left px-4 py-2 text-sm text-dark-200 hover:bg-white/10 hover:text-white transition-colors">View Details</button>
-                                                        <button onClick={() => { setOpenDropdown(null); alert('Assign Driver Modal'); }} className="w-full text-left px-4 py-2 text-sm text-dark-200 hover:bg-white/10 hover:text-white transition-colors">Assign Driver</button>
+                                                    <div className="absolute left-0 sm:left-auto right-0 sm:right-8 top-16 sm:top-10 w-full sm:w-36 bg-dark-800 border border-white/10 shadow-2xl rounded-xl z-20 overflow-hidden animate-in fade-in zoom-in-95">
+                                                        <button onClick={() => { setOpenDropdown(null); setSelectedVehicle(vehicle); }} className="w-full text-left px-5 py-3 sm:px-4 sm:py-2 text-sm font-semibold text-white hover:bg-white/10 transition-colors border-b border-white/5 sm:border-none">View Details Log</button>
+                                                        <button onClick={() => { setOpenDropdown(null); alert('Assign Driver Modal'); }} className="w-full text-left px-5 py-3 sm:px-4 sm:py-2 text-sm font-semibold text-white hover:bg-white/10 transition-colors border-b border-white/5 sm:border-none">Assign Driver Unit</button>
 
                                                         {vehicle.status === 'available' ? (
                                                             <button onClick={() => handleUpdateVehicleStatus(vehicle._id, 'suspended')} className="w-full text-left px-4 py-2 text-sm text-orange-400 hover:bg-orange-400/10 transition-colors">Suspend Option</button>

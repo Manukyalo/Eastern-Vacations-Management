@@ -1,11 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Car, Users, Calendar, DollarSign, Settings, LogOut, TrendingUp, Compass, ShieldAlert } from 'lucide-react';
+import { Car, Users, Calendar, DollarSign, Settings, LogOut, TrendingUp, Compass, ShieldAlert, FileText } from 'lucide-react';
 
 const Sidebar = ({ role, onLogout, isMobile, isOpen, setIsOpen }) => {
     const adminLinks = [
         { to: '/', icon: <TrendingUp size={20} />, label: 'Dashboard' },
         { to: '/bookings', icon: <Calendar size={20} />, label: 'Bookings' },
+        { to: '/invoices', icon: <FileText size={20} />, label: 'Invoices' },
         { to: '/drivers', icon: <Users size={20} />, label: 'Drivers' },
         { to: '/vehicles', icon: <Car size={20} />, label: 'Vehicles' },
         { to: '/security-hub', icon: <ShieldAlert size={20} />, label: 'Security Hub' },
@@ -16,6 +17,7 @@ const Sidebar = ({ role, onLogout, isMobile, isOpen, setIsOpen }) => {
     const staffLinks = [
         { to: '/', icon: <TrendingUp size={20} />, label: 'Dashboard' },
         { to: '/bookings', icon: <Calendar size={20} />, label: 'Bookings' },
+        { to: '/invoices', icon: <FileText size={20} />, label: 'Invoices' },
         { to: '/drivers', icon: <Users size={20} />, label: 'Drivers' },
         { to: '/vehicles', icon: <Car size={20} />, label: 'Vehicles' },
     ];
