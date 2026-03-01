@@ -12,8 +12,21 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Initialize Memory DB globally for cold starts
-connectDB();
+// Initialize Memory DB Promise for Vercel Serverless
+let dbInitPromise = null;
+
+// Ensure DB is connected before handling any routes
+app.use(async (req, res, next) => {
+  if (!dbInitPromise) {
+    dbInitPromise = connectDB();
+  }
+  try {
+    await dbInitPromise;
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
 
 // Routes
 app.use('/api/auth', require('./routes/auth'));

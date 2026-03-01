@@ -12,7 +12,6 @@ router.get('/', protect, async (req, res) => {
   try {
     const bookings = await Booking.find()
       .populate('driver', 'name phone')
-      .populate('vehicle', 'model plate seats')
       .populate('createdBy', 'name email')
       .sort({ createdAt: -1 });
 
@@ -29,7 +28,6 @@ router.get('/:id', protect, async (req, res) => {
   try {
     const booking = await Booking.findById(req.params.id)
       .populate('driver', 'name phone email')
-      .populate('vehicle', 'model plate seats insuranceExpiry')
       .populate('createdBy', 'name email');
 
     if (!booking) {
@@ -79,7 +77,7 @@ router.put('/:id', protect, async (req, res) => {
       req.params.id,
       req.body,
       { new: true, runValidators: true }
-    ).populate('driver vehicle');
+    ).populate('driver');
 
     res.json(updatedBooking);
   } catch (error) {
@@ -92,22 +90,16 @@ router.put('/:id', protect, async (req, res) => {
 // @access  Private
 router.put('/:id/assign', protect, async (req, res) => {
   try {
-    const { driverId, vehicleId } = req.body;
+    const { driverId, vehicle } = req.body;
     const booking = await Booking.findById(req.params.id);
 
     if (!booking) {
       return res.status(404).json({ message: 'Booking not found' });
     }
 
-    // Unassign previous driver/vehicle if exists
+    // Unassign previous driver if exists
     if (booking.driver) {
       await Driver.findByIdAndUpdate(booking.driver, {
-        status: 'available',
-        currentBooking: null
-      });
-    }
-    if (booking.vehicle) {
-      await Vehicle.findByIdAndUpdate(booking.vehicle, {
         status: 'available',
         currentBooking: null
       });
@@ -121,22 +113,14 @@ router.put('/:id/assign', protect, async (req, res) => {
       });
     }
 
-    // Assign new vehicle
-    if (vehicleId) {
-      await Vehicle.findByIdAndUpdate(vehicleId, {
-        status: 'assigned',
-        currentBooking: booking._id
-      });
-    }
-
     // Update booking
     booking.driver = driverId || booking.driver;
-    booking.vehicle = vehicleId || booking.vehicle;
+    booking.vehicle = vehicle || booking.vehicle;
     booking.status = 'confirmed';
     await booking.save();
 
     const updatedBooking = await Booking.findById(booking._id)
-      .populate('driver vehicle');
+      .populate('driver');
 
     res.json(updatedBooking);
   } catch (error) {

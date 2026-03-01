@@ -52,9 +52,8 @@ const bookingSchema = new mongoose.Schema({
     default: null
   },
   vehicle: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Vehicle',
-    default: null
+    type: String,
+    default: ''
   },
   notes: {
     type: String,
@@ -75,7 +74,7 @@ const bookingSchema = new mongoose.Schema({
 });
 
 // Update the updatedAt timestamp before saving
-bookingSchema.pre('save', function(next) {
+bookingSchema.pre('save', function (next) {
   this.updatedAt = Date.now();
   next();
 });
