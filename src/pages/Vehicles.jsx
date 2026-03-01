@@ -41,6 +41,7 @@ const Vehicles = ({ user, vehicles, setVehicles }) => {
             const res = await vehicleAPI.create({
                 model: formData.get('model'),
                 plate: formData.get('plate'),
+                seats: Number(formData.get('seats')),
                 insuranceExpiry: formData.get('insuranceExpiry'),
                 status: 'available'
             });
@@ -171,9 +172,13 @@ const Vehicles = ({ user, vehicles, setVehicles }) => {
                             <input name="plate" required type="text" placeholder="e.g. KCA 123B" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
                         </div>
                         <div>
-                            <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">Insurance Expiry</label>
-                            <input name="insuranceExpiry" required type="date" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors/[color-scheme:dark]" />
+                            <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">Seats Capacity</label>
+                            <input name="seats" required type="number" min="2" max="50" placeholder="e.g. 8" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
                         </div>
+                    </div>
+                    <div>
+                        <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">Insurance Expiry</label>
+                        <input name="insuranceExpiry" required type="date" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors/[color-scheme:dark]" />
                     </div>
                     <div className="pt-4 flex flex-col sm:flex-row justify-end gap-3">
                         <button type="button" onClick={() => setIsAddModalOpen(false)} className="w-full sm:w-auto flex justify-center px-5 py-3 rounded-xl font-bold text-dark-300 hover:text-white bg-dark-800 sm:bg-transparent border border-white/5 sm:border-transparent transition-colors">Cancel</button>
