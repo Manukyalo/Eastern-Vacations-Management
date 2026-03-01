@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FileText, Download, CheckCircle, Clock } from 'lucide-react';
+import { FileText, Download, CheckCircle, Clock, MessageSquare, Mail } from 'lucide-react';
 import { generateInvoice } from '../utils/generateInvoice';
 
 const Invoices = ({ bookings }) => {
@@ -13,6 +13,21 @@ const Invoices = ({ bookings }) => {
             b.route?.toLowerCase().includes(searchTerm.toLowerCase()) ||
             b.destination?.toLowerCase().includes(searchTerm.toLowerCase()))
     );
+
+    const handleWhatsAppShare = (booking) => {
+        const text = encodeURIComponent(
+            `Hello ${booking.clientName},\n\nYour Eastern Vacations invoice for the ${booking.destination || booking.route} safari is ready.\n\nTotal Due: KES ${typeof booking.price === 'number' ? booking.price.toLocaleString() : booking.payment}\n\n*Please ensure you have attached the PDF receipt.*`
+        );
+        window.open(`https://wa.me/?text=${text}`, '_blank');
+    };
+
+    const handleEmailShare = (booking) => {
+        const subject = encodeURIComponent(`Eastern Vacations Invoice - ${booking.clientName}`);
+        const body = encodeURIComponent(
+            `Hello ${booking.clientName},\n\nPlease find attached your formal Eastern Vacations invoice for the recent ${booking.destination || booking.route} safari.\n\nTotal Due: KES ${typeof booking.price === 'number' ? booking.price.toLocaleString() : booking.payment}\n\nThank you for choosing Eastern Vacations Kenya.\n\nBest regards,\nThe Reservations Team`
+        );
+        window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    };
 
     return (
         <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in zoom-in-95 duration-500">
@@ -65,7 +80,7 @@ const Invoices = ({ bookings }) => {
                                     <th className="p-4 font-semibold whitespace-nowrap">Destination</th>
                                     <th className="p-4 font-semibold whitespace-nowrap">Amount (KES)</th>
                                     <th className="p-4 font-semibold whitespace-nowrap">Payment Status</th>
-                                    <th className="p-4 font-semibold text-right whitespace-nowrap">Generate</th>
+                                    <th className="p-4 font-semibold text-right whitespace-nowrap">Actions</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-white/5">
@@ -90,14 +105,30 @@ const Invoices = ({ bookings }) => {
                                             </div>
                                         </td>
                                         <td className="p-4 text-right whitespace-nowrap">
-                                            <button
-                                                onClick={() => generateInvoice(booking)}
-                                                className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary-500 to-orange-500 text-white rounded-lg font-bold shadow-lg shadow-orange-500/20 hover:-translate-y-0.5 transition-all"
-                                            >
-                                                <Download size={16} />
-                                                <span className="hidden sm:inline">Download PDF</span>
-                                                <span className="sm:hidden">PDF</span>
-                                            </button>
+                                            <div className="flex items-center justify-end gap-2">
+                                                <button
+                                                    onClick={() => handleEmailShare(booking)}
+                                                    className="p-2.5 bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 rounded-lg transition-colors border border-blue-500/20"
+                                                    title="Share via Email"
+                                                >
+                                                    <Mail size={18} />
+                                                </button>
+                                                <button
+                                                    onClick={() => handleWhatsAppShare(booking)}
+                                                    className="p-2.5 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 rounded-lg transition-colors border border-emerald-500/20"
+                                                    title="Share via WhatsApp"
+                                                >
+                                                    <MessageSquare size={18} />
+                                                </button>
+                                                <button
+                                                    onClick={() => generateInvoice(booking)}
+                                                    className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-primary-500 to-orange-500 text-white rounded-lg font-bold shadow-lg shadow-orange-500/20 hover:-translate-y-0.5 transition-all text-sm w-full sm:w-auto"
+                                                >
+                                                    <Download size={16} />
+                                                    <span className="hidden xl:inline">Download PDF</span>
+                                                    <span className="xl:hidden">PDF</span>
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                 ))}
