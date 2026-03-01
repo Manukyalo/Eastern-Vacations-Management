@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Eastern Vacations Management System - Complete Tour Operator Management Platform with MongoDB and JWT Authentication" />
+    <meta name="keywords" content="tour operator, safari management, booking system, fleet management, driver management" />
+    <meta name="author" content="Eastern Vacations" />
+    <title>Eastern Vacations Management System</title>
+    
+    <!-- Google Fonts - Space Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+      /* Global Reset */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      /* Body Styling */
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Space Mono', monospace;
+        background: #0f172a;
+        color: #e2e8f0;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      /* Root Container */
+      #root {
+        min-height: 100vh;
+        width: 100%;
+      }
+
+      /* Loading Screen */
+      .loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+
+      .loading-spinner {
+        width: 50px;
+        height: 50px;
+        border: 4px solid rgba(245, 158, 11, 0.2);
+        border-top-color: #f59e0b;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      /* Scrollbar Styling */
+      ::-webkit-scrollbar {
+        width: 12px;
+        height: 12px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #1e293b;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(135deg, #f59e0b, #f97316);
+        border-radius: 6px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(135deg, #f97316, #ea580c);
+      }
+
+      /* Firefox Scrollbar */
+      * {
+        scrollbar-width: thin;
+        scrollbar-color: #f59e0b #1e293b;
+      }
+
+      /* Selection Color */
+      ::selection {
+        background: rgba(245, 158, 11, 0.3);
+        color: #ffffff;
+      }
+
+      ::-moz-selection {
+        background: rgba(245, 158, 11, 0.3);
+        color: #ffffff;
+      }
+
+      /* No Script Message */
+      noscript {
+        display: block;
+        padding: 20px;
+        text-align: center;
+        background: #ef4444;
+        color: white;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- No Script Warning -->
+    <noscript>
+      <strong>JavaScript Required!</strong> 
+      This application requires JavaScript to run. Please enable JavaScript in your browser settings.
+    </noscript>
+
+    <!-- Loading Screen (will be replaced by React) -->
+    <div id="loading" class="loading-screen">
+      <div class="loading-spinner"></div>
+    </div>
+
+    <!-- React Root -->
+    <div id="root"></div>
+
+    <!-- Vite Module Script -->
+    <script type="module" src="/src/main.jsx"></script>
+
+    <!-- Remove loading screen after app loads -->
+    <script>
+      window.addEventListener('load', function() {
+        const loader = document.getElementById('loading');
+        if (loader) {
+          setTimeout(() => {
+            loader.style.opacity = '0';
+            loader.style.transition = 'opacity 0.3s ease';
+            setTimeout(() => loader.remove(), 300);
+          }, 500);
+        }
+      });
+    </script>
+  </body>
+</html>

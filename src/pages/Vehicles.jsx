@@ -1,0 +1,222 @@
+import React, { useState } from 'react';
+import { Plus, Search, MoreVertical, ShieldAlert, Key, Save, Car } from 'lucide-react';
+import Modal from '../components/Modal';
+import { vehicleAPI } from '../services/api';
+
+const Vehicles = ({ vehicles, setVehicles }) => {
+    const [searchTerm, setSearchTerm] = useState('');
+    const [openDropdown, setOpenDropdown] = useState(null);
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [selectedVehicle, setSelectedVehicle] = useState(null);
+
+    const handleUpdateExpiry = async (id, newDate) => {
+        try {
+            await vehicleAPI.update(id, { insuranceExpiry: newDate });
+            setVehicles(prev => prev.map(v => v._id === id ? { ...v, insuranceExpiry: newDate } : v));
+        } catch (err) { console.error('Update expiry error:', err); }
+    };
+
+    const handleDeleteVehicle = async (id) => {
+        try {
+            await vehicleAPI.delete(id);
+            setVehicles(prev => prev.filter(v => v._id !== id));
+            setOpenDropdown(null);
+        } catch (err) { console.error('Delete vehicle error:', err); }
+    };
+
+    const handleUpdateVehicleStatus = async (id, newStatus) => {
+        try {
+            await vehicleAPI.update(id, { status: newStatus });
+            setVehicles(prev => prev.map(v => v._id === id ? { ...v, status: newStatus } : v));
+            setOpenDropdown(null);
+        } catch (err) { console.error('Update status error:', err); }
+    };
+
+    const handleRegisterVehicle = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        try {
+            const res = await vehicleAPI.create({
+                model: formData.get('model'),
+                plate: formData.get('plate'),
+                insuranceExpiry: formData.get('insuranceExpiry'),
+                status: 'available'
+            });
+            setVehicles(prev => [...prev, res.data]);
+            setIsAddModalOpen(false);
+        } catch (err) { console.error('Create vehicle error:', err); }
+    };
+
+    return (
+        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <h2 className="text-2xl font-bold text-white">Vehicle Fleet</h2>
+                    <p className="text-dark-400 text-sm">Monitor Safari Cruisers, Vans, and their insurance validity.</p>
+                </div>
+                <button
+                    onClick={() => setIsAddModalOpen(true)}
+                    className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white px-5 py-2.5 rounded-xl font-bold shadow-lg shadow-blue-500/20 transition-all hover:-translate-y-0.5"
+                >
+                    <Plus size={20} />
+                    Register Vehicle
+                </button>
+            </div>
+
+            <div className="glass-card p-3 sm:p-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+                <div className="relative w-full sm:flex-1 sm:max-w-md shrink-0">
+                    <input
+                        type="text"
+                        placeholder="Search by model or plate..."
+                        className="w-full bg-dark-900/50 border border-white/10 rounded-xl py-3 px-4 text-white placeholder-dark-400 focus:outline-none focus:border-blue-500 transition-colors"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                </div>
+                <div className="hidden sm:block flex-1"></div>
+            </div>
+
+            <div className="glass-card !p-0 overflow-hidden border-white/10">
+                <div className="overflow-x-auto min-h-[50vh]">
+                    <div className="min-w-max">
+                        <table className="w-full text-left border-collapse">
+                            <thead>
+                                <tr className="bg-white/5 border-b border-white/10 text-dark-300 text-xs uppercase tracking-wider">
+                                    <th className="p-4 font-semibold whitespace-nowrap">Vehicle Specs</th>
+                                    <th className="p-4 font-semibold whitespace-nowrap">License Plate</th>
+                                    <th className="p-4 font-semibold whitespace-nowrap">Insurance Expiry</th>
+                                    <th className="p-4 font-semibold whitespace-nowrap">Status</th>
+                                    <th className="p-4 font-semibold text-right whitespace-nowrap">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-white/5">
+                                {vehicles.filter(v => v.model.toLowerCase().includes(searchTerm.toLowerCase()) || v.plate.toLowerCase().includes(searchTerm.toLowerCase())).map((vehicle) => {
+                                    const daysToExpiry = Math.ceil((new Date(vehicle.insuranceExpiry) - new Date()) / (1000 * 60 * 60 * 24));
+                                    const isExpiringSoon = daysToExpiry <= 30;
+
+                                    return (
+                                        <tr key={vehicle._id} className="hover:bg-white/5 transition-colors group">
+                                            <td className="p-4 whitespace-nowrap">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="bg-blue-500/10 p-2 rounded-lg">
+                                                        <Car size={20} className="text-blue-400" />
+                                                    </div>
+                                                    <span className="font-medium text-white">{vehicle.model}</span>
+                                                </div>
+                                            </td>
+                                            <td className="p-4 text-dark-200 font-mono tracking-wider whitespace-nowrap">{vehicle.plate}</td>
+                                            <td className="p-4 whitespace-nowrap">
+                                                <div className="flex items-center gap-2">
+                                                    <input
+                                                        type="date"
+                                                        value={vehicle.insuranceExpiry}
+                                                        onChange={(e) => handleUpdateExpiry(vehicle._id, e.target.value)}
+                                                        className={`bg-transparent border-b text-sm focus:outline-none focus:border-blue-500 transition-colors/[color-scheme:dark] ${isExpiringSoon ? 'text-orange-400 border-orange-500/30' : 'text-dark-300 border-white/10'}`}
+                                                    />
+                                                    {isExpiringSoon && <ShieldAlert size={16} className="text-orange-500 animate-pulse" />}
+                                                </div>
+                                            </td>
+                                            <td className="p-4 whitespace-nowrap">
+                                                <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${vehicle.status === 'available' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-blue-500/10 text-blue-400'
+                                                    }`}>
+                                                    {vehicle.status}
+                                                </span>
+                                            </td>
+                                            <td className="p-4 text-right relative whitespace-nowrap">
+                                                <button
+                                                    onClick={() => setOpenDropdown(openDropdown === vehicle._id ? null : vehicle._id)}
+                                                    className="p-2 text-dark-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+                                                >
+                                                    <MoreVertical size={18} />
+                                                </button>
+
+                                                {openDropdown === vehicle._id && (
+                                                    <div className="absolute right-8 top-10 w-36 bg-dark-800 border border-white/10 shadow-2xl rounded-xl z-20 overflow-hidden animate-in fade-in zoom-in-95">
+                                                        <button onClick={() => { setOpenDropdown(null); setSelectedVehicle(vehicle); }} className="w-full text-left px-4 py-2 text-sm text-dark-200 hover:bg-white/10 hover:text-white transition-colors">View Details</button>
+                                                        <button onClick={() => { setOpenDropdown(null); alert('Assign Driver Modal'); }} className="w-full text-left px-4 py-2 text-sm text-dark-200 hover:bg-white/10 hover:text-white transition-colors">Assign Driver</button>
+
+                                                        {vehicle.status === 'available' ? (
+                                                            <button onClick={() => handleUpdateVehicleStatus(vehicle._id, 'suspended')} className="w-full text-left px-4 py-2 text-sm text-orange-400 hover:bg-orange-400/10 transition-colors">Suspend Option</button>
+                                                        ) : (
+                                                            <button onClick={() => handleUpdateVehicleStatus(vehicle._id, 'available')} className="w-full text-left px-4 py-2 text-sm text-emerald-400 hover:bg-emerald-400/10 transition-colors">Reactivate Option</button>
+                                                        )}
+
+                                                        <button onClick={() => handleDeleteVehicle(vehicle._id)} className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-red-400/10 transition-colors">Delete</button>
+                                                    </div>
+                                                )}
+                                            </td>
+                                        </tr>
+                                    )
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <Modal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} title="Register New Vehicle">
+                <form className="space-y-4" onSubmit={handleRegisterVehicle}>
+                    <div>
+                        <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">Vehicle Model</label>
+                        <input name="model" required type="text" placeholder="e.g. Land Cruiser V8" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">License Plate</label>
+                            <input name="plate" required type="text" placeholder="e.g. KCA 123B" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
+                        </div>
+                        <div>
+                            <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-2">Insurance Expiry</label>
+                            <input name="insuranceExpiry" required type="date" className="w-full bg-dark-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors/[color-scheme:dark]" />
+                        </div>
+                    </div>
+                    <div className="pt-4 flex justify-end gap-3">
+                        <button type="button" onClick={() => setIsAddModalOpen(false)} className="px-5 py-2.5 rounded-xl font-bold text-dark-300 hover:text-white transition-colors">Cancel</button>
+                        <button type="submit" className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-5 py-2.5 rounded-xl font-bold shadow-lg shadow-blue-500/20 hover:-translate-y-0.5 transition-all">
+                            <Save size={18} />
+                            Register Vehicle
+                        </button>
+                    </div>
+                </form>
+            </Modal>
+
+            {/* View Details Modal */}
+            <Modal isOpen={!!selectedVehicle} onClose={() => setSelectedVehicle(null)} title="Vehicle Profile">
+                {selectedVehicle && (
+                    <div className="space-y-4">
+                        <div className="bg-dark-900/50 p-4 rounded-xl border border-white/10">
+                            <p className="text-xs text-dark-400 uppercase tracking-wider mb-1">Model & Make</p>
+                            <p className="text-white font-bold text-lg">{selectedVehicle.model}</p>
+                        </div>
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="bg-dark-900/50 p-4 rounded-xl border border-white/10">
+                                <p className="text-xs text-dark-400 uppercase tracking-wider mb-1">License Plate</p>
+                                <p className="text-white font-mono tracking-wider">{selectedVehicle.plate}</p>
+                            </div>
+                            <div className="bg-dark-900/50 p-4 rounded-xl border border-white/10">
+                                <p className="text-xs text-dark-400 uppercase tracking-wider mb-1">Current Status</p>
+                                <span className={`inline-block mt-1 px-2.5 py-1 rounded-full text-xs font-semibold ${selectedVehicle.status === 'available' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-blue-500/10 text-blue-400'}`}>
+                                    {selectedVehicle.status}
+                                </span>
+                            </div>
+                        </div>
+                        <div className="bg-dark-900/50 p-4 rounded-xl border border-white/10 flex justify-between items-center">
+                            <div>
+                                <p className="text-xs text-dark-400 uppercase tracking-wider mb-1">Insurance Valid Until</p>
+                                <p className="text-white">{selectedVehicle.insuranceExpiry}</p>
+                            </div>
+                            <ShieldAlert size={24} className={Math.ceil((new Date(selectedVehicle.insuranceExpiry) - new Date()) / (1000 * 60 * 60 * 24)) <= 30 ? "text-orange-500 animate-pulse" : "text-dark-500"} />
+                        </div>
+                        <div className="pt-4 flex justify-end">
+                            <button onClick={() => setSelectedVehicle(null)} className="px-5 py-2.5 bg-dark-800 text-white rounded-xl font-bold border border-white/10 hover:bg-white/5 transition-colors">
+                                Close Details
+                            </button>
+                        </div>
+                    </div>
+                )}
+            </Modal>
+        </div>
+    );
+};
+
+export default Vehicles;
