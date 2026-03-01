@@ -80,7 +80,7 @@ const Bookings = ({ user, bookings, setBookings, drivers, vehicles }) => {
                 </div>
                 <button
                     onClick={() => canAddBooking ? setIsAddModalOpen(true) : alert("Basic Plan limit reached (50 maximum). Upgrade to Pro or Enterprise for unlimited safaris!")}
-                    className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold shadow-lg transition-all whitespace-nowrap ${canAddBooking ? 'bg-gradient-to-r from-primary-500 to-orange-500 hover:from-primary-400 hover:to-orange-400 text-white shadow-orange-500/20 hover:-translate-y-0.5' : 'bg-dark-700 text-dark-400 cursor-not-allowed border border-white/5'}`}
+                    className={`flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold shadow-lg transition-all whitespace-nowrap w-full sm:w-auto ${canAddBooking ? 'bg-gradient-to-r from-primary-500 to-orange-500 hover:from-primary-400 hover:to-orange-400 text-white shadow-orange-500/20 hover:-translate-y-0.5' : 'bg-dark-700 text-dark-400 cursor-not-allowed border border-white/5'}`}
                 >
                     <Plus size={20} />
                     {canAddBooking ? currentTab.actionText : 'Upgrade to Add'}

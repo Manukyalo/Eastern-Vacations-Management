@@ -58,7 +58,7 @@ const Vehicles = ({ user, vehicles, setVehicles }) => {
                 </div>
                 <button
                     onClick={() => canAddVehicle ? setIsAddModalOpen(true) : alert(`Plan limit reached (${maxVehicles} maximum). Please upgrade your tier.`)}
-                    className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold shadow-lg transition-all ${canAddVehicle ? 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-blue-500/20 hover:-translate-y-0.5' : 'bg-dark-700 text-dark-400 cursor-not-allowed border border-white/5'}`}
+                    className={`flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold shadow-lg transition-all w-full sm:w-auto ${canAddVehicle ? 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-blue-500/20 hover:-translate-y-0.5' : 'bg-dark-700 text-dark-400 cursor-not-allowed border border-white/5'}`}
                 >
                     <Plus size={20} />
                     {canAddVehicle ? 'Register Vehicle' : 'Upgrade to Add'}

@@ -43,15 +43,8 @@ const Login = ({ onLogin }) => {
                     <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 translate-x-[-100%] hover:translate-x-[100%] transition-transform duration-1000"></div>
 
                     <div className="text-center mb-10">
-                        <div className="mx-auto w-20 h-20 bg-gradient-to-br from-primary-400 to-orange-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-orange-500/30 animate-bounce-slow">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
-                                <path d="M12 2c5 0 9 4 9 9 0 2-1 4-2 5.5l1 4.5-5-2c-1 .3-2 .5-3 .5s-2-.2-3-.5l-5 2 1-4.5C4 15 3 13 3 11c0-5 4-9 9-9z" />
-                                <circle cx="9" cy="11" r="1.5" fill="currentColor" />
-                                <circle cx="15" cy="11" r="1.5" fill="currentColor" />
-                                <path d="M12 14c-1 0-2 .5-2 1.5" />
-                                <path d="M12 14c1 0 2 .5 2 1.5" />
-                                <path d="M11 16h2" />
-                            </svg>
+                        <div className="mx-auto w-28 h-28 flex items-center justify-center mb-6 hover:scale-105 transition-transform duration-300 drop-shadow-2xl">
+                            <img src="/icon/eastern-vacations-kenya-logo-rounded.png" alt="Eastern Vacations Logo" className="w-full h-full object-contain" />
                         </div>
 
                         <h1 className="text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-orange-500 mb-2 tracking-tight">

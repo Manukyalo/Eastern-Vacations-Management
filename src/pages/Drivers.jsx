@@ -49,7 +49,7 @@ const Drivers = ({ user, drivers, setDrivers }) => {
                 </div>
                 <button
                     onClick={() => canAddDriver ? setIsAddModalOpen(true) : alert(`Plan limit reached (${maxDrivers} maximum). Please upgrade your tier.`)}
-                    className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold shadow-lg transition-all ${canAddDriver ? 'bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white shadow-emerald-500/20 hover:-translate-y-0.5' : 'bg-dark-700 text-dark-400 cursor-not-allowed border border-white/5'}`}
+                    className={`flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold shadow-lg transition-all w-full sm:w-auto ${canAddDriver ? 'bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white shadow-emerald-500/20 hover:-translate-y-0.5' : 'bg-dark-700 text-dark-400 cursor-not-allowed border border-white/5'}`}
                 >
                     <Plus size={20} />
                     {canAddDriver ? 'Add Driver' : 'Upgrade to Add'}
