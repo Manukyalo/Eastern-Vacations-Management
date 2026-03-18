@@ -1,0 +1,54 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --color-primary-50: #fcfcfb;
+    --color-primary-100: #f9f6df;
+    --color-primary-200: #f3e9b1;
+    --color-primary-300: #ead278;
+    --color-primary-400: #E3976A;
+    /* Eastern Vacations Signature Gold */
+    --color-primary-500: #CC8353;
+    /* Deepened Luxury Gold */
+    --color-primary-600: #B46A3A;
+    --color-primary-800: #A9B8C3;
+    /* Cadet Blue */
+    --color-primary-900: #04194E;
+    /* Gulf Blue */
+
+    /* Ultra-Premium Obsidian Dark Bounds */
+    --color-dark-50: #fafafa;
+    --color-dark-100: #f4f4f5;
+    --color-dark-200: #e4e4e7;
+    --color-dark-300: #a1a1aa;
+    --color-dark-400: #71717a;
+    --color-dark-500: #52525b;
+    --color-dark-600: #3f3f46;
+    --color-dark-700: #27272a;
+    --color-dark-800: #18181b;
+    /* Obsidian Surface */
+    --color-dark-900: #09090b;
+    /* Pure Void Background */
+}
+
+@layer base {
+
+    html,
+    body {
+        @apply bg-slate-50 dark:bg-dark-900 text-slate-900 dark:text-white font-sans antialiased overflow-x-hidden w-full relative transition-colors duration-300;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+}
+
+/* Custom Utilities */
+@utility glass {
+    @apply bg-white/70 dark:bg-white/5 backdrop-blur-md border border-slate-200 dark:border-white/10;
+}
+
+@utility glass-card {
+    @apply bg-white/70 dark:bg-white/5 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl p-6 shadow-xl;
+}
+
+@utility text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-orange-500;
+}

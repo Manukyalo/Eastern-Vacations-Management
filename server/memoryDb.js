@@ -1,0 +1,93 @@
+const { MongoMemoryServer } = require('mongodb-memory-server');
+const mongoose = require('mongoose');
+const User = require('./models/User');
+
+let mongod;
+
+/**
+ * Connect to the in-memory database.
+ */
+const connectDB = async () => {
+    try {
+        let uri = process.env.MONGODB_URI;
+
+        if (uri) {
+            console.log(`✅ Connecting to Production Cloud MongoDB Database...`);
+        } else {
+            if (process.env.NODE_ENV === 'production') {
+                console.error("❌ FATAL: Vercel Serverless environments cannot run local memory databases! You must provide a MONGODB_URI.");
+                throw new Error("Missing MONGODB_URI environment variable in production.");
+            }
+            console.log(`⚠️ No Cloud URI found. Booting Local In-Memory DB...`);
+            mongod = await MongoMemoryServer.create();
+            uri = mongod.getUri();
+        }
+
+        await mongoose.connect(uri);
+
+        console.log(`✅ Database Connected successfully.`);
+
+        // Auto-seed Admin User
+        const adminExists = await User.findOne({ email: 'admin@easternvacations.com' });
+        if (!adminExists) {
+            const futureDate = new Date();
+            futureDate.setFullYear(futureDate.getFullYear() + 100);
+
+            await User.create({
+                name: 'Admin Executive',
+                email: 'admin@easternvacations.com',
+                password: '@EasternVacations2026',
+                role: 'admin',
+                planType: 'Enterprise',
+                subscriptionExpiry: futureDate
+            });
+            console.log('✅ Admin user automatically seeded into memory DB.');
+        }
+
+        // Auto-seed Staff User
+        const staffExists = await User.findOne({ email: 'staff@easternvacations.com' });
+        if (!staffExists) {
+            await User.create({
+                name: 'Reservation Agent',
+                email: 'staff@easternvacations.com',
+                password: 'Reservations@2026',
+                role: 'reservation'
+            });
+            console.log('✅ Staff user automatically seeded into memory DB.');
+        }
+    } catch (error) {
+        console.error('❌ In-Memory MongoDB Error:', error);
+        process.exit(1);
+    }
+};
+
+/**
+ * Drop database, close the connection and stop mongod.
+ */
+const closeDB = async () => {
+    if (mongod) {
+        await mongoose.connection.dropDatabase();
+        await mongoose.connection.close();
+        await mongod.stop();
+        console.log('✅ In-Memory MongoDB Disconnected');
+    }
+};
+
+/**
+ * Remove all collections data.
+ */
+const clearDB = async () => {
+    if (mongod) {
+        const collections = mongoose.connection.collections;
+        for (const key in collections) {
+            const collection = collections[key];
+            await collection.deleteMany();
+        }
+    }
+};
+
+module.exports = {
+    connectDB,
+    closeDB,
+    clearDB,
+};
